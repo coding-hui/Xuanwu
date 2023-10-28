@@ -1,0 +1,17 @@
+package ${packageName}.repository;
+
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import ${packageName}.domain.entity.${ClassName};
+import top.wecoding.xuanwu.orm.repository.LogicDeleteRepository;
+
+/**
+ * ${tableComment} - Repository
+ *
+ * @author ${author}
+ * @since ${version}
+ * @date ${datetime}
+ */
+public interface ${ClassName}Repository
+        extends LogicDeleteRepository<${ClassName}, ${pkColumn.genType}>, JpaSpecificationExecutor<${ClassName}> {
+
+}

@@ -20,8 +20,30 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/xuanwu_1?createDatabaseIfNotExist=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
     username: root
     password: 123456
+  jpa:
+    generate-ddl: true
+    show-sql: true
 
 logging:
   level:
     top.wecoding.xuanwu: debug
     org.springframework: warn
+
+xuanwu:
+  codegen:
+    author: Xuanwu
+    package-name: top.wecoding.xuanwu
+    auto-remove-pre: true
+    table-prefix: xw
+    templates:
+      DEFAULT_SPRING:
+        - name: "templates/default/spring/entity.java.vm"
+          file-name-format: "domain/entity/${ClassName}.java"
+        - name: "templates/default/spring/repository.java.vm"
+          file-name-format: "repository/${ClassName}Repository.java"
+        - name: "templates/default/spring/service.java.vm"
+          file-name-format: "service/${ClassName}Service.java"
+        - name: "templates/default/spring/serviceImpl.java.vm"
+          file-name-format: "service/impl/${ClassName}ServiceImpl.java"
+        - name: "templates/default/spring/controller.java.vm"
+          file-name-format: "controller/${version}/${ClassName}Controller.java"

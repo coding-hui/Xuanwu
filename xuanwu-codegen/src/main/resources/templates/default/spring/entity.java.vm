@@ -1,0 +1,51 @@
+package ${packageName}.domain.entity;
+
+#foreach ($import in $importList)
+import ${import};
+#end
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import top.wecoding.xuanwu.orm.domain.LogicDeleteEntity;
+
+import java.io.Serial;
+import java.io.Serializable;
+
+/**
+ * ${tableName} - ${tableComment}
+ *
+ * @author ${author}
+ * @since ${version}
+ * @date ${datetime}
+ */
+@Data
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "xw_table_info")
+public class ${ClassName} extends LogicDeleteEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+#foreach ($column in $columns)
+#if(!$column.isSuperColumn())
+#if($column.columnComment != "")
+    /** $column.columnComment */
+#end
+#if($column.isPk())
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+#end
+    private $column.genType $column.genField;
+
+#end
+#end
+}

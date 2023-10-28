@@ -14,10 +14,10 @@ import java.lang.annotation.Target;
  */
 @Documented
 @Mapping
-@Target({ ElementType.TYPE })
+@Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Version {
 
-	String value();
+	String[] value();
 
 }

@@ -2,8 +2,10 @@ package top.wecoding.xuanwu.core.base;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import top.wecoding.xuanwu.core.exception.ErrorCode;
 import top.wecoding.xuanwu.core.exception.SystemErrorCode;
 
 import java.io.Serial;
@@ -15,6 +17,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@AllArgsConstructor
 public class R<T> implements Serializable {
 
 	@Serial
@@ -40,6 +43,15 @@ public class R<T> implements Serializable {
 	@JsonProperty("request_id")
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String requestId;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String exception;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String[] trace;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String[] throwable;
 
 	public R() {
 	}
@@ -73,6 +85,26 @@ public class R<T> implements Serializable {
 
 	public static <T> R<T> ok(T data, String msg) {
 		return new R<>(true, SystemErrorCode.SUCCESS.getCode(), data, msg);
+	}
+
+	public static <T> R<T> error() {
+		return error(ERROR);
+	}
+
+	public static <T> R<T> error(String errorMessage) {
+		return error(SystemErrorCode.FAILURE, errorMessage, null);
+	}
+
+	public static <T> R<T> error(ErrorCode codeSupplier) {
+		return error(codeSupplier, ERROR, null);
+	}
+
+	public static <T> R<T> error(ErrorCode codeSupplier, String errorMessage) {
+		return error(codeSupplier, errorMessage, null);
+	}
+
+	public static <T> R<T> error(ErrorCode codeSupplier, String errorMessage, T data) {
+		return new R<>(false, codeSupplier.getCode(), data, errorMessage);
 	}
 
 }

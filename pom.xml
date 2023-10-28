@@ -15,9 +15,6 @@
     <version>0.9-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Xuanwu :: Parent</name>
-    <description>Xuanwu Parent</description>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -25,16 +22,40 @@
 
         <xuanwu.starter.version>0.9-SNAPSHOT</xuanwu.starter.version>
 
+        <velocity.version>2.3</velocity.version>
+        <velocity.tool.version>3.1</velocity.tool.version>
+        <commons.io.version>2.13.0</commons.io.version>
+
         <spring.checkstyle.plugin>0.0.39</spring.checkstyle.plugin>
     </properties>
 
     <modules>
-        <module>xuanwu-starter-parent</module>
         <module>xuanwu-codegen</module>
+        <module>xuanwu-starter-parent</module>
+        <module>xuanwu-starter-file-parent</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <!-- 代码生成使用模板 -->
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity.tools</groupId>
+                <artifactId>velocity-tools-generic</artifactId>
+                <version>${velocity.tool.version}</version>
+            </dependency>
+
+            <!-- io常用工具类 -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
+
             <!-- xuanwu starters -->
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
@@ -48,7 +69,34 @@
             </dependency>
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
-                <artifactId>xuanwu-starter-jpa</artifactId>
+                <artifactId>xuanwu-starter-orm</artifactId>
+                <version>${xuanwu.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wecoding.xuanwu</groupId>
+                <artifactId>xuanwu-starter-metric</artifactId>
+                <version>${xuanwu.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wecoding.xuanwu</groupId>
+                <artifactId>xuanwu-starter-redis</artifactId>
+                <version>${xuanwu.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wecoding.xuanwu</groupId>
+                <artifactId>xuanwu-starter-mongo</artifactId>
+                <version>${xuanwu.starter.version}</version>
+            </dependency>
+
+            <!-- xuanwu file starters  -->
+            <dependency>
+                <groupId>top.wecoding.xuanwu</groupId>
+                <artifactId>xuanwu-starter-file-parent</artifactId>
+                <version>${xuanwu.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wecoding.xuanwu</groupId>
+                <artifactId>xuanwu-starter-file-core</artifactId>
                 <version>${xuanwu.starter.version}</version>
             </dependency>
         </dependencies>
@@ -57,28 +105,8 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-docker-compose</artifactId>-->
-        <!--            <scope>runtime</scope>-->
-        <!--            <optional>true</optional>-->
-        <!--        </dependency>-->
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -99,7 +127,39 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.hibernate.orm.tooling</groupId>
                 <artifactId>hibernate-enhance-maven-plugin</artifactId>
@@ -146,18 +206,6 @@
                         <version>${spring-restdocs.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
             </plugin>
             <!--
             	代码格式插件，默认使用spring 规则，可运行命令进行项目格式化：./mvnw spring-javaformat:apply 或 mvn spring-javaformat:apply，可在IDEA中安装插件以下插件进行自动格式化：

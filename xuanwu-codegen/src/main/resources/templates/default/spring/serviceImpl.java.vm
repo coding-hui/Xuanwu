@@ -1,0 +1,29 @@
+package ${packageName}.service.impl;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
+import ${packageName}.domain.entity.${ClassName};
+import ${packageName}.repository.${ClassName}Repository;
+import ${packageName}.service.${ClassName}Service;
+import top.wecoding.xuanwu.orm.service.BaseServiceImpl;
+
+/**
+ * ${tableComment} - ServiceImpl
+ *
+ * @author ${author}
+ * @since ${version}
+ * @date ${datetime}
+ */
+@Service
+@RequiredArgsConstructor
+public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}, ${pkColumn.genType}> implements ${ClassName}Service {
+
+    private final ${ClassName}Repository ${className}Repository;
+
+    @Override
+    protected JpaRepository<Test, Long> getBaseRepository() {
+        return this.${className}Repository;
+    }
+
+}

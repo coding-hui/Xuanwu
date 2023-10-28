@@ -1,12 +1,14 @@
 package top.wecoding.codegen.repository;
 
-import top.wecoding.codegen.domain.entity.TableInfo;
-import top.wecoding.xuanwu.jpa.repository.LogicDeleteRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import top.wecoding.codegen.domain.entity.TableEntity;
+import top.wecoding.xuanwu.orm.repository.LogicDeleteRepository;
 
 /**
  * @author wecoding
  * @since 0.9
  */
-public interface TableInfoRepository extends LogicDeleteRepository<TableInfo, String> {
+public interface TableInfoRepository
+		extends LogicDeleteRepository<TableEntity, Long>, JpaSpecificationExecutor<TableEntity> {
 
 }

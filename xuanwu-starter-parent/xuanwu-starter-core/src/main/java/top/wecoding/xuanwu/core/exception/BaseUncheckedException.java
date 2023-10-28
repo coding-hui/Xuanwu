@@ -1,21 +1,7 @@
-/*
- * Copyright (c) 2022. WeCoding (wecoding@yeah.net).
- *
- * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE 3.0;
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.gnu.org/licenses/lgpl.html
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package top.wecoding.xuanwu.core.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serial;
 
@@ -25,12 +11,13 @@ import java.io.Serial;
  * @author liuyuhui
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class BaseUncheckedException extends RuntimeException {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	protected ErrorCode supplier;
+	protected ErrorCode errorCode;
 
 	protected String exception;
 
@@ -54,9 +41,13 @@ public class BaseUncheckedException extends RuntimeException {
 		super(exception, cause);
 	}
 
-	public BaseUncheckedException(ErrorCode supplier, Throwable cause, String exception, String url, Object... args) {
+	public BaseUncheckedException(ErrorCode errorCode) {
+		this(errorCode, null, null, null);
+	}
+
+	public BaseUncheckedException(ErrorCode errorCode, Throwable cause, String exception, String url, Object... args) {
 		super(exception, cause);
-		this.supplier = supplier;
+		this.errorCode = errorCode;
 		this.exception = exception;
 		this.url = url;
 		this.args = args;

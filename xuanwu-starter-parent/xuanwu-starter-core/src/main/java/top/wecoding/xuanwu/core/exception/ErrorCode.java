@@ -1,10 +1,16 @@
 package top.wecoding.xuanwu.core.exception;
 
+import top.wecoding.xuanwu.core.message.I18n;
+
 /**
  * base error code supplier
  */
 public interface ErrorCode {
 
 	Integer getCode();
+
+	default String getDesc(Object... args) {
+		return I18n.getMessage(getCode().toString(), args);
+	}
 
 }

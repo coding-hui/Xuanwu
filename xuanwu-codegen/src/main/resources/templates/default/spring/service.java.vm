@@ -1,0 +1,15 @@
+package ${packageName}.service;
+
+import ${packageName}.domain.entity.${ClassName};
+import top.wecoding.xuanwu.orm.service.BaseService;
+
+/**
+ * ${tableComment} - Service
+ *
+ * @author ${author}
+ * @since ${version}
+ * @date ${datetime}
+ */
+public interface ${ClassName}Service extends BaseService<${ClassName}, ${pkColumn.genType}> {
+
+}

@@ -12,9 +12,6 @@
     <artifactId>xuanwu-starter-parent</artifactId>
     <packaging>pom</packaging>
 
-    <name>Xuanwu Starter :: Parent</name>
-    <description>Xuanwu Starter Parent</description>
-
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
@@ -23,7 +20,10 @@
 
     <modules>
         <module>xuanwu-starter-core</module>
-        <module>xuanwu-starter-jpa</module>
+        <module>xuanwu-starter-orm</module>
+        <module>xuanwu-starter-redis</module>
+        <module>xuanwu-starter-metric</module>
+        <module>xuanwu-starter-mongo</module>
     </modules>
 
     <dependencyManagement>
