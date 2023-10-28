@@ -1,0 +1,27 @@
+server:
+  port: 9030
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: @artifactId@
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/xuanwu_1?createDatabaseIfNotExist=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
+    username: root
+    password: 123456
+
+logging:
+  level:
+    top.wecoding.xuanwu: debug
+    org.springframework: warn
