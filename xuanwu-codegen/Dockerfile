@@ -8,6 +8,6 @@ COPY ${JAR_FILE} app.jar
 
 EXPOSE 9030
 
-ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms128m -Xmx256m -Dspring.config.additional-location=/xuanwu/config.yaml -Djava.security.egd=file:/dev/./urandom"
+ENV TZ=Asia/Shanghai
 
-CMD sleep 60; java $JAVA_OPTS -jar app.jar
+ENTRYPOINT ["java", "-Dspring.config.additional-location=/xuanwu/config.yaml", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]

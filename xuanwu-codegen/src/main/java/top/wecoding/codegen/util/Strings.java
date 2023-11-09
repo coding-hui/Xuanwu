@@ -1,8 +1,8 @@
 package top.wecoding.codegen.util;
 
-import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import top.wecoding.xuanwu.core.util.Convert;
 
 /**
  * @author wecoding
@@ -126,7 +126,7 @@ public class Strings {
 						if (delimIndex > 1 && strPattern.charAt(delimIndex - 2) == C_BACKSLASH) {
 							// 转义符之前还有一个转义符，占位符依旧有效
 							sbuf.append(strPattern, handledPosition, delimIndex - 1);
-							sbuf.append(ConvertUtils.convert(argArray[argIndex]));
+							sbuf.append(Convert.utf8Str(argArray[argIndex]));
 							handledPosition = delimIndex + 2;
 						}
 						else {
@@ -140,7 +140,7 @@ public class Strings {
 					else {
 						// 正常占位符
 						sbuf.append(strPattern, handledPosition, delimIndex);
-						sbuf.append(ConvertUtils.convert(argArray[argIndex]));
+						sbuf.append(Convert.utf8Str(argArray[argIndex]));
 						handledPosition = delimIndex + 2;
 					}
 				}

@@ -213,15 +213,6 @@ public class BaseExceptionHandler {
 		return R.error(DATABASE_ERROR, message, null);
 	}
 
-	@ExceptionHandler({ IllegalArgumentException.class, HttpMessageNotReadableException.class })
-	public R<Object> process(RuntimeException e, HttpServletRequest request, HandlerMethod method) {
-		if (log.isErrorEnabled()) {
-			log.error(exceptionMessage("Unknown runtime exception", request, method), e);
-		}
-		String message = FAILURE.getDesc(e.getMessage());
-		return R.error(FAILURE, message, null);
-	}
-
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public R<Object> handleException(Exception e, HttpServletRequest request) {

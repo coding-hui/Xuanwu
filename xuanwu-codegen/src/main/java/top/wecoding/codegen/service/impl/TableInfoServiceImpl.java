@@ -6,7 +6,6 @@ import jakarta.persistence.Query;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,7 @@ import top.wecoding.codegen.service.TemplateFactory;
 import top.wecoding.xuanwu.core.base.PageResult;
 import top.wecoding.xuanwu.core.exception.SystemErrorCode;
 import top.wecoding.xuanwu.core.util.ArgumentAssert;
+import top.wecoding.xuanwu.core.util.Convert;
 import top.wecoding.xuanwu.orm.service.BaseServiceImpl;
 
 import java.util.ArrayList;
@@ -86,10 +86,10 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 		for (Object obj : result) {
 			Object[] arr = (Object[]) obj;
 			TableEntity tableInfo = TableEntity.builder()
-				.tableName(ConvertUtils.convert(arr[0]))
-				.dbEngine(ConvertUtils.convert(arr[1]))
-				.tableCollation(ConvertUtils.convert(arr[2]))
-				.tableComment(ConvertUtils.convert(arr[3]))
+				.tableName(Convert.utf8Str(arr[0]))
+				.dbEngine(Convert.utf8Str(arr[1]))
+				.tableCollation(Convert.utf8Str(arr[2]))
+				.tableComment(Convert.utf8Str(arr[3]))
 				.build();
 			tableInfos.add(tableInfo);
 		}
@@ -124,10 +124,10 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 				.columnName(arr[0].toString())
 				.isRequired(YesOrNo.of(arr[1]).code())
 				.isPk(YesOrNo.of(arr[2]).code())
-				.sort((Integer) ConvertUtils.convert(arr[3], Integer.class))
-				.columnComment(ConvertUtils.convert(arr[4]))
+				.sort(Convert.toInt(arr[3]))
+				.columnComment(Convert.utf8Str(arr[4]))
 				.isIncrement(YesOrNo.of(arr[5]).code())
-				.columnType(ConvertUtils.convert(arr[6]))
+				.columnType(Convert.utf8Str(arr[6]))
 				.build();
 		}).sorted(Comparator.comparing(ColumnEntity::getSort)).collect(Collectors.toList());
 	}
