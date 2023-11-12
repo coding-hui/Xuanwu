@@ -63,7 +63,7 @@ import static top.wecoding.xuanwu.core.constant.StrPool.UTF8;
 @RequiredArgsConstructor
 public class DefaultSpringTemplate extends AbstractTemplateService {
 
-	private static final String TYPE = "DEFAULT_SPRING";
+	public static final String TYPE = "DEFAULT_SPRING";
 
 	private final CodeGenProperties codeGenProperties;
 
@@ -154,6 +154,8 @@ public class DefaultSpringTemplate extends AbstractTemplateService {
 				column.setHtmlType(HTML_EDITOR);
 			}
 		}
+		// update columns
+		table.setColumns(columns);
 	}
 
 	@Override

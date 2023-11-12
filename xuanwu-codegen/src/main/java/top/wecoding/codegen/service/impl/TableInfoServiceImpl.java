@@ -18,7 +18,9 @@ import top.wecoding.codegen.repository.ColumnInfoRepository;
 import top.wecoding.codegen.repository.TableInfoRepository;
 import top.wecoding.codegen.service.TableInfoService;
 import top.wecoding.codegen.service.TemplateFactory;
+import top.wecoding.codegen.util.Strings;
 import top.wecoding.xuanwu.core.base.PageResult;
+import top.wecoding.xuanwu.core.exception.ServerException;
 import top.wecoding.xuanwu.core.exception.SystemErrorCode;
 import top.wecoding.xuanwu.core.util.ArgumentAssert;
 import top.wecoding.xuanwu.core.util.Convert;
@@ -34,6 +36,7 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toMap;
 import static top.wecoding.xuanwu.core.exception.SystemErrorCode.FAILURE;
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_ERROR;
 
 /**
  * @author wecoding
@@ -81,23 +84,31 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 		query.setFirstResult((pageReq.getPageNumber() - 1) * pageReq.getPageSize());
 		query.setMaxResults(pageReq.getPageSize());
 		query.setParameter("table", StringUtils.isNotBlank(tableName) ? ("%" + tableName + "%") : "%%");
-		List<?> result = query.getResultList();
-		List<TableEntity> tableInfos = new ArrayList<>();
-		for (Object obj : result) {
-			Object[] arr = (Object[]) obj;
-			TableEntity tableInfo = TableEntity.builder()
-				.tableName(Convert.utf8Str(arr[0]))
-				.dbEngine(Convert.utf8Str(arr[1]))
-				.tableCollation(Convert.utf8Str(arr[2]))
-				.tableComment(Convert.utf8Str(arr[3]))
-				.build();
-			tableInfos.add(tableInfo);
-		}
+		var tableInfos = mappingTableEntity(query.getResultList());
 		String countSql = "SELECT count(1) FROM information_schema.tables WHERE table_schema = (SELECT database()) AND table_name LIKE :table";
 		Query queryCount = em.createNativeQuery(countSql);
 		queryCount.setParameter("table", StringUtils.isNotBlank(tableName) ? ("%" + tableName + "%") : "%%");
 		Long totalElements = (Long) queryCount.getSingleResult();
 		return PageResult.of(tableInfos, totalElements);
+	}
+
+	@Override
+	public List<TableEntity> listDbTablesByNames(List<String> tableNames) {
+		String querySql = """
+				SELECT
+					table_name,
+					engine AS db_engine,
+					table_collation,
+					table_comment,
+					create_time AS create_at,
+					update_time AS update_at
+				FROM information_schema.tables
+				WHERE table_schema = (SELECT database())
+				AND table_name in ( :tableNames ) ORDER BY create_time DESC
+				""";
+		Query query = em.createNativeQuery(querySql);
+		query.setParameter("tableNames", tableNames);
+		return mappingTableEntity(query.getResultList());
 	}
 
 	public List<ColumnEntity> listDbTableColumnsByTableName(String tableName) {
@@ -149,10 +160,32 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
+	public List<TableEntity> batchImportTableFromDb(List<String> tableNames) {
+		List<TableEntity> tableEntities = this.listDbTablesByNames(tableNames);
+		if (tableEntities.isEmpty()) {
+			log.error("no tables are found in the database: [{}]", tableEntities);
+			ArgumentAssert.error(PARAM_ERROR, Strings.format("找不到表格 {}，请检查表名称是否拼写错误", tableNames));
+		}
+		try {
+			for (TableEntity table : tableEntities) {
+				String tableName = table.getTableName();
+				List<ColumnEntity> columnEntities = this.listDbTableColumnsByTableName(tableName);
+				templateFactory.create(table.getTplCategory()).initTableConfig(table, columnEntities);
+				this.baseRepository.save(table);
+			}
+		}
+		catch (Exception e) {
+			throw new ServerException(FAILURE, "导入表结构失败：" + e.getMessage());
+		}
+		return tableEntities;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void syncTableFromDb(Collection<Long> tableIds) {
 		List<TableEntity> tables = baseRepository.findAllById(tableIds);
 		if (tables.isEmpty()) {
-			log.warn("no tables are found in the database: [{}]", tableIds);
+			log.warn("no tables are found in the database: {}", tableIds);
 			return;
 		}
 		for (TableEntity table : tables) {
@@ -197,6 +230,21 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 				columnInfoRepository.deleteAllInBatch(delColumns);
 			}
 		}
+	}
+
+	private List<TableEntity> mappingTableEntity(List<?> result) {
+		List<TableEntity> tableInfos = new ArrayList<>();
+		for (Object obj : result) {
+			Object[] arr = (Object[]) obj;
+			TableEntity tableInfo = TableEntity.builder()
+				.tableName(Convert.utf8Str(arr[0]))
+				.dbEngine(Convert.utf8Str(arr[1]))
+				.tableCollation(Convert.utf8Str(arr[2]))
+				.tableComment(Convert.utf8Str(arr[3]))
+				.build();
+			tableInfos.add(tableInfo);
+		}
+		return tableInfos;
 	}
 
 }

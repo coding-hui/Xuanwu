@@ -19,11 +19,15 @@ public interface TableInfoService extends BaseService<TableEntity, Long> {
 
 	PageResult<TableEntity> listDbTables(String db, String tableName, Pageable page);
 
+	List<TableEntity> listDbTablesByNames(List<String> tableNames);
+
 	List<ColumnEntity> listDbTableColumnsByTableName(String tableName);
 
 	TableEntity createTable(TableEntity tableEntity);
 
 	TableEntity updateTable(Long tableId, TableEntity tableEntity);
+
+	List<TableEntity> batchImportTableFromDb(List<String> tableNames);
 
 	void syncTableFromDb(Collection<Long> tables);
 

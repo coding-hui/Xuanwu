@@ -58,6 +58,17 @@ public class TableController {
 		return R.ok(tableInfoService.listDbTableColumnsByTableName(tableName));
 	}
 
+	@GetMapping("/{table_name}/import")
+	public R<?> importTable(@PathVariable("table_name") String tableName) {
+		List<TableEntity> tableEntities = tableInfoService.batchImportTableFromDb(List.of(tableName));
+		return R.ok(tableEntities.stream().findFirst().orElse(null));
+	}
+
+	@GetMapping("/batch_import")
+	public R<?> batchImportTable(@RequestParam("tableNames") List<String> tableNames) {
+		return R.ok(tableInfoService.batchImportTableFromDb(tableNames));
+	}
+
 	@GetMapping("sync_db")
 	public R<?> syncFromDb(@RequestParam("tableIds") List<Long> tableIds) {
 		tableInfoService.syncTableFromDb(tableIds);
