@@ -29,6 +29,7 @@
         <docker.registry>devops-wecoding-docker.pkg.coding.net</docker.registry>
         <docker.namespace>wecoding/images</docker.namespace>
 
+        <git.commit.plugin>6.0.0</git.commit.plugin>
         <spring.checkstyle.plugin>0.0.39</spring.checkstyle.plugin>
     </properties>
 
@@ -167,6 +168,13 @@
                         <registry>${docker.registry}</registry>
                         <images>
                             <image>
+                                <!-- 镜像名称： registry/namespace/xuanwu-codegen:latest -->
+                                <name>${docker.registry}/${docker.namespace}/${project.name}:latest</name>
+                                <build>
+                                    <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                                </build>
+                            </image>
+                            <image>
                                 <!-- 镜像名称： registry/namespace/xuanwu-codegen:v1 -->
                                 <name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}</name>
                                 <build>
@@ -249,6 +257,28 @@
                         <inherited>true</inherited>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- git-commit-id-maven-plugin configuration -->
+            <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+                <version>${git.commit.plugin}</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <phase>initialize</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <!-- Customize the date format if needed -->
+                    <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+                    <includeOnlyProperties>
+                        <includeOnlyProperty>^git.build.(time|version)$</includeOnlyProperty>
+                        <includeOnlyProperty>^git.commit.(id|message|time).*$</includeOnlyProperty>
+                    </includeOnlyProperties>
+                </configuration>
             </plugin>
         </plugins>
     </build>
