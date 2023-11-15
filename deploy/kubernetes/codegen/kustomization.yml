@@ -1,7 +1,7 @@
 images:
   - name: image
     newName: devops-wecoding-docker.pkg.coding.net/wecoding/images/xuanwu-codegen
-    newTag: 0.9-SNAPSHOT
+    newTag: latest
 resources:
   - service.yml
   - configmap.yml

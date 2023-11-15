@@ -19,6 +19,7 @@ spec:
     metadata:
       labels:
         app: xuanwu-codegen
+        app.kubernetes.io/instance: xuanwu
     spec:
       imagePullSecrets:
         - name: "coding-registry"
