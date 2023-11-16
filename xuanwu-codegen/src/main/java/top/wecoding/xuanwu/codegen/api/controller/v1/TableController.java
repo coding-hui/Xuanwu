@@ -37,10 +37,10 @@ public class TableController {
 	}
 
 	@GetMapping
-	public R<?> listTables(@PageableDefault Pageable page,
+	public R<?> listTables(@PageableDefault Pageable pageReq,
 			@RequestParam(value = "database", required = false) String db,
 			@RequestParam(value = "tableName", required = false) String tableName) {
-		return R.ok(tableInfoService.listDbTables(db, tableName, page));
+		return R.ok(tableInfoService.listDbTables(db, tableName, pageReq));
 	}
 
 	@PostMapping

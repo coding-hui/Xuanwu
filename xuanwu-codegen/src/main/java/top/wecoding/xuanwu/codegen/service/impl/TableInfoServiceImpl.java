@@ -2,11 +2,11 @@ package top.wecoding.xuanwu.codegen.service.impl;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,67 +68,19 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 
 	@Override
 	public PageResult<TableEntity> listDbTables(String db, String tableName, Pageable pageReq) {
-		String querySql = """
-				SELECT
-					table_name,
-					engine AS db_engine,
-					table_collation,
-					table_comment,
-					create_time AS create_at,
-					update_time AS update_at
-				FROM information_schema.tables
-				WHERE table_schema = (SELECT database())
-				AND table_name LIKE :table ORDER BY create_time DESC
-				""";
-		Query query = em.createNativeQuery(querySql);
-		query.setFirstResult((pageReq.getPageNumber() - 1) * pageReq.getPageSize());
-		query.setMaxResults(pageReq.getPageSize());
-		query.setParameter("table", StringUtils.isNotBlank(tableName) ? ("%" + tableName + "%") : "%%");
-		var tableInfos = mappingTableEntity(query.getResultList());
-		String countSql = "SELECT count(1) FROM information_schema.tables WHERE table_schema = (SELECT database()) AND table_name LIKE :table";
-		Query queryCount = em.createNativeQuery(countSql);
-		queryCount.setParameter("table", StringUtils.isNotBlank(tableName) ? ("%" + tableName + "%") : "%%");
-		Long totalElements = (Long) queryCount.getSingleResult();
-		return PageResult.of(tableInfos, totalElements);
+		Page<Object> result = StringUtils.isBlank(tableName) ? this.baseRepository.listDbTables(pageReq)
+				: this.baseRepository.listDbTablesByName(tableName, pageReq);
+		return PageResult.of(mappingTableEntity(result.getContent()), result.getTotalElements());
 	}
 
 	@Override
 	public List<TableEntity> listDbTablesByNames(List<String> tableNames) {
-		String querySql = """
-				SELECT
-					table_name,
-					engine AS db_engine,
-					table_collation,
-					table_comment,
-					create_time AS create_at,
-					update_time AS update_at
-				FROM information_schema.tables
-				WHERE table_schema = (SELECT database())
-				AND table_name in ( :tableNames ) ORDER BY create_time DESC
-				""";
-		Query query = em.createNativeQuery(querySql);
-		query.setParameter("tableNames", tableNames);
-		return mappingTableEntity(query.getResultList());
+		List<Object> result = this.baseRepository.listDbTablesByNames(tableNames);
+		return mappingTableEntity(result);
 	}
 
 	public List<ColumnEntity> listDbTableColumnsByTableName(String tableName) {
-		String querySql = """
-				SELECT
-				 	column_name,
-				 	( IF ( is_nullable = 'no' && column_key != 'PRI', '1', NULL) ) AS is_required,
-				 	( IF ( column_key = 'PRI', '1', '0' ) ) AS is_pk,
-				 	ordinal_position AS sort,
-				 	column_comment,
-				 	( IF ( extra = 'auto_increment', '1', '0') ) AS is_increment,
-				 	column_type
-				FROM information_schema.columns
-				WHERE
-					table_name = ?
-					AND table_schema = (select database()) order by ordinal_position
-				""";
-		Query query = em.createNativeQuery(querySql);
-		query.setParameter(1, tableName);
-		List<?> resultList = query.getResultList();
+		List<?> resultList = this.columnInfoRepository.listDbTableColumnsByTableName(tableName);
 		return resultList.stream().map(res -> {
 			Object[] arr = (Object[]) res;
 			return ColumnEntity.builder()
