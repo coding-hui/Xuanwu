@@ -8,6 +8,6 @@ data:
     spring:
       datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://xuanwu-mysql.xuanwu-depend:3306/xuanwu_1?createDatabaseIfNotExist=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
+        url: jdbc:mysql://mysql.iam-system:3306/xuanwu_1?createDatabaseIfNotExist=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
         username: root
         password: WeCoding@2023
