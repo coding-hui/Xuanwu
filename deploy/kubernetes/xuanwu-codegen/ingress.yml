@@ -2,10 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: alb
+    kubernetes.io/ingress.class: nginx
   name: xuanwu-codegen
   namespace: xuanwu-system
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
@@ -14,5 +15,5 @@ spec:
             name: xuanwu-codegen-service
             port:
               number: 9030
-        path: /
+        path: /codegen
         pathType: Prefix

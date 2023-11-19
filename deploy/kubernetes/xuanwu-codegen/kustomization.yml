@@ -3,6 +3,7 @@ images:
     newName: devops-wecoding-docker.pkg.coding.net/wecoding/images/xuanwu-codegen
     newTag: latest
 resources:
+  - ingress.yml
   - service.yml
   - configmap.yml
   - deployment.yml

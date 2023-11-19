@@ -5,6 +5,9 @@ metadata:
   namespace: xuanwu-system
 data:
   config.yaml: |
+    server:
+      servlet:
+        context-path: /codegen
     spring:
       datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
