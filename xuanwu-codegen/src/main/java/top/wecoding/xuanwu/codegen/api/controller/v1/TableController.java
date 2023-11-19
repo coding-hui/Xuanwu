@@ -31,9 +31,9 @@ public class TableController {
 
 	private final TableInfoService tableInfoService;
 
-	@GetMapping("/{tableId}")
-	public R<?> tableInfo(@PathVariable("tableId") Long tableId) {
-		return R.ok(tableInfoService.getTableInfo(tableId));
+	@GetMapping("/{tableIdOrName}")
+	public R<?> tableInfo(@PathVariable("tableIdOrName") String tableIdOrName) {
+		return R.ok(tableInfoService.getTableInfo(tableIdOrName));
 	}
 
 	@GetMapping

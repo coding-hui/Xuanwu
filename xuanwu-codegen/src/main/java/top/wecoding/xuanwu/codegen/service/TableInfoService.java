@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface TableInfoService extends BaseService<TableEntity, Long> {
 
-	TableEntity getTableInfo(Long tableId);
+	TableEntity getTableInfo(String tableIdOrName);
 
 	PageResult<TableEntity> listDbTables(String db, String tableName, Pageable page);
 

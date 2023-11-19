@@ -9,6 +9,7 @@ import top.wecoding.xuanwu.codegen.domain.entity.TableEntity;
 import top.wecoding.xuanwu.orm.repository.LogicDeleteRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author wecoding
@@ -16,6 +17,8 @@ import java.util.List;
  */
 public interface TableInfoRepository
 		extends LogicDeleteRepository<TableEntity, Long>, JpaSpecificationExecutor<TableEntity> {
+
+	Optional<TableEntity> findByTableName(String tableName);
 
 	@Query(nativeQuery = true, value = """
 			SELECT

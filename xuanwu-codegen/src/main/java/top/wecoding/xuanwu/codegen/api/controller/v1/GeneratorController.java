@@ -24,20 +24,21 @@ public class GeneratorController {
 
 	private final GeneratorService generatorService;
 
-	@GetMapping("/{tableId}/preview")
-	public R<?> previewCode(@PathVariable("tableId") Long tableId) {
-		return R.ok(generatorService.preview(tableId));
+	@GetMapping("/{tableIdOrName}/preview")
+	public R<?> previewCode(@PathVariable("tableIdOrName") String tableIdOrName) {
+		return R.ok(generatorService.preview(tableIdOrName));
 	}
 
-	@GetMapping("/{tableId}/to_file")
-	public R<?> toFile(@PathVariable("tableId") Long tableId) {
-		generatorService.generator(tableId);
+	@GetMapping("/{tableIdOrName}/to_file")
+	public R<?> toFile(@PathVariable("tableIdOrName") String tableIdOrName) {
+		generatorService.generator(tableIdOrName);
 		return R.ok();
 	}
 
-	@GetMapping("/{tableId}/download")
-	public void download(@PathVariable("tableId") Long tableId, HttpServletRequest req, HttpServletResponse res) {
-		byte[] bytes = generatorService.download(tableId);
+	@GetMapping("/{tableIdOrName}/download")
+	public void download(@PathVariable("tableIdOrName") String tableIdOrName, HttpServletRequest req,
+			HttpServletResponse res) {
+		byte[] bytes = generatorService.download(tableIdOrName);
 		DownloadUtil.download(req, res, "xuanwu.zip", bytes);
 	}
 

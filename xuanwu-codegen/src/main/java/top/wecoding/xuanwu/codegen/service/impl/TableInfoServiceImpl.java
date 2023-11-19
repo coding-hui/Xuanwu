@@ -1,7 +1,5 @@
 package top.wecoding.xuanwu.codegen.service.impl;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +18,7 @@ import top.wecoding.xuanwu.codegen.service.TableInfoService;
 import top.wecoding.xuanwu.codegen.service.TemplateFactory;
 import top.wecoding.xuanwu.codegen.util.Strings;
 import top.wecoding.xuanwu.core.base.PageResult;
+import top.wecoding.xuanwu.core.exception.IllegalParameterException;
 import top.wecoding.xuanwu.core.exception.ServerException;
 import top.wecoding.xuanwu.core.exception.SystemErrorCode;
 import top.wecoding.xuanwu.core.util.ArgumentAssert;
@@ -54,16 +53,15 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 
 	private final TemplateFactory templateFactory;
 
-	@PersistenceContext
-	private EntityManager em;
-
 	@Override
-	public TableEntity getTableInfo(Long tableId) {
-		Optional<TableEntity> info = baseRepository.findById(tableId);
+	public TableEntity getTableInfo(String tableIdOrName) {
+		Optional<TableEntity> info = baseRepository.findByTableName(tableIdOrName);
+
 		if (info.isEmpty()) {
-			ArgumentAssert.error(SystemErrorCode.DATA_NOT_EXIST);
+			info = baseRepository.findById(Long.valueOf(tableIdOrName));
 		}
-		return info.get();
+
+		return info.orElseThrow(() -> new IllegalParameterException(SystemErrorCode.DATA_NOT_EXIST));
 	}
 
 	@Override
