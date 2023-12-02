@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk:21-jre-latest
+FROM docker.io/azul/zulu-openjdk:21-jre-latest
 
 WORKDIR /xuanwu
 
