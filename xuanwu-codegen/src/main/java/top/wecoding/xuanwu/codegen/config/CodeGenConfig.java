@@ -3,7 +3,6 @@ package top.wecoding.xuanwu.codegen.config;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import top.wecoding.xuanwu.codegen.util.Strings;
 
 import java.util.Map;
 import java.util.Set;
@@ -14,8 +13,8 @@ import java.util.Set;
  */
 @Slf4j
 @Data
-@ConfigurationProperties(prefix = CodeGenProperties.PREFIX)
-public class CodeGenProperties {
+@ConfigurationProperties(prefix = CodeGenConfig.PREFIX)
+public class CodeGenConfig {
 
 	public static final String PREFIX = "xuanwu.codegen";
 
@@ -35,16 +34,6 @@ public class CodeGenProperties {
 		private String name;
 
 		private String fileNameFormat;
-
-		public String renderFileName(Object... args) {
-			try {
-				return Strings.format(fileNameFormat, args);
-			}
-			catch (Exception e) {
-				log.error("failed to render tpl file name [{}]", name, e);
-			}
-			return null;
-		}
 
 	}
 

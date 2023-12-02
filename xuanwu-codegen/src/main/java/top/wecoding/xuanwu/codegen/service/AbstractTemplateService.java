@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
-import top.wecoding.xuanwu.codegen.config.CodeGenProperties;
+import top.wecoding.xuanwu.codegen.config.CodeGenConfig;
 import top.wecoding.xuanwu.codegen.constant.GenConstants;
 import top.wecoding.xuanwu.codegen.domain.entity.ColumnEntity;
 import top.wecoding.xuanwu.codegen.domain.entity.TableEntity;
@@ -25,6 +25,8 @@ import static top.wecoding.xuanwu.core.constant.Constant.NORM_DATETIME_PATTERN;
  */
 @Slf4j
 public abstract class AbstractTemplateService implements TemplateService {
+
+	protected static final String DEFAULT_VERSION = "v1";
 
 	/** 项目空间路径 */
 	private static final String PROJECT_PATH = "/main/java";
@@ -68,7 +70,7 @@ public abstract class AbstractTemplateService implements TemplateService {
 		return pkColumn.orElse(columns.get(0));
 	}
 
-	protected String getGenPath(TableEntity table, CodeGenProperties.Template template, final VelocityContext context) {
+	protected String getGenPath(TableEntity table, CodeGenConfig.Template template, final VelocityContext context) {
 		String genPath;
 		String packageName = table.getPackageName();
 		String fileName = getFileName(context, template);
@@ -84,7 +86,7 @@ public abstract class AbstractTemplateService implements TemplateService {
 		return genPath + File.separator + fileName;
 	}
 
-	protected String getFileName(VelocityContext context, CodeGenProperties.Template template) {
+	protected String getFileName(VelocityContext context, CodeGenConfig.Template template) {
 		try {
 			StringWriter stringWriter = new StringWriter();
 			Velocity.evaluate(context, stringWriter, "genTemplateFileName", template.getFileNameFormat());

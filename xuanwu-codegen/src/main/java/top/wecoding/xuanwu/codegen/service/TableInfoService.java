@@ -17,6 +17,8 @@ public interface TableInfoService extends BaseService<TableEntity, Long> {
 
 	TableEntity getTableInfo(String tableIdOrName);
 
+	PageResult<TableEntity> listTables(String tableName, Pageable page);
+
 	PageResult<TableEntity> listDbTables(String db, String tableName, Pageable page);
 
 	List<TableEntity> listDbTablesByNames(List<String> tableNames);
@@ -30,5 +32,7 @@ public interface TableInfoService extends BaseService<TableEntity, Long> {
 	List<TableEntity> batchImportTableFromDb(List<String> tableNames);
 
 	void syncTableFromDb(Collection<Long> tables);
+
+	void batchDelete(List<String> tables);
 
 }

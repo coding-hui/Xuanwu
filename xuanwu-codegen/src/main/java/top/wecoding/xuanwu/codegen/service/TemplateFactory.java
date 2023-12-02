@@ -7,8 +7,10 @@ import top.wecoding.xuanwu.codegen.service.template.DefaultSpringTemplate;
 import top.wecoding.xuanwu.core.exception.IllegalParameterException;
 import top.wecoding.xuanwu.core.util.ArgumentAssert;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_VALID_ERROR;
 
@@ -47,6 +49,10 @@ public class TemplateFactory {
 			.filter(entry -> Objects.equals(entry.type(), DEFAULT_TEMPLATE))
 			.findFirst()
 			.orElseThrow(() -> new IllegalParameterException(PARAM_VALID_ERROR));
+	}
+
+	public List<String> getAllTemplates() {
+		return creators.values().stream().map(TemplateService::type).collect(Collectors.toList());
 	}
 
 }

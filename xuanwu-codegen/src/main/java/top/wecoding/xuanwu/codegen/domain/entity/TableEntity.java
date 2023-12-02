@@ -9,9 +9,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import top.wecoding.xuanwu.orm.domain.LogicDeleteEntity;
 
 import java.io.Serial;
@@ -24,9 +24,9 @@ import java.util.List;
  */
 @Data
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 @Table(name = "xw_table_info")
 public class TableEntity extends LogicDeleteEntity implements Serializable {
 
@@ -56,7 +56,7 @@ public class TableEntity extends LogicDeleteEntity implements Serializable {
 	@Pattern(message = "版本名称必须由字母、数字和 - 组成，长度为 1~64", regexp = "^(?!-)[a-zA-Z0-9-]{1,63}(?<!-)$")
 	private String version;
 
-	private String generatorType;
+	private String genType;
 
 	private String backendPath;
 
@@ -66,7 +66,18 @@ public class TableEntity extends LogicDeleteEntity implements Serializable {
 
 	private String tableCollation;
 
+	/** 功能名称 用作类描述，例如 用户 */
+	private String functionName;
+
+	/** 生成业务名 可理解为功能英文名，例如 user */
+	private String businessName;
+
+	/** 生成模块名 可理解为子系统名，例如 system */
+	private String moduleName;
+
 	@OneToMany(mappedBy = "table", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<ColumnEntity> columns;
+
+	private String remark;
 
 }

@@ -2,6 +2,7 @@ package top.wecoding.xuanwu.codegen.service.impl;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -25,10 +26,13 @@ import top.wecoding.xuanwu.core.util.ArgumentAssert;
 import top.wecoding.xuanwu.core.util.Convert;
 import top.wecoding.xuanwu.orm.service.BaseServiceImpl;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -45,6 +49,8 @@ import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_ERROR;
 @Service
 @RequiredArgsConstructor
 public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> implements TableInfoService {
+
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 
 	@Getter
 	private final TableInfoRepository baseRepository;
@@ -65,6 +71,13 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 	}
 
 	@Override
+	public PageResult<TableEntity> listTables(String tableName, Pageable page) {
+		TableEntity tableReq = TableEntity.builder().tableName(tableName).build();
+		Page<TableEntity> pageResult = this.page(tableReq, page.getPageNumber(), page.getPageSize());
+		return PageResult.of(pageResult.getContent(), pageResult.getTotalElements());
+	}
+
+	@Override
 	public PageResult<TableEntity> listDbTables(String db, String tableName, Pageable pageReq) {
 		Page<Object> result = StringUtils.isBlank(tableName) ? this.baseRepository.listDbTables(pageReq)
 				: this.baseRepository.listDbTablesByName(tableName, pageReq);
@@ -79,18 +92,13 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 
 	public List<ColumnEntity> listDbTableColumnsByTableName(String tableName) {
 		List<?> resultList = this.columnInfoRepository.listDbTableColumnsByTableName(tableName);
-		return resultList.stream().map(res -> {
-			Object[] arr = (Object[]) res;
-			return ColumnEntity.builder()
-				.columnName(arr[0].toString())
-				.isRequired(YesOrNo.of(arr[1]).code())
-				.isPk(YesOrNo.of(arr[2]).code())
-				.sort(Convert.toInt(arr[3]))
-				.columnComment(Convert.utf8Str(arr[4]))
-				.isIncrement(YesOrNo.of(arr[5]).code())
-				.columnType(Convert.utf8Str(arr[6]))
-				.build();
-		}).sorted(Comparator.comparing(ColumnEntity::getSort)).collect(Collectors.toList());
+		return resultList.stream()
+			.filter(obj -> obj instanceof Object[])
+			.map(obj -> (Object[]) obj)
+			.map(this::createColumnEntity)
+			.filter(Objects::nonNull)
+			.sorted(Comparator.comparing(ColumnEntity::getSort))
+			.collect(Collectors.toList());
 	}
 
 	@Override
@@ -182,19 +190,69 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 		}
 	}
 
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void batchDelete(List<String> tables) {
+		baseRepository.deleteByTableNameIn(tables);
+	}
+
+	@SneakyThrows(Exception.class)
 	private List<TableEntity> mappingTableEntity(List<?> result) {
-		List<TableEntity> tableInfos = new ArrayList<>();
-		for (Object obj : result) {
-			Object[] arr = (Object[]) obj;
-			TableEntity tableInfo = TableEntity.builder()
-				.tableName(Convert.utf8Str(arr[0]))
-				.dbEngine(Convert.utf8Str(arr[1]))
-				.tableCollation(Convert.utf8Str(arr[2]))
-				.tableComment(Convert.utf8Str(arr[3]))
+		return result.stream()
+			.filter(obj -> obj instanceof Object[])
+			.map(obj -> (Object[]) obj)
+			.map(this::createTableEntity)
+			.filter(Objects::nonNull)
+			.collect(Collectors.toList());
+	}
+
+	private ColumnEntity createColumnEntity(Object[] arr) {
+		try {
+			return ColumnEntity.builder()
+				.columnName(selfGetVal(arr, 0))
+				.isRequired(YesOrNo.of(selfGetVal(arr, 1)).code())
+				.isPk(YesOrNo.of(selfGetVal(arr, 2)).code())
+				.sort(Convert.toInt(selfGetVal(arr, 3)))
+				.columnComment(selfGetVal(arr, 4))
+				.isIncrement(YesOrNo.of(selfGetVal(arr, 5)).code())
+				.columnType(selfGetVal(arr, 6))
 				.build();
-			tableInfos.add(tableInfo);
 		}
-		return tableInfos;
+		catch (Exception e) {
+			// Log or handle any exception that might occur during entity creation
+			return null;
+		}
+	}
+
+	private TableEntity createTableEntity(Object[] arr) {
+		try {
+			return TableEntity.builder()
+				.tableName(selfGetVal(arr, 0))
+				.dbEngine(selfGetVal(arr, 1))
+				.tableCollation(selfGetVal(arr, 2))
+				.tableComment(selfGetVal(arr, 3))
+				.createdAt(parseDateTime(selfGetVal(arr, 4)))
+				.updatedAt(parseDateTime(selfGetVal(arr, 5)))
+				.build();
+		}
+		catch (Exception e) {
+			// Log or handle any exception that might occur during entity creation
+			return null;
+		}
+	}
+
+	private String selfGetVal(Object[] arr, int index) {
+		return (index >= 0 && index < arr.length) ? Convert.utf8Str(arr[index]) : null;
+	}
+
+	private LocalDateTime parseDateTime(String dateTimeString) {
+		try {
+			return LocalDateTime.parse(Convert.toStr(dateTimeString), DATE_TIME_FORMATTER);
+		}
+		catch (DateTimeParseException | NullPointerException e) {
+			// Log or handle the parsing exception
+			return null;
+		}
 	}
 
 }

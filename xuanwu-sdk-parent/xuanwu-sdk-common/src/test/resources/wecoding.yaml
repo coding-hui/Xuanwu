@@ -1,0 +1,10 @@
+wecoding:
+  client:
+    token: test
+    orgUrl: https://api.wecoding.top/v1
+    connectionTimeout: 20
+    proxy:
+      host: "proxyhost"
+      port: 8990
+      username: "proxyuser"
+      password: pwd

@@ -7,7 +7,7 @@ data:
   config.yaml: |
     server:
       servlet:
-        context-path: /codegen
+        context-path: 
     spring:
       datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver

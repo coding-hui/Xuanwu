@@ -11,9 +11,10 @@ import org.apache.velocity.app.Velocity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.FileCopyUtils;
-import top.wecoding.xuanwu.codegen.config.CodeGenProperties;
+import top.wecoding.xuanwu.codegen.config.CodeGenConfig;
 import top.wecoding.xuanwu.codegen.domain.entity.ColumnEntity;
 import top.wecoding.xuanwu.codegen.domain.entity.TableEntity;
+import top.wecoding.xuanwu.codegen.enums.GeneratorType;
 import top.wecoding.xuanwu.codegen.service.AbstractTemplateService;
 import top.wecoding.xuanwu.codegen.util.Strings;
 import top.wecoding.xuanwu.codegen.util.VelocityInitializer;
@@ -52,6 +53,9 @@ import static top.wecoding.xuanwu.codegen.constant.GenConstants.TYPE_DATE;
 import static top.wecoding.xuanwu.codegen.constant.GenConstants.TYPE_INTEGER;
 import static top.wecoding.xuanwu.codegen.constant.GenConstants.TYPE_LONG;
 import static top.wecoding.xuanwu.codegen.constant.GenConstants.TYPE_STRING;
+import static top.wecoding.xuanwu.codegen.util.Strings.getBusinessName;
+import static top.wecoding.xuanwu.codegen.util.Strings.getModuleName;
+import static top.wecoding.xuanwu.codegen.util.Strings.toClassName;
 import static top.wecoding.xuanwu.core.constant.StrPool.UTF8;
 
 /**
@@ -65,7 +69,7 @@ public class DefaultSpringTemplate extends AbstractTemplateService {
 
 	public static final String TYPE = "DEFAULT_SPRING";
 
-	private final CodeGenProperties codeGenProperties;
+	private final CodeGenConfig genConf;
 
 	@Override
 	public String type() {
@@ -74,6 +78,18 @@ public class DefaultSpringTemplate extends AbstractTemplateService {
 
 	@Override
 	public void initTableConfig(TableEntity table, List<ColumnEntity> columns) {
+		// init table config
+		table.setTplCategory(TYPE);
+		table.setAuthor(genConf.getAuthor());
+		table.setGenType(GeneratorType.ZIP.name());
+		table.setPackageName(genConf.getPackageName());
+		table.setModuleName(getModuleName(table.getPackageName()));
+		table.setBusinessName(getBusinessName(table.getTableName()));
+		table.setFunctionName(table.getTableComment());
+		table.setClassName(toClassName(table.getTableName(), genConf.getTablePrefix(), genConf.isAutoRemovePre()));
+		table.setVersion(DEFAULT_VERSION);
+
+		// init table column config
 		for (ColumnEntity column : columns) {
 			String dataType = Strings.getDbType(column.getColumnType());
 			String columnName = column.getColumnName();
@@ -161,7 +177,7 @@ public class DefaultSpringTemplate extends AbstractTemplateService {
 	@Override
 	public Map<String, String> render(TableEntity tableEntity) {
 		VelocityInitializer.initialize();
-		var templates = codeGenProperties.getTemplates().get(TYPE);
+		var templates = genConf.getTemplates().get(TYPE);
 		if (CollectionUtils.isEmpty(templates)) {
 			log.warn("template [{}] cannot found any templates", TYPE);
 			return new HashMap<>();
@@ -180,7 +196,7 @@ public class DefaultSpringTemplate extends AbstractTemplateService {
 	@Override
 	public void renderToFile(TableEntity table) {
 		VelocityInitializer.initialize();
-		var templates = codeGenProperties.getTemplates().get(TYPE);
+		var templates = genConf.getTemplates().get(TYPE);
 		if (CollectionUtils.isEmpty(templates)) {
 			log.warn("template [{}] cannot found any templates", TYPE);
 			return;
@@ -206,7 +222,7 @@ public class DefaultSpringTemplate extends AbstractTemplateService {
 	@Override
 	public void renderToZipStream(TableEntity table, ZipOutputStream zip) {
 		VelocityInitializer.initialize();
-		var templates = codeGenProperties.getTemplates().get(TYPE);
+		var templates = genConf.getTemplates().get(TYPE);
 		if (CollectionUtils.isEmpty(templates)) {
 			log.warn("template [{}] cannot found any templates", TYPE);
 			return;

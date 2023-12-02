@@ -44,18 +44,16 @@ public class GenConstants {
 			"bigint", "float", "double", "decimal" };
 
 	/** 页面不需要编辑字段 */
-	public static final String[] COLUMNNAME_NOT_EDIT = { "id", "create_by", "create_time", "del_flag" };
+	public static final String[] COLUMNNAME_NOT_EDIT = { "id", "created_at", "updated_at", "is_deleted" };
 
 	/** 页面不需要显示的列表字段 */
-	public static final String[] COLUMNNAME_NOT_LIST = { "id", "create_by", "create_time", "del_flag", "update_by",
-			"update_time" };
+	public static final String[] COLUMNNAME_NOT_LIST = { "id", "created_at", "updated_at", "is_deleted" };
 
 	/** 页面不需要查询字段 */
-	public static final String[] COLUMNNAME_NOT_QUERY = { "id", "create_by", "create_time", "del_flag", "update_by",
-			"update_time", "remark" };
+	public static final String[] COLUMNNAME_NOT_QUERY = { "id", "created_at", "updated_at", "is_deleted" };
 
 	/** Entity基类字段 */
-	public static final String[] BASE_ENTITY = { "createBy", "createTime", "updateBy", "updateTime", "remark" };
+	public static final String[] BASE_ENTITY = { "created_at", "updated_at", "is_deleted" };
 
 	/** Tree基类字段 */
 	public static final String[] TREE_ENTITY = { "parentName", "parentId", "orderNum", "ancestors" };

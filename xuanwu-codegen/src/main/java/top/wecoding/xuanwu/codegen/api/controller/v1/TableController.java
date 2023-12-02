@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,11 +37,17 @@ public class TableController {
 		return R.ok(tableInfoService.getTableInfo(tableIdOrName));
 	}
 
-	@GetMapping
-	public R<?> listTables(@PageableDefault Pageable pageReq,
+	@GetMapping("/from_db")
+	public R<?> listDbTables(@PageableDefault Pageable pageReq,
 			@RequestParam(value = "database", required = false) String db,
 			@RequestParam(value = "tableName", required = false) String tableName) {
 		return R.ok(tableInfoService.listDbTables(db, tableName, pageReq));
+	}
+
+	@GetMapping("")
+	public R<?> listTables(@PageableDefault Pageable pageReq,
+			@RequestParam(value = "tableName", required = false) String tableName) {
+		return R.ok(tableInfoService.listTables(tableName, pageReq));
 	}
 
 	@PostMapping
@@ -72,6 +79,19 @@ public class TableController {
 	@GetMapping("sync_db")
 	public R<?> syncFromDb(@RequestParam("tableIds") List<Long> tableIds) {
 		tableInfoService.syncTableFromDb(tableIds);
+		return R.ok();
+	}
+
+	@DeleteMapping("/{tableIdOrName}")
+	public R<?> delete(@PathVariable("tableIdOrName") String tableIdOrName) {
+		TableEntity tableInfo = tableInfoService.getTableInfo(tableIdOrName);
+		tableInfoService.delete(tableInfo);
+		return R.ok();
+	}
+
+	@DeleteMapping("/batch_delete")
+	public R<?> batchDelete(@RequestParam("tableNames") List<String> tableNames) {
+		tableInfoService.batchDelete(tableNames);
 		return R.ok();
 	}
 

@@ -15,5 +15,5 @@ spec:
             name: xuanwu-codegen-service
             port:
               number: 9030
-        path: /codegen
+        path: 
         pathType: Prefix

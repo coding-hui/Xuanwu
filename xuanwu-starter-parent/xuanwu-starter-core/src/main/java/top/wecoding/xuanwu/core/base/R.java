@@ -107,4 +107,8 @@ public class R<T> implements Serializable {
 		return new R<>(false, codeSupplier.getCode(), data, errorMessage);
 	}
 
+	public static <T> boolean checkSuccess(R<T> apiResult) {
+		return apiResult != null && apiResult.isSuccess();
+	}
+
 }

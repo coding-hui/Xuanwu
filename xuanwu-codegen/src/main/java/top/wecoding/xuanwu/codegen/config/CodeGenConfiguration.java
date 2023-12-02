@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 0.9
  */
 @Configuration
-@EnableConfigurationProperties(CodeGenProperties.class)
+@EnableConfigurationProperties(CodeGenConfig.class)
 public class CodeGenConfiguration {
 
 }

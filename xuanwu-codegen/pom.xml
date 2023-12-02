@@ -22,6 +22,12 @@
             <artifactId>xuanwu-starter-orm</artifactId>
         </dependency>
 
+        <!-- IAM -->
+        <dependency>
+            <groupId>top.wecoding.xuanwu</groupId>
+            <artifactId>xuanwu-sdk-api</artifactId>
+        </dependency>
+
         <!-- Apache Velocity -->
         <dependency>
             <groupId>org.apache.velocity</groupId>
@@ -72,7 +78,95 @@
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${maven-clean-plugin.version}</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>src/main/console/</directory>
+                            <followSymlinks>false</followSymlinks>
+                            <includes>
+                                <include>dist/**</include>
+                                <include>yarn.lock</include>
+                                <include>package-lock.json</include>
+                                <include>pnpm-lock.yaml</include>
+                                <include>yarn-error.log</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
         </plugins>
+        <resources>
+            <!-- 将 yarn run build 后的 dist 内容复制到 resources 目录下 -->
+            <resource>
+                <directory>src/main/console/dist</directory>
+                <targetPath>frontend</targetPath>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>codegen-frontend</id>
+            <build>
+                <plugins>
+                    <!--编译打包前端项目-->
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>${frontend-maven-plugin.version}</version>
+                        <configuration>
+                            <installDirectory>target</installDirectory>
+                            <workingDirectory>src/main/console</workingDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>install node and yarn</id>
+                                <goals>
+                                    <goal>install-node-and-yarn</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <nodeVersion>v18.17.1</nodeVersion>
+                                    <yarnVersion>v1.22.11</yarnVersion>
+                                    <nodeDownloadRoot>https://npm.taobao.org/mirrors/node/</nodeDownloadRoot>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>yarn install</id>
+                                <goals>
+                                    <goal>yarn</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <arguments>install</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>yarn run build</id>
+                                <goals>
+                                    <goal>yarn</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <arguments>build:prod</arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

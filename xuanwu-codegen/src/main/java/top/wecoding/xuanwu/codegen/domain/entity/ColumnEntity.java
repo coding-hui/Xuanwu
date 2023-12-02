@@ -11,9 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.apache.commons.lang3.StringUtils;
 import top.wecoding.xuanwu.codegen.enums.YesOrNo;
 import top.wecoding.xuanwu.orm.domain.LogicDeleteEntity;
@@ -27,9 +27,9 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder(toBuilder = true)
 @Table(name = "xw_table_column")
 public class ColumnEntity extends LogicDeleteEntity implements Serializable {
 

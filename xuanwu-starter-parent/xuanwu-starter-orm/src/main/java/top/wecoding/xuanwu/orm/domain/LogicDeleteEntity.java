@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 /**
  * @author wecoding
@@ -12,6 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@SuperBuilder
 @MappedSuperclass
 public class LogicDeleteEntity extends BaseEntity {
 

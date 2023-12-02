@@ -64,4 +64,6 @@ public interface TableInfoRepository
 			""")
 	Page<Object> listDbTables(Pageable pageable);
 
+	int deleteByTableNameIn(List<String> tableNames);
+
 }

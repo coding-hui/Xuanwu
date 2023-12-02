@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.5</version>
+        <version>3.2.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -22,6 +22,7 @@
 
         <xuanwu.starter.version>0.9-SNAPSHOT</xuanwu.starter.version>
 
+        <httpclient5.version>5.2.1</httpclient5.version>
         <velocity.version>2.3</velocity.version>
         <velocity.tool.version>3.1</velocity.tool.version>
         <commons.io.version>2.13.0</commons.io.version>
@@ -31,16 +32,26 @@
 
         <git.commit.plugin>6.0.0</git.commit.plugin>
         <spring.checkstyle.plugin>0.0.39</spring.checkstyle.plugin>
+        <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     </properties>
 
     <modules>
         <module>xuanwu-codegen</module>
         <module>xuanwu-starter-parent</module>
         <module>xuanwu-starter-file-parent</module>
+        <module>xuanwu-sdk-parent</module>
+        <module>xuanwu-boot-parent</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <!-- Http client -->
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
+                <version>${httpclient5.version}</version>
+            </dependency>
+
             <!-- 代码生成使用模板 -->
             <dependency>
                 <groupId>org.apache.velocity</groupId>
@@ -101,6 +112,23 @@
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-file-core</artifactId>
+                <version>${xuanwu.starter.version}</version>
+            </dependency>
+
+            <!-- xuanwu sdk starters -->
+            <dependency>
+                <groupId>top.wecoding.xuanwu</groupId>
+                <artifactId>xuanwu-sdk-parent</artifactId>
+                <version>${xuanwu.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wecoding.xuanwu</groupId>
+                <artifactId>xuanwu-sdk-common</artifactId>
+                <version>${xuanwu.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wecoding.xuanwu</groupId>
+                <artifactId>xuanwu-sdk-api</artifactId>
                 <version>${xuanwu.starter.version}</version>
             </dependency>
         </dependencies>

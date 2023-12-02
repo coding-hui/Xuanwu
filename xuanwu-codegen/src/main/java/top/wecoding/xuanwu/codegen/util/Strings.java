@@ -12,6 +12,37 @@ public class Strings {
 
 	private static final char SEPARATOR = '_';
 
+	public static String getModuleName(String packageName) {
+		int lastIndex = packageName.lastIndexOf(".");
+		int nameLength = packageName.length();
+		return StringUtils.substring(packageName, lastIndex + 1, nameLength);
+	}
+
+	public static String getBusinessName(String tableName) {
+		int lastIndex = tableName.lastIndexOf("_");
+		int nameLength = tableName.length();
+		return StringUtils.substring(tableName, lastIndex + 1, nameLength);
+	}
+
+	public static String toClassName(String tableName, String tablePrefix, boolean autoRemovePrefix) {
+		if (autoRemovePrefix && StringUtils.isNotEmpty(tablePrefix)) {
+			String[] searchList = StringUtils.split(tablePrefix, ",");
+			tableName = replaceFirst(tableName, searchList);
+		}
+		return toCamelCase(tableName);
+	}
+
+	public static String replaceFirst(String replacementm, String[] searchList) {
+		String text = replacementm;
+		for (String searchString : searchList) {
+			if (replacementm.startsWith(searchString)) {
+				text = replacementm.replaceFirst(searchString, "");
+				break;
+			}
+		}
+		return text;
+	}
+
 	public static String toCamelCase(String s) {
 		if (s == null) {
 			return null;
