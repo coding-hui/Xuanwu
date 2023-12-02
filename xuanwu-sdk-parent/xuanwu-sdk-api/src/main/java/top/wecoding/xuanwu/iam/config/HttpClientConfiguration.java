@@ -18,7 +18,7 @@ public class HttpClientConfiguration {
 
 	private int retryMaxAttempts;
 
-	private String baseUrl;
+	private String apiBase;
 
 	private int proxyPort;
 

@@ -23,8 +23,8 @@ public class ClientConfiguration extends HttpClientConfiguration {
 
 	private ClientCredentialsProvider clientCredentialsProvider;
 
-	public String getBaseUrl() {
-		String baseUrl = super.getBaseUrl();
+	public String getApiBase() {
+		String baseUrl = super.getApiBase();
 		return StringUtils.isBlank(baseUrl) ? "/" : baseUrl;
 	}
 

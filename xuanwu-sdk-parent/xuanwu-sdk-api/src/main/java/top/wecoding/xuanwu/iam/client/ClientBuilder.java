@@ -6,6 +6,7 @@ import top.wecoding.xuanwu.iam.authc.ClientCredentials;
  * @author Wecoding Liu
  * @since 0.8
  */
+@SuppressWarnings("rawtypes")
 public interface ClientBuilder {
 
 	ClientBuilder setApiBase(String apiBase);

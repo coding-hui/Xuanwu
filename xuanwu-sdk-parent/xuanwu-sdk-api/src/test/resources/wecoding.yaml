@@ -1,7 +1,7 @@
 wecoding:
   client:
-    token: test
-    orgUrl: https://api.wecoding.top/v1
+    apiToken: test
+    apiBase: https://api.wecoding.top/v1
     connectionTimeout: 20
     proxy:
       host: "proxyhost"

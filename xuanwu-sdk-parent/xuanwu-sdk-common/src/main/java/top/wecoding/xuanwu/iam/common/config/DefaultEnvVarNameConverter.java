@@ -7,10 +7,10 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_API_BASE_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CACHE_TTI_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CACHE_TTL_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CONNECTION_TIMEOUT_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_ORG_URL_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_REQUEST_TIMEOUT_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_RETRY_MAX_ATTEMPTS_PROPERTY_NAME;
 
@@ -23,7 +23,7 @@ public class DefaultEnvVarNameConverter implements EnvVarNameConverter {
 	private final Map<String, String> envToDotPropMap;
 
 	public DefaultEnvVarNameConverter() {
-		this.envToDotPropMap = buildReverseLookupToMap(DEFAULT_CLIENT_ORG_URL_PROPERTY_NAME,
+		this.envToDotPropMap = buildReverseLookupToMap(DEFAULT_CLIENT_API_BASE_PROPERTY_NAME,
 				DEFAULT_CLIENT_CONNECTION_TIMEOUT_PROPERTY_NAME, DEFAULT_CLIENT_REQUEST_TIMEOUT_PROPERTY_NAME,
 				DEFAULT_CLIENT_RETRY_MAX_ATTEMPTS_PROPERTY_NAME, DEFAULT_CLIENT_CACHE_TTL_PROPERTY_NAME,
 				DEFAULT_CLIENT_CACHE_TTI_PROPERTY_NAME);

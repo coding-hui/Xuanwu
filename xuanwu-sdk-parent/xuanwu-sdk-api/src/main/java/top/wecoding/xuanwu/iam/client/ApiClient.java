@@ -27,7 +27,7 @@ public class ApiClient {
 
 	public ApiClient(ClientConfiguration clientConfig, RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
-		this.setBasePath(clientConfig.getBaseUrl());
+		this.setBasePath(clientConfig.getApiBase());
 
 		RestTemplateAdapter adapter = RestTemplateAdapter.create(restTemplate);
 		this.factory = HttpServiceProxyFactory.builderFor(adapter).build();

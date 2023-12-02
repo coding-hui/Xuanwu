@@ -49,12 +49,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_API_BASE_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_API_TOKEN_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CACHE_ENABLED_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CACHE_TTI_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CACHE_TTL_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CONNECTION_TIMEOUT_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_ORG_URL_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_PROXY_HOST_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_PROXY_PASSWORD_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_PROXY_PORT_PROPERTY_NAME;
@@ -74,7 +74,7 @@ public class DefaultClientBuilder implements ClientBuilder {
 
 	private static final String SYSPROPS_TOKEN = "sysprops";
 
-	private static final String WECODING_SDK_CONFIG = "top.wecoding.xuanwu.iam/config/";
+	private static final String WECODING_SDK_CONFIG = "top.wecoding/config/";
 
 	private static final String WECODING_YAML = "wecoding.yaml";
 
@@ -143,11 +143,11 @@ public class DefaultClientBuilder implements ClientBuilder {
 			clientConfig.setCacheManagerTti(Long.parseLong(props.get(DEFAULT_CLIENT_CACHE_TTI_PROPERTY_NAME)));
 		}
 
-		if (Strings.hasText(props.get(DEFAULT_CLIENT_ORG_URL_PROPERTY_NAME))) {
-			String baseUrl = props.get(DEFAULT_CLIENT_ORG_URL_PROPERTY_NAME);
+		if (Strings.hasText(props.get(DEFAULT_CLIENT_API_BASE_PROPERTY_NAME))) {
+			String baseUrl = props.get(DEFAULT_CLIENT_API_BASE_PROPERTY_NAME);
 			// remove backslashes that can end up in file when it's written programmatically, e.g. in a test
 			baseUrl = baseUrl.replace("\\:", ":");
-			clientConfig.setBaseUrl(baseUrl);
+			clientConfig.setApiBase(baseUrl);
 		}
 
 		if (Strings.hasText(props.get(DEFAULT_CLIENT_CONNECTION_TIMEOUT_PROPERTY_NAME))) {
@@ -198,7 +198,7 @@ public class DefaultClientBuilder implements ClientBuilder {
 
 	@Override
 	public ClientBuilder setApiBase(String apiBase) {
-		this.clientConfig.setBaseUrl(apiBase);
+		this.clientConfig.setApiBase(apiBase);
 		return this;
 	}
 
@@ -275,7 +275,7 @@ public class DefaultClientBuilder implements ClientBuilder {
 
 		ApiClient apiClient = new ApiClient(clientConfig, restTemplate);
 
-		apiClient.setBasePath(this.clientConfig.getBaseUrl());
+		apiClient.setBasePath(this.clientConfig.getApiBase());
 
 		ClientCredentialsProvider clientCredentialsProvider = this.clientConfig.getClientCredentialsProvider();
 		if (clientCredentialsProvider == null && this.clientCredentials != null) {

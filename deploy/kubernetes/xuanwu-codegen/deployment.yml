@@ -29,8 +29,8 @@ spec:
           imagePullPolicy: Always
           name: codegen
           env:
-            - name: WECODING_CLIENT_ORGURL
-              value: "iam-apiserver-service.iam-system:8000"
+            - name: WECODING_CLIENT_APIBASE
+              value: "http://iam-apiserver-service.iam-system:8000"
           resources:
             limits:
               cpu: 100m

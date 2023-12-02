@@ -1,6 +1,6 @@
 wecoding:
   client:
-    orgUrl: "http://iam.wecoding.local"
+    apiBase: "http://iam.wecoding.local"
     connectionTimeout: 20
 #    proxy:
 #      host: "iam.wecoding.local"

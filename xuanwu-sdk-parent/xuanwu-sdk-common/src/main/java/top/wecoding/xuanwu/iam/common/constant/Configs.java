@@ -6,7 +6,7 @@ package top.wecoding.xuanwu.iam.common.constant;
  */
 public interface Configs {
 
-	String DEFAULT_CLIENT_API_TOKEN_PROPERTY_NAME = "wecoding.client.token";
+	String DEFAULT_CLIENT_API_TOKEN_PROPERTY_NAME = "wecoding.client.apiToken";
 
 	String DEFAULT_CLIENT_CACHE_ENABLED_PROPERTY_NAME = "wecoding.client.cache.enabled";
 
@@ -16,7 +16,7 @@ public interface Configs {
 
 	String DEFAULT_CLIENT_CACHE_CACHES_PROPERTY_NAME = "wecoding.client.cache.caches";
 
-	String DEFAULT_CLIENT_ORG_URL_PROPERTY_NAME = "wecoding.client.orgUrl";
+	String DEFAULT_CLIENT_API_BASE_PROPERTY_NAME = "wecoding.client.apiBase";
 
 	String DEFAULT_CLIENT_CONNECTION_TIMEOUT_PROPERTY_NAME = "wecoding.client.connectionTimeout";
 

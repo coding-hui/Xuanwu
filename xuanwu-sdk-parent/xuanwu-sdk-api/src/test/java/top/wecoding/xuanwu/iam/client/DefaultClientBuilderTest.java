@@ -56,7 +56,7 @@ class DefaultClientBuilderTest {
 		assertTrue(Clients.builder() instanceof DefaultClientBuilder);
 		val builder = new DefaultClientBuilder(noDefaultYamlResourceFactory());
 
-		assertEquals("https://api.wecoding.top/v1", builder.getClientConfig().getBaseUrl());
+		assertEquals("https://api.wecoding.top/v1", builder.getClientConfig().getApiBase());
 		assertEquals(20, builder.getClientConfig().getConnectionTimeout());
 	}
 
