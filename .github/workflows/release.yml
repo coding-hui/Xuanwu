@@ -41,6 +41,7 @@ jobs:
         with:
           # The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file
           java-version: '21'
+          distribution: 'adopt'
           # Name of the build platform to cache dependencies. It can be "maven", "gradle" or "sbt".
           cache: maven
 
