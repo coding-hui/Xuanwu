@@ -8,12 +8,13 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - http:
-      paths:
-      - backend:
-          service:
-            name: xuanwu-codegen-service
-            port:
-              number: 9030
-        path: 
-        pathType: Prefix
+    - host: codegen.wecoding.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: xuanwu-codegen-service
+                port:
+                  number: 9030

@@ -88,9 +88,10 @@ function logout() {
     cancelButtonText: '取消',
     type: 'warning'
   }).then(() => {
-    userStore.logOut().then(() => {
-      location.href = '/index';
-    })
+    // userStore.logOut().then(() => {
+    //   location.href = '/index';
+    // })
+    location.href = '/index';
   }).catch(() => { });
 }
 

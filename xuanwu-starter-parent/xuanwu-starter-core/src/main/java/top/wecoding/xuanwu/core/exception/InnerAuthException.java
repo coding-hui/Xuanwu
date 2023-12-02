@@ -1,4 +1,4 @@
-package top.wecoding.xuanwu.core.exception.user;
+package top.wecoding.xuanwu.core.exception;
 
 import top.wecoding.xuanwu.core.exception.BaseUncheckedException;
 

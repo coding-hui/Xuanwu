@@ -41,10 +41,7 @@ export function getInfo() {
 
 // 退出方法
 export function logout() {
-  return request({
-    url: '/logout',
-    method: 'post'
-  })
+  return Promise.resolve();
 }
 
 // 获取验证码

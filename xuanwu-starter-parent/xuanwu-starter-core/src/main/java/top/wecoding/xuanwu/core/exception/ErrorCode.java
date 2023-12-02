@@ -9,6 +9,10 @@ public interface ErrorCode {
 
 	Integer getCode();
 
+	default String getDesc(String defaultMessage) {
+		return I18n.getMessage(getCode().toString(), defaultMessage);
+	}
+
 	default String getDesc(Object... args) {
 		return I18n.getMessage(getCode().toString(), args);
 	}

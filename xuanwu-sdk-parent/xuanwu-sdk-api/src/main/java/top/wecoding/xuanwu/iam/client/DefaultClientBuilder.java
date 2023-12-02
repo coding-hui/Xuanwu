@@ -257,6 +257,10 @@ public class DefaultClientBuilder implements ClientBuilder {
 				new StringHttpMessageConverter())
 		);
 
+		ApiResponseErrorHandler errorHandler = new ApiResponseErrorHandler();
+		errorHandler.setMessageConverters(restTemplate.getMessageConverters());
+		restTemplate.setErrorHandler(errorHandler);
+
 		restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClientBuilder.build()));
 
 		Optional<BasicAuthenticationInterceptor> basicAuthenticationInterceptor = Optional.empty();

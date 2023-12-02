@@ -8,6 +8,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
@@ -45,6 +46,24 @@ import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_VALID_ERR
 @Slf4j
 @RestControllerAdvice
 public class BaseExceptionHandler {
+
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(BaseUncheckedException.class)
+	public R<Object> argumentException(BaseUncheckedException e, HttpServletRequest request, HandlerMethod method) {
+		if (log.isWarnEnabled()) {
+			log.warn(exceptionMessage("Unchecked exception", request, method));
+		}
+		return createResult(e);
+	}
+
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	@ExceptionHandler(UnauthorizedException.class)
+	public R<Object> argumentException(UnauthorizedException e, HttpServletRequest request, HandlerMethod method) {
+		if (log.isWarnEnabled()) {
+			log.warn(exceptionMessage("Unauthorized exception", request, method));
+		}
+		return createResult(e);
+	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(IllegalParameterException.class)
@@ -227,7 +246,11 @@ public class BaseExceptionHandler {
 		String message;
 		// @formatter:off
 		try {
-			message = ex.getErrorCode().getDesc(ex.getArgs());
+			if (ObjectUtils.isEmpty(ex.getArgs())) {
+				message = ex.getErrorCode().getDesc(ex.getMessage());
+			} else {
+				message = ex.getErrorCode().getDesc(ex.getArgs());
+			}
 		}
 		catch (Exception e) {
 			message = ex.getMessage();

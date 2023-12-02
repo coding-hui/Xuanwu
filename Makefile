@@ -1,11 +1,12 @@
 VERSION=0.9-SNAPSHOT
 
 images.build:
+	mvn clean install -DskipTests
 	for name in xuanwu-codegen; do\
-		mvn clean package docker:build -DskipTests -pl $$name; \
+		mvn package docker:build -Pcodegen-frontend -DskipTests -pl $$name; \
 	done
 
-images.push:
+images.push: images.build
 	for name in xuanwu-codegen; do\
 		mvn docker:push -pl $$name; \
 	done
