@@ -155,7 +155,7 @@
 </template>
 
 <script setup name="Gen">
-import { listTable, previewTable, delTable, genCode, synchDb } from "@/api/tool/gen";
+import { listTable, previewTable, delTable, genCodeToFile, synchDb } from "@/api/tool/gen";
 import router from "@/router";
 import importTable from "./importTable";
 
@@ -218,24 +218,24 @@ function handleQuery() {
 }
 /** 生成代码操作 */
 function handleGenTable(row) {
-  const tbNames = row.tableName || tableNames.value;
-  if (tbNames == "") {
+  const tbIds = row.id || tableNames.value;
+  if (tbIds == "") {
     proxy.$modal.msgError("请选择要生成的数据");
     return;
   }
   if (row.genType === "DOWNLOAD") {
-    genCode(row.tableName).then(response => {
-      proxy.$modal.msgSuccess("成功生成到自定义路径：" + row.genPath);
+    genCodeToFile(row.id).then(response => {
+      proxy.$modal.msgSuccess("成功生成到自定义路径：" + row.backendPath);
     });
   } else {
-    proxy.$download.zip("/tool/gen/batchGenCode?tables=" + tbNames, "ruoyi.zip");
+    proxy.$download.zip(`/api/v1/generator/${tbIds}/zip`, "xuanwu.zip");
   }
 }
 /** 同步数据库操作 */
 function handleSynchDb(row) {
   const tableName = row.tableName;
   proxy.$modal.confirm('确认要强制同步"' + tableName + '"表结构吗？').then(function () {
-    return synchDb(tableName);
+    return synchDb(row.id);
   }).then(() => {
     proxy.$modal.msgSuccess("同步成功");
   }).catch(() => {});
@@ -276,9 +276,9 @@ function handleEditTable(row) {
 }
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const tableIds = row.id || ids.value;
+  const tableIds = row.id || ids.value.join(",");
   proxy.$modal.confirm('是否确认删除表编号为"' + tableIds + '"的数据项？').then(function () {
-    return delTable(tableIds);
+    return delTable({tableIds: tableIds});
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");

@@ -77,7 +77,7 @@ public class DefaultSpringTemplate extends AbstractTemplateService {
 	}
 
 	@Override
-	public void initTableConfig(TableEntity table, List<ColumnEntity> columns) {
+	public void initTableConfig(TableEntity table) {
 		// init table config
 		table.setTplCategory(TYPE);
 		table.setAuthor(genConf.getAuthor());
@@ -88,7 +88,10 @@ public class DefaultSpringTemplate extends AbstractTemplateService {
 		table.setFunctionName(table.getTableComment());
 		table.setClassName(toClassName(table.getTableName(), genConf.getTablePrefix(), genConf.isAutoRemovePre()));
 		table.setVersion(DEFAULT_VERSION);
+	}
 
+	@Override
+	public void initTableColumnConfig(TableEntity table, List<ColumnEntity> columns) {
 		// init table column config
 		for (ColumnEntity column : columns) {
 			String dataType = Strings.getDbType(column.getColumnType());
@@ -170,8 +173,6 @@ public class DefaultSpringTemplate extends AbstractTemplateService {
 				column.setHtmlType(HTML_EDITOR);
 			}
 		}
-		// update columns
-		table.setColumns(columns);
 	}
 
 	@Override

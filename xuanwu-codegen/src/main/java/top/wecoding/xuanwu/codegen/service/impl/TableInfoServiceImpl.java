@@ -17,6 +17,7 @@ import top.wecoding.xuanwu.codegen.repository.ColumnInfoRepository;
 import top.wecoding.xuanwu.codegen.repository.TableInfoRepository;
 import top.wecoding.xuanwu.codegen.service.TableInfoService;
 import top.wecoding.xuanwu.codegen.service.TemplateFactory;
+import top.wecoding.xuanwu.codegen.service.TemplateService;
 import top.wecoding.xuanwu.codegen.util.Strings;
 import top.wecoding.xuanwu.core.base.PageResult;
 import top.wecoding.xuanwu.core.exception.IllegalParameterException;
@@ -60,14 +61,9 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 	private final TemplateFactory templateFactory;
 
 	@Override
-	public TableEntity getTableInfo(String tableIdOrName) {
-		Optional<TableEntity> info = baseRepository.findByTableName(tableIdOrName);
-
-		if (info.isEmpty()) {
-			info = baseRepository.findById(Long.valueOf(tableIdOrName));
-		}
-
-		return info.orElseThrow(() -> new IllegalParameterException(SystemErrorCode.DATA_NOT_EXIST));
+	public TableEntity getTableInfo(Long tableId) {
+		return baseRepository.findById(tableId)
+			.orElseThrow(() -> new IllegalParameterException(SystemErrorCode.DATA_NOT_EXIST));
 	}
 
 	@Override
@@ -128,7 +124,10 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 			for (TableEntity table : tableEntities) {
 				String tableName = table.getTableName();
 				List<ColumnEntity> columnEntities = this.listDbTableColumnsByTableName(tableName);
-				templateFactory.create(table.getTplCategory()).initTableConfig(table, columnEntities);
+				TemplateService templateService = templateFactory.create(table.getTplCategory());
+				templateService.initTableConfig(table);
+				templateService.initTableColumnConfig(table, columnEntities);
+				table.setColumns(columnEntities);
 				this.baseRepository.save(table);
 			}
 		}
@@ -158,24 +157,19 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 			var dbTableColumnNames = dbColumns.stream().map(ColumnEntity::getColumnName).toList();
 
 			// initialize table common config
-			templateFactory.create(table.getTplCategory()).initTableConfig(table, dbColumns);
+			templateFactory.create(table.getTplCategory()).initTableColumnConfig(table, dbColumns);
 
 			for (ColumnEntity dbColumn : dbColumns) {
 				// updated if old column
 				if (oldColumnsMap.containsKey(dbColumn.getColumnName())) {
 					ColumnEntity oldColumn = oldColumnsMap.get(dbColumn.getColumnName());
-					dbColumn.setId(oldColumn.getId());
-					if (dbColumn.isList()) {
-						dbColumn.setQueryType(oldColumn.getQueryType());
-					}
-					if (StringUtils.isNotEmpty(oldColumn.getIsRequired()) && !dbColumn.isPk()
-							&& (dbColumn.isInsert() || dbColumn.isEdit())
-							&& ((dbColumn.isUsableColumn()) || (!dbColumn.isSuperColumn()))) {
-						// 如果是(新增/修改&非主键/非忽略及父属性)，继续保留必填/显示类型选项
-						dbColumn.setIsRequired(oldColumn.getIsRequired());
-						dbColumn.setHtmlType(oldColumn.getHtmlType());
-					}
-					columnInfoRepository.save(dbColumn);
+					oldColumn.setIsRequired(dbColumn.getIsRequired());
+					oldColumn.setIsPk(dbColumn.getIsPk());
+					oldColumn.setSort(dbColumn.getSort());
+					oldColumn.setColumnComment(dbColumn.getColumnComment());
+					oldColumn.setIsIncrement(dbColumn.getIsIncrement());
+					oldColumn.setColumnType(dbColumn.getColumnType());
+					columnInfoRepository.save(oldColumn);
 					continue;
 				}
 				// added if new column
@@ -192,8 +186,9 @@ public class TableInfoServiceImpl extends BaseServiceImpl<TableEntity, Long> imp
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void batchDelete(List<String> tables) {
-		baseRepository.deleteByTableNameIn(tables);
+	public void batchDelete(List<Long> tableIds) {
+		List<TableEntity> tables = baseRepository.findAllById(tableIds);
+		tables.forEach(this::delete);
 	}
 
 	@SneakyThrows(Exception.class)

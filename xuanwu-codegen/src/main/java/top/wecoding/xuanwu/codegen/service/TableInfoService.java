@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface TableInfoService extends BaseService<TableEntity, Long> {
 
-	TableEntity getTableInfo(String tableIdOrName);
+	TableEntity getTableInfo(Long tableId);
 
 	PageResult<TableEntity> listTables(String tableName, Pageable page);
 
@@ -33,6 +33,6 @@ public interface TableInfoService extends BaseService<TableEntity, Long> {
 
 	void syncTableFromDb(Collection<Long> tables);
 
-	void batchDelete(List<String> tables);
+	void batchDelete(List<Long> tableIds);
 
 }

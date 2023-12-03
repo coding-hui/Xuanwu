@@ -18,6 +18,7 @@ import top.wecoding.xuanwu.codegen.service.TableInfoService;
 import top.wecoding.xuanwu.core.annotation.Version;
 import top.wecoding.xuanwu.core.base.R;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,9 +33,9 @@ public class TableController {
 
 	private final TableInfoService tableInfoService;
 
-	@GetMapping("/{tableIdOrName}")
-	public R<?> tableInfo(@PathVariable("tableIdOrName") String tableIdOrName) {
-		return R.ok(tableInfoService.getTableInfo(tableIdOrName));
+	@GetMapping("/{tableId}")
+	public R<?> tableInfo(@PathVariable("tableId") Long tableId) {
+		return R.ok(tableInfoService.getTableInfo(tableId));
 	}
 
 	@GetMapping("/from_db")
@@ -76,22 +77,28 @@ public class TableController {
 		return R.ok(tableInfoService.batchImportTableFromDb(tableNames));
 	}
 
-	@GetMapping("sync_db")
-	public R<?> syncFromDb(@RequestParam("tableIds") List<Long> tableIds) {
+	@GetMapping("/{tableId}/sync_db")
+	public R<?> syncFromDb(@PathVariable("tableId") Long tableId) {
+		tableInfoService.syncTableFromDb(Collections.singletonList(tableId));
+		return R.ok();
+	}
+
+	@GetMapping("/batch_sync_db")
+	public R<?> batchSyncFromDb(@RequestParam("tableIds") List<Long> tableIds) {
 		tableInfoService.syncTableFromDb(tableIds);
 		return R.ok();
 	}
 
-	@DeleteMapping("/{tableIdOrName}")
-	public R<?> delete(@PathVariable("tableIdOrName") String tableIdOrName) {
-		TableEntity tableInfo = tableInfoService.getTableInfo(tableIdOrName);
+	@DeleteMapping("/{tableId}")
+	public R<?> delete(@PathVariable("tableId") Long tableId) {
+		TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
 		tableInfoService.delete(tableInfo);
 		return R.ok();
 	}
 
 	@DeleteMapping("/batch_delete")
-	public R<?> batchDelete(@RequestParam("tableNames") List<String> tableNames) {
-		tableInfoService.batchDelete(tableNames);
+	public R<?> batchDelete(@RequestParam("tableIds") List<Long> tableIds) {
+		tableInfoService.batchDelete(tableIds);
 		return R.ok();
 	}
 

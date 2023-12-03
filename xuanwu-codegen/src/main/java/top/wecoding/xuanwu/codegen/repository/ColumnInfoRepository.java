@@ -29,4 +29,6 @@ public interface ColumnInfoRepository
 			""")
 	List<Object> listDbTableColumnsByTableName(String tableName);
 
+	void deleteByTableIdIn(List<Long> tableIds);
+
 }

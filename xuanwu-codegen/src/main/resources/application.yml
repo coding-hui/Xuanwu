@@ -58,3 +58,13 @@ xuanwu:
           file-name-format: "service/impl/${ClassName}ServiceImpl.java"
         - name: "templates/default/spring/controller.java.vm"
           file-name-format: "controller/${version}/${ClassName}Controller.java"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+xuanwu:
+  codegen:
+    frontend:
+      enabled: false

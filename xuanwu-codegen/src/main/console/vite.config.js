@@ -30,13 +30,8 @@ export default defineConfig(({ mode, command }) => {
       open: true,
       proxy: {
         // https://cn.vitejs.dev/config/#server-proxy
-        '': {
-          target: 'http://localhost:9030/',
-          changeOrigin: true,
-          // rewrite: (p) => p.replace(/^\/dev-api/, '')
-        },
         '/api': {
-          target: 'http://iam.wecoding.local',
+          target: 'http://localhost:9030/',
           changeOrigin: true,
           // rewrite: (p) => p.replace(/^\/dev-api/, '')
         }

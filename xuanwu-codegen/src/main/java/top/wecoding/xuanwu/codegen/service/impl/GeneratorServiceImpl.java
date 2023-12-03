@@ -26,15 +26,15 @@ public class GeneratorServiceImpl implements GeneratorService {
 	private final TableInfoService tableInfoService;
 
 	@Override
-	public void generator(String tableIdOrName) {
-		TableEntity tableInfo = tableInfoService.getTableInfo(tableIdOrName);
+	public void generator(Long tableId) {
+		TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
 		TemplateService tplSvc = templateFactory.create(tableInfo.getTplCategory());
 		tplSvc.renderToFile(tableInfo);
 	}
 
 	@Override
-	public byte[] download(String tableIdOrName) {
-		TableEntity tableInfo = tableInfoService.getTableInfo(tableIdOrName);
+	public byte[] download(Long tableId) {
+		TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
 		TemplateService tplSvc = templateFactory.create(tableInfo.getTplCategory());
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		ZipOutputStream zip = new ZipOutputStream(outputStream);
@@ -44,8 +44,8 @@ public class GeneratorServiceImpl implements GeneratorService {
 	}
 
 	@Override
-	public Map<String, String> preview(String tableIdOrName) {
-		TableEntity tableInfo = tableInfoService.getTableInfo(tableIdOrName);
+	public Map<String, String> preview(Long tableId) {
+		TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
 		TemplateService tplSvc = templateFactory.create(tableInfo.getTplCategory());
 		return tplSvc.render(tableInfo);
 	}

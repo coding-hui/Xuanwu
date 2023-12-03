@@ -28,6 +28,15 @@ public class CodeGenConfig {
 
 	private Map<String, Set<Template>> templates;
 
+	private Frontend frontend;
+
+	@Data
+	public static class Frontend {
+
+		public boolean enabled = true;
+
+	}
+
 	@Data
 	public static class Template {
 

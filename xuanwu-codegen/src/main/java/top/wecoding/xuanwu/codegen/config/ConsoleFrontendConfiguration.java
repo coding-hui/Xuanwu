@@ -13,6 +13,7 @@ import java.io.IOException;
  * @since 0.8
  */
 @Configuration
+@ConditionalOnFrontendEnabled
 public class ConsoleFrontendConfiguration implements WebMvcConfigurer {
 
 	@Override

@@ -101,14 +101,14 @@
       </el-col>
 
       <el-col :span="24" v-if="info.genType == 'DOWNLOAD'">
-        <el-form-item prop="genPath">
+        <el-form-item prop="backendPath">
           <template #label>
-            自定义路径
+            后端路径
             <el-tooltip content="填写磁盘绝对路径，若不填写，则生成到当前Web项目下" placement="top">
               <el-icon><question-filled /></el-icon>
             </el-tooltip>
           </template>
-          <el-input v-model="info.genPath">
+          <el-input v-model="info.backendPath">
             <template #append>
               <el-dropdown>
                 <el-button type="primary">
@@ -117,7 +117,7 @@
                 </el-button>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item @click="info.genPath = '/'">恢复默认的生成基础路径</el-dropdown-item>
+                    <el-dropdown-item @click="info.backendPath = '/'">恢复默认的生成基础路径</el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>

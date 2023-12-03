@@ -11,8 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.apache.commons.lang3.StringUtils;
 import top.wecoding.xuanwu.codegen.enums.YesOrNo;
@@ -25,7 +26,8 @@ import java.io.Serializable;
  * @author wecoding
  * @since 0.9
  */
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -140,6 +142,16 @@ public class ColumnEntity extends LogicDeleteEntity implements Serializable {
 	@JsonIgnore
 	public boolean isEdit() {
 		return YesOrNo.YES.is(this.isEdit);
+	}
+
+	@Override
+	public String toString() {
+		return "ColumnEntity{" + "id=" + id + ", columnName='" + columnName + '\'' + ", columnComment='" + columnComment
+				+ '\'' + ", columnType='" + columnType + '\'' + ", genType='" + genType + '\'' + ", genField='"
+				+ genField + '\'' + ", isPk='" + isPk + '\'' + ", isIncrement='" + isIncrement + '\'' + ", isRequired='"
+				+ isRequired + '\'' + ", isInsert='" + isInsert + '\'' + ", isEdit='" + isEdit + '\'' + ", isList='"
+				+ isList + '\'' + ", isQuery='" + isQuery + '\'' + ", queryType='" + queryType + '\'' + ", htmlType='"
+				+ htmlType + '\'' + ", sort=" + sort + '}';
 	}
 
 }

@@ -9,8 +9,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import top.wecoding.xuanwu.orm.domain.LogicDeleteEntity;
 
@@ -22,7 +23,8 @@ import java.util.List;
  * @author wecoding
  * @since 0.9
  */
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -79,5 +81,17 @@ public class TableEntity extends LogicDeleteEntity implements Serializable {
 	private List<ColumnEntity> columns;
 
 	private String remark;
+
+	@Override
+	public String toString() {
+		return "TableEntity{" + "id=" + id + ", tplCategory='" + tplCategory + '\'' + ", dsName='" + dsName + '\''
+				+ ", dbType='" + dbType + '\'' + ", tableName='" + tableName + '\'' + ", tableComment='" + tableComment
+				+ '\'' + ", className='" + className + '\'' + ", author='" + author + '\'' + ", packageName='"
+				+ packageName + '\'' + ", version='" + version + '\'' + ", genType='" + genType + '\''
+				+ ", backendPath='" + backendPath + '\'' + ", frontendPath='" + frontendPath + '\'' + ", dbEngine='"
+				+ dbEngine + '\'' + ", tableCollation='" + tableCollation + '\'' + ", functionName='" + functionName
+				+ '\'' + ", businessName='" + businessName + '\'' + ", moduleName='" + moduleName + '\'' + ", columns="
+				+ columns + ", remark='" + remark + '\'' + '}';
+	}
 
 }

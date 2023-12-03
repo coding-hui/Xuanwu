@@ -52,26 +52,27 @@ export function previewTable(tableId) {
 }
 
 // 删除表数据
-export function delTable(tableId) {
+export function delTable(tableIds) {
   return request({
-    url: '/api/v1/tables/' + tableId,
-    method: 'delete'
+    url: '/api/v1/tables/batch_delete',
+    method: 'delete',
+    params: tableIds
   })
 }
 
 // 生成代码（自定义路径）
-export function genCode(tableName) {
+export function genCodeToFile(tableId) {
   return request({
-    url: '/tool/gen/genCode/' + tableName,
+    url: `/api/v1/generator/${tableId}/file`,
     method: 'get'
   })
 }
 
 // 同步数据库
-export function synchDb(tableName) {
+export function synchDb(tableId) {
   return request({
-    url: '/tool/gen/synchDb/' + tableName,
-    method: 'get'
+    url: `/api/v1/tables/${tableId}/sync_db`,
+    method: 'get',
   })
 }
 

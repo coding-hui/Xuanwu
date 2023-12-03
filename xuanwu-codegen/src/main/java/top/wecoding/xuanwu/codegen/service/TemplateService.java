@@ -15,7 +15,9 @@ public interface TemplateService {
 
 	String type();
 
-	void initTableConfig(TableEntity table, List<ColumnEntity> columns);
+	void initTableConfig(TableEntity table);
+
+	void initTableColumnConfig(TableEntity table, List<ColumnEntity> columns);
 
 	Map<String, String> render(TableEntity table);
 
