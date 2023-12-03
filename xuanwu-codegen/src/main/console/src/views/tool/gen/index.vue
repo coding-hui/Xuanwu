@@ -36,15 +36,15 @@
     </el-form>
 
     <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="Download"
-          @click="handleGenTable"
-          v-hasPermi="['tool:gen:code']"
-        >生成</el-button>
-      </el-col>
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="primary"-->
+<!--          plain-->
+<!--          icon="Download"-->
+<!--          @click="handleGenTable"-->
+<!--          v-hasPermi="['tool:gen:code']"-->
+<!--        >生成</el-button>-->
+<!--      </el-col>-->
       <el-col :span="1.5">
         <el-button
           type="info"
@@ -228,7 +228,7 @@ function handleGenTable(row) {
       proxy.$modal.msgSuccess("成功生成到自定义路径：" + row.backendPath);
     });
   } else {
-    proxy.$download.zip(`/api/v1/generator/${tbIds}/zip`, "xuanwu.zip");
+    proxy.$download.zip(`/api/v1/generator/${row.id}/zip`, "xuanwu.zip");
   }
 }
 /** 同步数据库操作 */

@@ -13,7 +13,7 @@ NProgress.configure({ showSpinner: false });
 
 const whiteList = ['/login', '/register'];
 
-const iamLoginPath = import.meta.env.VITE_VITE_IAM_LOGIN_PATH
+const iamLoginPath = import.meta.env.VITE_IAM_LOGIN_PATH
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
