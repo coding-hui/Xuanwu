@@ -5,6 +5,10 @@ metadata:
   namespace: xuanwu-system
 data:
   config.yaml: |
+    xuanwu:
+      codegen:
+        frontend:
+          enabled: true
     server:
       servlet:
         context-path: 
