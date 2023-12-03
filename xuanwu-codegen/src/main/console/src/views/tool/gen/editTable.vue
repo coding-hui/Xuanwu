@@ -24,7 +24,7 @@
             min-width="10%"
             :show-overflow-tooltip="true"
           />
-          <el-table-column label="Java类型" min-width="11%">
+          <el-table-column label="生成类型" min-width="11%">
             <template #default="scope">
               <el-select v-model="scope.row.genType">
                 <el-option label="Long" value="Long" />
@@ -37,7 +37,7 @@
               </el-select>
             </template>
           </el-table-column>
-          <el-table-column label="java属性" min-width="10%">
+          <el-table-column label="生成属性" min-width="10%">
             <template #default="scope">
               <el-input v-model="scope.row.genField"></el-input>
             </template>
