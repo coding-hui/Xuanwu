@@ -19,7 +19,7 @@ import top.wecoding.xuanwu.core.base.R;
 @Version("v1")
 @RequiredArgsConstructor
 @RestController("generatorController.v1")
-@RequestMapping("/api/v1/generator")
+@RequestMapping("/generator")
 public class GeneratorController {
 
 	private final GeneratorService generatorService;

@@ -15,7 +15,7 @@ import top.wecoding.xuanwu.core.base.R;
 @Version("v1")
 @RequiredArgsConstructor
 @RestController("templateController.v1")
-@RequestMapping("/api/v1/templates")
+@RequestMapping("/templates")
 public class TemplateController {
 
 	private final TemplateFactory templateFactory;

@@ -27,7 +27,7 @@ import java.util.List;
 @Version("v1")
 @RequiredArgsConstructor
 @RestController("tableController.v1")
-@RequestMapping("/api/v1/tables")
+@RequestMapping("/tables")
 public class TableController {
 
 	private final TableInfoService tableInfoService;

@@ -234,9 +234,9 @@ public class BaseExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public R<Object> handleException(Exception e, HttpServletRequest request) {
+	public R<Object> handleException(Exception e, HttpServletRequest request, HandlerMethod method) {
 		if (log.isErrorEnabled()) {
-			log.error(exceptionMessage("Unknown exception", request, null));
+			log.error(exceptionMessage("Unknown exception", request, method), e);
 		}
 		String message = FAILURE.getDesc(e.getMessage());
 		return R.error(FAILURE, message, null);
