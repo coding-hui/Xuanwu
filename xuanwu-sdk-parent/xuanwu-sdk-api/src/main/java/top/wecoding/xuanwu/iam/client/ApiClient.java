@@ -7,6 +7,7 @@ import org.springframework.web.client.support.RestTemplateAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import top.wecoding.xuanwu.iam.api.AuthenticationApi;
+import top.wecoding.xuanwu.iam.api.UserApi;
 import top.wecoding.xuanwu.iam.client.interceptor.BearerTokenAuthenticationInterceptor;
 import top.wecoding.xuanwu.iam.config.ClientConfiguration;
 
@@ -51,6 +52,10 @@ public class ApiClient {
 
 	public AuthenticationApi authenticationApi() {
 		return this.factory.createClient(AuthenticationApi.class);
+	}
+
+	public UserApi userApi() {
+		return this.factory.createClient(UserApi.class);
 	}
 
 }
