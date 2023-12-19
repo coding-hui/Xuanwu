@@ -29,6 +29,6 @@ public interface BaseService<T, ID> {
 
 	boolean existsWithId(ID key);
 
-	T updateById(T record);
+	T updateById(ID key, T record);
 
 }

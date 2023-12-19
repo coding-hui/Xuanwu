@@ -8,6 +8,8 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import top.wecoding.xuanwu.core.exception.IllegalParameterException;
+import top.wecoding.xuanwu.core.exception.SystemErrorCode;
 
 import java.beans.PropertyDescriptor;
 import java.util.HashSet;
@@ -74,12 +76,13 @@ public abstract class BaseServiceImpl<T, ID> implements BaseService<T, ID> {
 	}
 
 	@Override
-	public T updateById(T record) {
-		Optional<T> oldInfo = this.getBaseRepository().findOne(Example.of(record));
-		if (oldInfo.isPresent()) {
-			// 将 oldInfo 复制到 record 属性为 null 的属性
-			BeanUtils.copyProperties(oldInfo.get(), record, getNoNullProperties(oldInfo));
+	public T updateById(ID key, T record) {
+		Optional<T> oldInfo = this.getBaseRepository().findById(key);
+		if (oldInfo.isEmpty()) {
+			throw new IllegalParameterException(SystemErrorCode.DATA_NOT_EXIST);
 		}
+		// 将 oldInfo 复制到 record 中为 null 的属性
+		BeanUtils.copyProperties(oldInfo.get(), record, getNoNullProperties(record));
 		return this.getBaseRepository().save(record);
 	}
 
