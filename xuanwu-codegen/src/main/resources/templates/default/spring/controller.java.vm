@@ -26,7 +26,7 @@ import top.wecoding.xuanwu.core.exception.DateNotFoundException;
 @Version("${version}")
 @RequiredArgsConstructor
 @RestController("${className}Controller.${version}")
-@RequestMapping("/api/${version}/${className}")
+@RequestMapping("/${className}")
 public class ${ClassName}Controller {
 
     private final ${ClassName}Service ${className}Service;
@@ -41,9 +41,9 @@ public class ${ClassName}Controller {
         return R.ok(${className}Service.create(${className}));
     }
 
-    @PutMapping("")
-    public R<${ClassName}> update(@RequestBody @Validated ${ClassName} ${className}) {
-        return R.ok(${className}Service.updateById(${className}));
+    @PutMapping("/{${pkColumn.genField}}")
+    public R<${ClassName}> update(@PathVariable("${pkColumn.genField}") ${pkColumn.genType} ${pkColumn.genField}, @RequestBody @Validated ${ClassName} ${className}) {
+        return R.ok(${className}Service.updateById(${pkColumn.genField}, ${className}));
     }
 
     @DeleteMapping("/{${pkColumn.genField}}")

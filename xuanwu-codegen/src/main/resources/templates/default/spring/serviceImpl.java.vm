@@ -22,7 +22,7 @@ public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}, ${pkC
     private final ${ClassName}Repository ${className}Repository;
 
     @Override
-    protected JpaRepository<Test, Long> getBaseRepository() {
+    protected JpaRepository<${ClassName}, Long> getBaseRepository() {
         return this.${className}Repository;
     }
 
