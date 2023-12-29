@@ -57,7 +57,7 @@ xuanwu:
         - name: "templates/default/spring/serviceImpl.java.vm"
           file-name-format: "service/impl/${ClassName}ServiceImpl.java"
         - name: "templates/default/spring/controller.java.vm"
-          file-name-format: "controller/${version}/${ClassName}Controller.java"
+          file-name-format: "api/${version}/${ClassName}Controller.java"
 
 ---
 spring:
