@@ -33,11 +33,11 @@ spec:
               value: "http://iam-apiserver-service.iam-system:8000"
           resources:
             limits:
-              cpu: 100m
-              memory: 512Mi
+              cpu: 1000m
+              memory: 1024Mi
             requests:
-              cpu: 100m
-              memory: 256Mi
+              cpu: 1000m
+              memory: 1024Mi
           volumeMounts:
           - mountPath: "/xuanwu/config.yaml"
             name: "xuanwu-codegen"
