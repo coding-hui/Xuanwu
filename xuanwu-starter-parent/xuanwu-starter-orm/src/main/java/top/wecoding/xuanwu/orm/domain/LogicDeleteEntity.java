@@ -17,6 +17,14 @@ import lombok.experimental.SuperBuilder;
 @MappedSuperclass
 public class LogicDeleteEntity extends BaseEntity {
 
+	public static final String DELETE_FIELD = "is_deleted";
+
+	public static final String SOFT_DELETE_WHERE = "is_deleted = 0";
+
+	public static final String SOFT_DELETE_SET = "is_deleted = null";
+
+	public static final String SOFT_DELETE_HQL_SET = "deleted = null";
+
 	@JsonIgnore
 	@Column(name = "is_deleted")
 	private Boolean deleted;

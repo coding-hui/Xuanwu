@@ -19,6 +19,8 @@ public class BaseUncheckedException extends RuntimeException {
 
 	protected ErrorCode errorCode;
 
+	protected String url;
+
 	protected Object[] args;
 
 	public BaseUncheckedException() {
@@ -42,12 +44,13 @@ public class BaseUncheckedException extends RuntimeException {
 	}
 
 	public BaseUncheckedException(ErrorCode supplier, String message) {
-		this(supplier, null, message);
+		this(supplier, null, message, null);
 	}
 
-	public BaseUncheckedException(ErrorCode errorCode, Throwable cause, String message, Object... args) {
+	public BaseUncheckedException(ErrorCode errorCode, Throwable cause, String message, String url, Object... args) {
 		super(message, cause);
 		this.errorCode = errorCode;
+		this.url = url;
 		this.args = args;
 	}
 

@@ -3,6 +3,7 @@ package ${packageName}.domain.entity;
 #foreach ($import in $importList)
 import ${import};
 #end
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -44,6 +45,7 @@ public class ${ClassName} extends LogicDeleteEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 #end
+    @Column(name = "${column.columnName}")
     private $column.genType $column.genField;
 
 #end

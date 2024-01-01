@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -26,6 +26,8 @@
         <velocity.version>2.3</velocity.version>
         <velocity.tool.version>3.1</velocity.tool.version>
         <commons.io.version>2.13.0</commons.io.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
+        <lombok.version>1.18.30</lombok.version>
         <docker.plugin.version>0.43.4</docker.plugin.version>
         <docker.registry>devops-wecoding-docker.pkg.coding.net</docker.registry>
         <docker.namespace>wecoding/images</docker.namespace>
@@ -41,6 +43,7 @@
         <module>xuanwu-starter-file-parent</module>
         <module>xuanwu-sdk-parent</module>
         <module>xuanwu-boot-parent</module>
+        <module>xuanwu-mall</module>
     </modules>
 
     <dependencyManagement>
@@ -69,6 +72,18 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons.io.version}</version>
+            </dependency>
+
+            <!-- MapStruct -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
 
             <!-- xuanwu starters -->
@@ -100,6 +115,11 @@
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-mongo</artifactId>
+                <version>${xuanwu.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wecoding.xuanwu</groupId>
+                <artifactId>xuanwu-starter-printer</artifactId>
                 <version>${xuanwu.starter.version}</version>
             </dependency>
 
@@ -223,6 +243,18 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>

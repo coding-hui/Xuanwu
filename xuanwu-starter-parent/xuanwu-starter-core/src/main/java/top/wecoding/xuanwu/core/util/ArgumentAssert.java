@@ -9,6 +9,8 @@ import top.wecoding.xuanwu.core.exception.IllegalParameterException;
 import java.util.Collection;
 import java.util.Map;
 
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_ERROR;
+
 /**
  * @author liuyuhui
  * @since 0.5
@@ -72,6 +74,10 @@ public class ArgumentAssert {
 		Assert.notEmpty(array, () -> {
 			throw new IllegalParameterException(supplier, args);
 		});
+	}
+
+	public static void notEmpty(@Nullable Collection<?> collection, Object... args) {
+		notEmpty(collection, PARAM_ERROR, args);
 	}
 
 	public static void notEmpty(@Nullable Collection<?> collection, ErrorCode supplier, Object... args) {
