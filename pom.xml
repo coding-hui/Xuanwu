@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
+        <version>3.2.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -22,6 +22,7 @@
 
         <xuanwu.starter.version>0.9-SNAPSHOT</xuanwu.starter.version>
 
+        <fastjson.version>1.2.83</fastjson.version>
         <httpclient5.version>5.2.1</httpclient5.version>
         <velocity.version>2.3</velocity.version>
         <velocity.tool.version>3.1</velocity.tool.version>
@@ -48,6 +49,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
             <!-- Http client -->
             <dependency>
                 <groupId>org.apache.httpcomponents.client5</groupId>
