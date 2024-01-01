@@ -17,6 +17,8 @@ import top.wecoding.xuanwu.core.base.R;
 import top.wecoding.xuanwu.core.exception.DateNotFoundException;
 import top.wecoding.xuanwu.mall.domain.entity.Printer;
 import top.wecoding.xuanwu.mall.domain.request.PrinterServicePageRequest;
+import top.wecoding.xuanwu.mall.domain.response.OrderDetail;
+import top.wecoding.xuanwu.mall.service.OrderService;
 import top.wecoding.xuanwu.mall.service.PrinterService;
 
 /**
@@ -33,6 +35,8 @@ import top.wecoding.xuanwu.mall.service.PrinterService;
 public class PrinterController {
 
 	private final PrinterService printerService;
+
+	private final OrderService orderService;
 
 	@GetMapping("/{id}")
 	public R<Printer> getInfo(@PathVariable("id") Long id) {
@@ -57,6 +61,18 @@ public class PrinterController {
 	@DeleteMapping("/{id}")
 	public R<?> delete(@PathVariable("id") Long id) {
 		printerService.deleteById(id);
+		return R.ok();
+	}
+
+	@GetMapping("/print_test_page/{id}")
+	public R<?> printTestPage(@PathVariable("id") Long id) {
+		return R.ok(printerService.printTestPage(id));
+	}
+
+	@GetMapping("/submit_print_job/{orderId}")
+	public R<?> submitPrintJob(@PathVariable("orderId") Long orderId) {
+		OrderDetail detail = orderService.detail(orderId);
+		printerService.printSalesTicket(detail);
 		return R.ok();
 	}
 

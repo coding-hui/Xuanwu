@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import top.wecoding.xuanwu.mall.constant.PrinterStatus;
+import top.wecoding.xuanwu.mall.constant.PrinterType;
 import top.wecoding.xuanwu.mall.domain.entity.Printer;
 import top.wecoding.xuanwu.mall.repository.PrinterRepository;
 
@@ -34,16 +36,17 @@ public class PrinterServiceInitialize implements ApplicationRunner {
 
 		for (String printerServiceName : printerServiceNames) {
 			if (printerRepository.existsByName(printerServiceName)) {
-				log.info("SalesTicketPrinter [{}] has been initialize.", printerServiceName);
+				log.info("Printer [{}] has been initialize.", printerServiceName);
 				continue;
 			}
 			Printer printer = Printer.builder()
 				.name(printerServiceName)
+				.type(PrinterType.USB.getCode())
 				.description("System Initialized")
-				.status(0)
+				.status(PrinterStatus.DISABLED.getStatus())
 				.build();
 			printerRepository.save(printer);
-			log.info("Create default printer: [{}]", printerServiceName);
+			log.info("Create system printer: [{}]", printerServiceName);
 		}
 
 	}

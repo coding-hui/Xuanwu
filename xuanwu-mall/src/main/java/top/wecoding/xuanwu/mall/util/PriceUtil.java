@@ -31,6 +31,14 @@ public class PriceUtil {
 		return selfGetAmount(order.getTotalAmount()).add(totalAmount);
 	}
 
+	public static BigDecimal calcOrderItemTotalAmount(List<OrderItem> orderItems) {
+		BigDecimal totalAmount = new BigDecimal("0");
+		for (OrderItem item : orderItems) {
+			totalAmount = totalAmount.add(item.getFoodPrice().multiply(new BigDecimal(item.getFoodQuantity())));
+		}
+		return totalAmount;
+	}
+
 	public static BigDecimal calcPromotionAmount(Order order, List<OrderItem> orderItems) {
 		BigDecimal promotionAmount = new BigDecimal(0);
 		for (OrderItem orderItem : orderItems) {

@@ -134,8 +134,8 @@ public class SalesTicket implements Printable {
 		line += heigth;
 		g2.setFont(boldContentFont);
 		g2.drawString("应付金额 ", (float) x + 5, (float) y + line);
-		BigDecimal totalAmount = PriceUtil.calcTotalAmount(order, orderItems);
-		float totalAmountTextWidth = g2.getFontMetrics(boldContentFont).stringWidth("￥" + PriceUtil.calcTotalAmount(order, orderItems));
+		BigDecimal totalAmount = PriceUtil.calcOrderItemTotalAmount(orderItems);
+		float totalAmountTextWidth = g2.getFontMetrics(boldContentFont).stringWidth("￥" + PriceUtil.calcOrderItemTotalAmount(orderItems));
 		g2.drawString("￥" + totalAmount, (float) maxWidth - totalAmountTextWidth - 10, (float) y + line);
 		line += heigth;
 		g2.drawLine((int) x, (int) (y + line), (int) x + 227, (int) (y + line));

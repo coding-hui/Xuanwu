@@ -26,25 +26,20 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  #    driver-class-name: org.h2.Driver
-  #    url: jdbc:h2:file:D:/WorkSpace/WeCoding/Xuanwu/_output/db/xuanwu_mall
-  #    username: xuanwu
-  #    password: WeCoding@319
   jpa:
     generate-ddl: true
-    show-sql: true
-  profiles:
-    active: dev
+    show-sql: false
 
 logging:
   config: classpath:logback-spring.xml
   level:
     top.wecoding.xuanwu: debug
     org.springframework: warn
+
+xuanwu:
+  printer:
+    kitchen-template: classpath:/templates/default_kitchen.json
+    demo-order: classpath:/templates/demo_order.json
 
 ---
 
@@ -58,4 +53,4 @@ spring:
     username: root
     password: 123456
   jpa:
-    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect

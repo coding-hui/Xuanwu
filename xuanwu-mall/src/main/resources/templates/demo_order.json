@@ -1,0 +1,57 @@
+{
+  "order": {
+    "createdAt": "2024-01-01 14:06:16",
+    "updatedAt": "2024-01-01 14:06:16",
+    "id": 43,
+    "tableCode": "A1",
+    "orderSn": "202401010000ec0356",
+    "totalAmount": 25,
+    "payAmount": 0,
+    "freightAmount": 0,
+    "promotionAmount": 0,
+    "discountAmount": 0,
+    "payType": 0,
+    "sourceType": 0,
+    "status": 0,
+    "orderType": 0,
+    "peopleCount": 4
+  },
+  "orderItems": [
+    {
+      "createdAt": "2024-01-01 14:06:16",
+      "updatedAt": "2024-01-01 14:06:16",
+      "id": 160,
+      "orderId": 43,
+      "tableCode": "A1",
+      "orderSn": "202401010000ec0356",
+      "foodId": 4,
+      "foodName": "油泼面-测试",
+      "foodPrice": 14,
+      "foodQuantity": 1
+    },
+    {
+      "createdAt": "2024-01-01 14:06:16",
+      "updatedAt": "2024-01-01 14:06:16",
+      "id": 161,
+      "orderId": 43,
+      "tableCode": "A1",
+      "orderSn": "202401010000ec0356",
+      "foodId": 8,
+      "foodName": "清水锅-测试",
+      "foodPrice": 10,
+      "foodQuantity": 1
+    },
+    {
+      "createdAt": "2024-01-01 14:06:16",
+      "updatedAt": "2024-01-01 14:06:16",
+      "id": 162,
+      "orderId": 43,
+      "tableCode": "A1",
+      "orderSn": "202401010000ec0356",
+      "foodId": 9,
+      "foodName": "小米椒-测试",
+      "foodPrice": 1,
+      "foodQuantity": 1
+    }
+  ]
+}

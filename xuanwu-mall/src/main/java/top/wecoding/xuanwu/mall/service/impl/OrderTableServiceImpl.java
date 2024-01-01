@@ -10,7 +10,7 @@ import org.springframework.util.CollectionUtils;
 import top.wecoding.xuanwu.core.base.PageResult;
 import top.wecoding.xuanwu.core.exception.SystemErrorCode;
 import top.wecoding.xuanwu.core.util.ArgumentAssert;
-import top.wecoding.xuanwu.mall.constant.OrderStatus;
+import top.wecoding.xuanwu.mall.constant.OrderTableStatus;
 import top.wecoding.xuanwu.mall.domain.entity.OrderTable;
 import top.wecoding.xuanwu.mall.domain.response.OrderTableInfo;
 import top.wecoding.xuanwu.mall.repository.OrderRepository;
@@ -19,6 +19,9 @@ import top.wecoding.xuanwu.mall.service.OrderTableService;
 import top.wecoding.xuanwu.orm.service.BaseServiceImpl;
 
 import java.util.List;
+import java.util.Optional;
+
+import static top.wecoding.xuanwu.mall.constant.OrderStatus.PENDING_PAYMENT;
 
 /**
  * 订单桌号 - ServiceImpl
@@ -40,7 +43,7 @@ public class OrderTableServiceImpl extends BaseServiceImpl<OrderTable, Long> imp
 		Page<OrderTable> pageResult = orderTableRepository.findAll(Example.of(params), pageable);
 		List<OrderTable> orderTables = pageResult.getContent();
 		List<OrderTableInfo> orderTableInfos = orderTables.stream().map(t -> {
-			var orders = orderRepository.findByTableCodeAndStatus(t.getCode(), OrderStatus.PENDING_PAYMENT.getCode());
+			var orders = orderRepository.findByTableCodeAndStatus(t.getCode(), PENDING_PAYMENT.getCode());
 			var infoBuilder = OrderTableInfo.builder()
 				.id(t.getId())
 				.code(t.getCode())
@@ -63,6 +66,22 @@ public class OrderTableServiceImpl extends BaseServiceImpl<OrderTable, Long> imp
 		}
 		orderTable.setStatus(status);
 		orderTableRepository.save(orderTable);
+	}
+
+	@Override
+	public void completedOrderTable(Long id) {
+		Optional<OrderTable> optionalOrderTable = orderTableRepository.findById(id);
+		if (optionalOrderTable.isEmpty()) {
+			ArgumentAssert.error(SystemErrorCode.DATA_NOT_EXIST);
+		}
+
+		OrderTable orderTable = optionalOrderTable.get();
+
+		int activateCount = orderRepository.countByTableCodeAndStatus(orderTable.getCode(), PENDING_PAYMENT.ordinal());
+
+		ArgumentAssert.isTrue(activateCount <= 0, SystemErrorCode.PARAM_ERROR, "订单还没有结账");
+
+		updateStatusByCode(orderTable.getCode(), OrderTableStatus.AVAILABLE.getStatus());
 	}
 
 	@Override

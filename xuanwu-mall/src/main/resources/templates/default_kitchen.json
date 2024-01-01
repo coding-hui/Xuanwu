@@ -1,0 +1,109 @@
+{
+  "header": [
+    {
+      "text": "三味鱼火锅",
+      "size": 2,
+      "bold": true,
+      "format": 1,
+      "line": 2,
+      "underline": false,
+      "type": 0
+    },
+    {
+      "text": "结算单",
+      "size": 2,
+      "bold": true,
+      "format": 1,
+      "line": 2,
+      "underline": false,
+      "type": 0
+    },
+    {
+      "text": "桌号: {$tableCode}",
+      "size": 2,
+      "bold": true,
+      "format": 0,
+      "line": 2,
+      "underline": false,
+      "type": 0
+    },
+    {
+      "text": "人数: {$peopleCount}",
+      "size": 1,
+      "bold": false,
+      "format": 0,
+      "line": 2,
+      "underline": false,
+      "type": 0
+    },
+    {
+      "text": "单号: {$orderSn}",
+      "size": 1,
+      "bold": false,
+      "format": 0,
+      "line": 2,
+      "underline": false,
+      "type": 0
+    },
+    {
+      "text": "下单时间: {$createdAt}",
+      "size": 1,
+      "bold": false,
+      "format": 0,
+      "line": 2,
+      "underline": false,
+      "type": 0
+    }
+  ],
+  "goods": [
+    {
+      "name": "菜品",
+      "width": 24,
+      "format": 0,
+      "variable": "foodName"
+    },
+    {
+      "name": "数量",
+      "width": 8,
+      "format": 1,
+      "variable": "foodQuantity"
+    },
+    {
+      "name": "单价",
+      "width": 8,
+      "format": 1,
+      "variable": "foodPrice"
+    }
+  ],
+  "bill": [
+    {
+      "text": "应收金额",
+      "size": 3,
+      "bold": true,
+      "format": 0,
+      "line": 2,
+      "underline": false,
+      "type": 0
+    },
+    {
+      "text": "￥{$totalAmount}",
+      "size": 3,
+      "bold": true,
+      "format": 2,
+      "line": 2,
+      "underline": false,
+      "type": 0
+    }
+  ],
+  "footer": [
+    {
+      "text": "打印时间: {$updatedAt}",
+      "size": 1,
+      "bold": false,
+      "format": 0,
+      "line": 2,
+      "underline": true,
+      "type": 0
+    }
+  ]
+}

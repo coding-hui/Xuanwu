@@ -19,4 +19,6 @@ public interface OrderTableService extends BaseService<OrderTable, Long> {
 
 	void updateStatusByCode(String tableCode, Integer status);
 
+	void completedOrderTable(Long id);
+
 }

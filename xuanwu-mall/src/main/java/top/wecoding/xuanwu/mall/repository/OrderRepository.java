@@ -17,4 +17,6 @@ public interface OrderRepository extends LogicDeleteRepository<Order, Long>, Jpa
 
 	List<Order> findByTableCodeAndStatus(String tableCode, Integer status);
 
+	int countByTableCodeAndStatus(String tableCode, Integer status);
+
 }

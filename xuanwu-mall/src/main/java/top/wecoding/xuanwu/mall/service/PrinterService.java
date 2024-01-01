@@ -24,4 +24,6 @@ public interface PrinterService extends BaseService<Printer, Long> {
 
 	void printSalesTicket(OrderDetail orderDetail);
 
+	boolean printTestPage(Long id);
+
 }

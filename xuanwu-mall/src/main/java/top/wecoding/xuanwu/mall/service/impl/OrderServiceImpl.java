@@ -153,9 +153,10 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		orderTableService.updateStatusByCode(createReq.getTableCode(), OrderTableStatus.IN_USE.getStatus());
 
 		// 打印小票
-		if (createReq.getPrintSalesTicket() != null && createReq.getPrintSalesTicket()) {
-			printerService.printSalesTicket(OrderDetail.builder().order(order).orderItems(orderItems).build());
-		}
+		// if (createReq.getPrintSalesTicket() != null && createReq.getPrintSalesTicket())
+		// {
+		// printerService.printSalesTicket(OrderDetail.builder().order(order).orderItems(orderItems).build());
+		// }
 
 		return CreateOrderResponse.builder().order(order).orderItems(orderItems).build();
 	}

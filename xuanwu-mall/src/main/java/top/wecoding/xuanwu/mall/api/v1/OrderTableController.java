@@ -81,4 +81,10 @@ public class OrderTableController {
 		return R.ok();
 	}
 
+	@DeleteMapping("/completed/{id}")
+	public R<?> completed(@PathVariable("id") Long id) {
+		orderTableService.completedOrderTable(id);
+		return R.ok();
+	}
+
 }

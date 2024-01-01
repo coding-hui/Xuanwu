@@ -49,4 +49,16 @@ public class Printer extends LogicDeleteEntity implements Serializable {
 	@Column(name = "description")
 	private String description;
 
+	@Column(name = "type")
+	private Integer type;
+
+	@Column(name = "ip")
+	private String ip;
+
+	@Column(name = "port")
+	private Integer port;
+
+	@Column(name = "encoding")
+	private String encoding;
+
 }

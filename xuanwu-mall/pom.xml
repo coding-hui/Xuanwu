@@ -27,6 +27,10 @@
             <groupId>top.wecoding.xuanwu</groupId>
             <artifactId>xuanwu-starter-orm</artifactId>
         </dependency>
+        <dependency>
+            <groupId>top.wecoding.xuanwu</groupId>
+            <artifactId>xuanwu-starter-printer</artifactId>
+        </dependency>
 
         <!-- IAM -->
         <dependency>
