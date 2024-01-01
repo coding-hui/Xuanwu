@@ -40,7 +40,7 @@ public class SalesTicketPrinter {
 		pf.setOrientation(PageFormat.PORTRAIT);
 		// 设置打印纸页面信息。通过Paper设置页面的空白边距和可打印区域。必须与实际打印纸张大小相符。
 		Paper paper = new Paper();
-		MediaSize mediaSize = new MediaSize(80, 3276, MediaPrintableArea.MM);
+		MediaSize mediaSize = new MediaSize(58, 3276, MediaPrintableArea.MM);
 		// paper.setSize(200,30000);// 纸张大小
 		// paper.setImageableArea(0,0,200,30000);// A4(595 X
 		// 842)设置打印区域，其实0，0应该是72，72，因为A4纸的默认X,Y边距是72

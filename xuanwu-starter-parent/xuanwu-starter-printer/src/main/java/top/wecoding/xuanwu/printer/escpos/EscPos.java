@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class EscPos {
 		this.socketOut = socket.getOutputStream();
 		socket.isClosed();
 		this.encoding = encoding;
-		this.writer = new OutputStreamWriter(socketOut, encoding);
+		this.writer = new OutputStreamWriter(socketOut, StandardCharsets.UTF_8);
 	}
 
 	public synchronized static EscPos getInstance(String ip, Integer port, String encoding) throws IOException {

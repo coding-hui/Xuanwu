@@ -128,7 +128,7 @@ public class PrinterServiceImpl extends BaseServiceImpl<Printer, Long> implement
 
 	private boolean printEscPosPage(Printer printer, OrderDetail orderDetail) {
 		try {
-			EscPos posInstance = EscPos.getInstance(printer.getIp(), printer.getPort(), printer.getEncoding());
+			EscPos.getInstance(printer.getIp(), printer.getPort());
 			String kitchenTpl = printerConfig.getKitchenTemplate().getContentAsString(StandardCharsets.UTF_8);
 			Map<String, Object> params = new HashMap<>();
 			params.put("keys", orderDetail.getOrder());
