@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: xuanwu-mall-service
+  namespace: xuanwu-system
+spec:
+  ports:
+    - port: 9090
+      targetPort: 9090
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: xuanwu-mall

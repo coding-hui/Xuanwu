@@ -28,17 +28,19 @@ images.push.%: images.build.%
 
 .PHONY: k8s.install
 k8s.install:
-	for name in xuanwu-codegen; do\
+	for name in xuanwu-codegen xuanwu-mall; do\
+		echo "===========> Install $$name"; \
 		kubectl apply -k ./deploy/kubernetes/$$name; \
 	done
 
 .PHONY: k8s.uninstall
 k8s.uninstall:
-	for name in xuanwu-codegen; do\
+	for name in xuanwu-codegen xuanwu-mall; do\
+		echo "===========> Uninstall $$name"; \
 		kubectl delete -k ./deploy/kubernetes/$$name; \
 	done
 
 .PHONY: k8s.update-images
 k8s.update-images:
-	DEPLOYS=xuanwu-codegen ./scripts/update_pod_images.sh
+	./scripts/update_pod_images.sh
 

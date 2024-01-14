@@ -24,7 +24,7 @@ function wait_for_installation_finish() {
     current_time=$(date +%s)
     elapsed_time=$((current_time - start_time))
     if [ "$elapsed_time" -ge "$timeout_seconds" ]; then
-      iam::log::error "Timeout: XUANWU Pod did not become ready within $timeout_seconds seconds."
+      echo "Timeout: XUANWU Pod did not become ready within $timeout_seconds seconds."
       exit 1
     fi
 
@@ -40,10 +40,19 @@ function wait_for_installation_finish() {
 }
 
 if [[ "$DEPLOYS" == *xuanwu-codegen* ]]; then
+  echo "Update xuanwu-codegen image for ${TAG}"
   # Update xuanwu-codegen image
   kubectl -n "$NAMESPACE" set image deployment/xuanwu-codegen codegen="${REGISTRY}/xuanwu-codegen:${TAG}"
   # Restart xuanwu-codegen deployment
   kubectl -n "$NAMESPACE" rollout restart deployment/xuanwu-codegen
+fi
+
+if [[ "$DEPLOYS" == *xuanwu-mall* ]]; then
+  echo "Update xuanwu-mall image for ${TAG}"
+  # Update xuanwu-mall image
+  kubectl -n "$NAMESPACE" set image deployment/xuanwu-mall mall="${REGISTRY}/xuanwu-mall:${TAG}"
+  # Restart xuanwu-mall deployment
+  kubectl -n "$NAMESPACE" rollout restart deployment/xuanwu-mall
 fi
 
 wait_for_installation_finish
