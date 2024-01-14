@@ -24,7 +24,7 @@ images.push: $(addprefix images.push., $(IMAGES))
 images.push.%: images.build.%
 	$(eval IMAGE := $*)
 	@echo "===========> Pushing docker image $(IMAGE) $(VERSION)"
-	mvn docker:push -pl $$name;
+	mvn docker:push -pl $(IMAGE)
 
 .PHONY: k8s.install
 k8s.install:
