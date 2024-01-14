@@ -56,4 +56,4 @@ jobs:
           password: ${{ secrets.DOCKER_PWD }}
 
       - name: Daily Release
-        run: make images.push REGISTRY_PREFIX=${{ vars.REGISTRY_PREFIX }} IMAGES="xuanwu-codegen"
+        run: make images.push REGISTRY_PREFIX=${{ vars.REGISTRY_PREFIX }} IMAGES="xuanwu-codegen xuanwu-mall"
