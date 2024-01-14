@@ -18,7 +18,7 @@ images.build.%:
 		-DskipTests -pl $(IMAGE)
 
 .PHONY: images.push
-images.push: $(addprefix images.push., $(IMAGES))
+images.push: mvn.build $(addprefix images.push., $(IMAGES))
 
 .PHONY: images.push.%
 images.push.%: images.build.%
