@@ -1,26 +1,44 @@
-VERSION=0.9-SNAPSHOT
+VERSION ?= 0.9-SNAPSHOT
+IMAGES ?= "xuanwu-mall xuanwu-codegen"
 
-images.build:
+.PHONY: mvn.build
+mvn.build:
 	mvn clean install -DskipTests
-	for name in xuanwu-codegen; do\
-		mvn package docker:build -Pcodegen-frontend -DskipTests -pl $$name; \
-	done
 
-images.push: images.build
-	for name in xuanwu-codegen; do\
-		mvn docker:push -pl $$name; \
-	done
+.PHONY: images.build
+images.build: mvn.build $(addprefix images.build., $(IMAGES))
 
+.PHONY: images.build.%
+images.build.%:
+	$(eval IMAGE := $*)
+	@echo "===========> Building docker image $(IMAGE) $(VERSION)"
+	mvn package docker:build \
+		$(if $(filter xuanwu-mall,$(IMAGE)),-Pmall-frontend) \
+		$(if $(filter xuanwu-codegen,$(IMAGE)),-Pcodegen-frontend) \
+		-DskipTests -pl $(IMAGE)
+
+.PHONY: images.push
+images.push: $(addprefix images.push., $(IMAGES))
+
+.PHONY: images.push.%
+images.push.%: images.build.%
+	$(eval IMAGE := $*)
+	@echo "===========> Pushing docker image $(IMAGE) $(VERSION)"
+	mvn docker:push -pl $$name;
+
+.PHONY: k8s.install
 k8s.install:
 	for name in xuanwu-codegen; do\
 		kubectl apply -k ./deploy/kubernetes/$$name; \
 	done
 
+.PHONY: k8s.uninstall
 k8s.uninstall:
 	for name in xuanwu-codegen; do\
 		kubectl delete -k ./deploy/kubernetes/$$name; \
 	done
 
+.PHONY: k8s.update-images
 k8s.update-images:
 	DEPLOYS=xuanwu-codegen ./scripts/update_pod_images.sh
 
