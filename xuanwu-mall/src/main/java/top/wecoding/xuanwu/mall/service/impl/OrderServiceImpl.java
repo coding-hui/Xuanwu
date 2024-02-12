@@ -141,6 +141,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		// 插入order表和order_item表
 		orderRepository.save(order);
 		for (OrderItem orderItem : orderItems) {
+			OrderItem oldItem = orderItemRepository.findByOrderIdAndFoodId(order.getId(), orderItem.getFoodId());
+			if (oldItem != null) {
+				orderItem.setId(oldItem.getId());
+				orderItem.setFoodQuantity(orderItem.getFoodQuantity() + oldItem.getFoodQuantity());
+			}
 			orderItem.setOrderId(order.getId());
 			orderItem.setOrderSn(order.getOrderSn());
 		}

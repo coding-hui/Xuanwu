@@ -289,9 +289,9 @@ function GroupForm() {
               size="large">
               返回
             </Button>
-            <Button onClick={handleReset} loading={submitLoading} size="large">
-              备注
-            </Button>
+            {/*<Button onClick={handleReset} loading={submitLoading} size="large">*/}
+            {/*  备注*/}
+            {/*</Button>*/}
             {/*<Button onClick={() => handleCreateOrder(false)} loading={submitLoading} type="outline" size="large">*/}
             {/*  下单*/}
             {/*</Button>*/}

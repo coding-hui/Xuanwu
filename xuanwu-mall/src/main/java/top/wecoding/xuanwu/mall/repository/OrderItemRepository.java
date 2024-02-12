@@ -18,4 +18,6 @@ public interface OrderItemRepository
 
 	List<OrderItem> findByOrderId(Long orderId);
 
+	OrderItem findByOrderIdAndFoodId(Long orderId, Long foodId);
+
 }
