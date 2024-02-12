@@ -1,14 +1,11 @@
 import React, { useContext } from 'react';
 import {
   Form,
-  Input,
-  Button,
   Grid,
-  Space
 } from '@arco-design/web-react';
 import { GlobalContext } from '@/context';
-import { IconRefresh, IconSearch } from '@arco-design/web-react/icon';
 import styles from './style/index.module.less';
+import FoodCatSelect from "@/pages/food/create/food-cat-select";
 
 const { Row, Col } = Grid;
 
@@ -21,9 +18,8 @@ function SearchForm(props: {
 
   const [form] = useForm();
 
-  const handleSubmit = () => {
-    const values = form.getFieldsValue();
-    props.onSearch(values);
+  const handleSubmit = (val) => {
+    props.onSearch({"categoryIds": val});
   };
 
   const handleReset = () => {
@@ -45,24 +41,21 @@ function SearchForm(props: {
         <Row gutter={24}>
           <Col span={colSpan}>
             <Form.Item field="name">
-              <Input
-                allowClear
-                placeholder="请输入菜品名称"
-              />
+              <FoodCatSelect onChange={handleSubmit} mode='multiple' />
             </Form.Item>
           </Col>
         </Row>
       </Form>
-      <div className={styles['right-button']}>
-        <Space>
-          <Button type="primary" icon={<IconSearch />} onClick={handleSubmit}>
-            查询
-          </Button>
-          <Button icon={<IconRefresh />} onClick={handleReset}>
-            重置
-          </Button>
-        </Space>
-      </div>
+      {/*<div className={styles['right-button']}>*/}
+      {/*  <Space>*/}
+      {/*    <Button type="primary" icon={<IconSearch />} onClick={handleSubmit}>*/}
+      {/*      查询*/}
+      {/*    </Button>*/}
+      {/*    <Button icon={<IconRefresh />} onClick={handleReset}>*/}
+      {/*      重置*/}
+      {/*    </Button>*/}
+      {/*  </Space>*/}
+      {/*</div>*/}
     </div>
   );
 }

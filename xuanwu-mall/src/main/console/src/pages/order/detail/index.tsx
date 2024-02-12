@@ -8,14 +8,13 @@ import {
   Button,
   Table, Modal, Message, Divider
 } from '@arco-design/web-react';
-import useLocale from '@/utils/useLocale';
-import locale from './locale';
 import BasicInfo from './item';
 import styles from './style/index.module.less';
-import { cancelOrder, getOrder, Order, OrderItem, paySuccess } from '@/api/food/order';
+import {cancelOrder, deleteOrderItem, getOrder, Order, OrderItem, paySuccess} from '@/api/food/order';
 import { useHistory, useLocation } from 'react-router-dom';
-import { IconAlipayCircle, IconWechatpay } from '@arco-design/web-react/icon';
+import {IconAlipayCircle, IconDelete, IconPlus, IconWechatpay} from '@arco-design/web-react/icon';
 import { submitPrintJob } from '@/api/food/printer';
+import {Tooltip} from "bizcharts";
 
 function BasicProfile() {
   const history = useHistory();
@@ -113,6 +112,29 @@ function BasicProfile() {
     });
   };
 
+  const handleDeleteOrderItem = (orderItemId: number, foodName: string) => {
+    // Modal.confirm({
+    //   title: `是否要移除【${foodName}】菜品`,
+    //   okButtonProps: {
+    //     status: 'danger'
+    //   },
+    //   onCancel: () => {
+    //     setFetchLoading(false);
+    //   },
+    //   onOk: () => {
+    if (order) {
+      setFetchLoading(true);
+      deleteOrderItem(order.id, orderItemId).then(res => {
+        Message.success('操作成功');
+        fetchOrderDetail();
+      }).finally(() => {
+        setFetchLoading(false);
+      });
+    }
+      // }
+    // });
+  };
+
   useEffect(() => {
     fetchOrderDetail();
   }, []);
@@ -181,12 +203,29 @@ function BasicProfile() {
               render: (_col, record) => (
                 <span>￥{record.foodPrice}</span>
               )
+            },
+            {
+              title: '操作',
+              width: 80,
+              render: (_, record) => (
+                  <>
+                    <Space>
+                        <Button
+                            size="small"
+                            shape="circle"
+                            icon={<IconDelete />}
+                            onClick={() => handleDeleteOrderItem(record.id, record.foodName)}
+                        />
+                    </Space>
+                  </>
+              )
             }
           ]}
           summary={(currentData) => (
             <Table.Summary>
               <Table.Summary.Row>
                 <Table.Summary.Cell>合计</Table.Summary.Cell>
+                <Table.Summary.Cell />
                 <Table.Summary.Cell />
                 <Table.Summary.Cell />
                 <Table.Summary.Cell>

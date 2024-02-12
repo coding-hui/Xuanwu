@@ -39,8 +39,9 @@ function SelectFood(props: Props) {
   const [pagination, setPatination] = useState<PaginationProps>({
     sizeCanChange: true,
     showTotal: true,
-    pageSize: 10,
+    pageSize: 50,
     current: 1,
+    hideOnSinglePage: true,
     pageSizeChangeResetCurrent: true
   });
   const [loading, setLoading] = useState(true);
@@ -76,7 +77,7 @@ function SelectFood(props: Props) {
   function handleSearch(params) {
     setPatination({ ...pagination, current: 1 });
     setFormParams(params);
-    fetchData();
+    // fetchData();
   }
 
   return (

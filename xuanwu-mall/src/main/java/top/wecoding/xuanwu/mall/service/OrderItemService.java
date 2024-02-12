@@ -12,4 +12,8 @@ import top.wecoding.xuanwu.orm.service.BaseService;
  */
 public interface OrderItemService extends BaseService<OrderItem, Long> {
 
+
+    void deleteOrderItem(Long orderId, Long orderItemId);
+
+
 }

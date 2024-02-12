@@ -26,7 +26,7 @@ import top.wecoding.xuanwu.mall.service.OrderItemService;
 @Version("v1")
 @RequiredArgsConstructor
 @RestController("orderItemController.v1")
-@RequestMapping("/order_item")
+@RequestMapping("/order/{orderId}/item")
 public class OrderItemController {
 
 	private final OrderItemService orderItemService;
@@ -46,9 +46,9 @@ public class OrderItemController {
 		return R.ok(orderItemService.updateById(id, orderItem));
 	}
 
-	@DeleteMapping("/{id}")
-	public R<?> delete(@PathVariable("id") Long id) {
-		orderItemService.deleteById(id);
+	@DeleteMapping("/{orderItemId}")
+	public R<?> delete(@PathVariable("orderId") Long orderId, @PathVariable("orderItemId") Long orderItemId) {
+		orderItemService.deleteOrderItem(orderId, orderItemId);
 		return R.ok();
 	}
 

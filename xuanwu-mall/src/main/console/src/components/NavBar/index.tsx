@@ -149,12 +149,12 @@ function Navbar({ show }: { show: boolean }) {
         </div>
       </div>
       <ul className={styles.right}>
-        <li>
-          <Input.Search
-            className={styles.round}
-            placeholder={t['navbar.search.placeholder']}
-          />
-        </li>
+        {/*<li>*/}
+        {/*  <Input.Search*/}
+        {/*    className={styles.round}*/}
+        {/*    placeholder={t['navbar.search.placeholder']}*/}
+        {/*  />*/}
+        {/*</li>*/}
         {/*<li>*/}
         {/*  <Select*/}
         {/*    triggerElement={<IconButton icon={<IconLanguage />} />}*/}
@@ -176,11 +176,11 @@ function Navbar({ show }: { show: boolean }) {
         {/*    }}*/}
         {/*  />*/}
         {/*</li>*/}
-        <li>
-          <MessageBox>
-            <IconButton icon={<IconNotification />} />
-          </MessageBox>
-        </li>
+        {/*<li>*/}
+        {/*  <MessageBox>*/}
+        {/*    <IconButton icon={<IconNotification />} />*/}
+        {/*  </MessageBox>*/}
+        {/*</li>*/}
         <li>
           <Tooltip
             content={

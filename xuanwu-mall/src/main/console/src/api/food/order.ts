@@ -102,3 +102,10 @@ export function paySuccess(orderId: number, payType: number, printSalesTicket = 
     }
   });
 }
+
+export function deleteOrderItem(orderId: number, orderItemId: number) {
+  return request({
+    url: `/api/v1/order/${orderId}/item/${orderItemId}`,
+    method: 'delete'
+  });
+}
