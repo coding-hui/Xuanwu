@@ -65,6 +65,14 @@ public class CartItemServiceImpl extends BaseServiceImpl<CartItem, Long> impleme
 	}
 
 	@Override
+	public void batchAddCartItem(List<CartItem> cartItems) {
+		if(cartItems == null || cartItems.isEmpty()) {
+			return;
+		}
+		cartItems.forEach(this::addCartItem);
+	}
+
+	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean deleteCartItem(String tableCode, Long foodId) {
 		int count = cartItemRepository.deleteByTableCodeAndFoodId(tableCode, foodId);

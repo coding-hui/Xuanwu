@@ -61,4 +61,7 @@ public class Printer extends LogicDeleteEntity implements Serializable {
 	@Column(name = "encoding")
 	private String encoding;
 
+	@Column(name = "print_mode")
+	private Integer printMode;
+
 }

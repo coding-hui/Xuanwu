@@ -39,9 +39,9 @@ function BasicProfile() {
       });
   }
 
-  function handleSubmitPrintJob() {
+  function handleSubmitPrintJob(type: number) {
     setFetchLoading(true);
-    submitPrintJob(orderId)
+    submitPrintJob(orderId, type)
       .then(res => {
         Message.success('提交成功');
       })
@@ -152,7 +152,8 @@ function BasicProfile() {
             <Space>
               <Button onClick={() => history.push('/order/table')}>返回</Button>
               {order && order.status === 0 && <Button onClick={handleCancelOrder}>取消订单</Button>}
-              {order && order.status === 0 && <Button onClick={handleSubmitPrintJob}>打印</Button>}
+              {order && order.status === 0 && <Button onClick={() => handleSubmitPrintJob(0)}>前台打印</Button>}
+              {order && order.status === 0 && <Button onClick={() => handleSubmitPrintJob(1)}>后厨打印</Button>}
               {order && order.status === 0 && <Button type="primary" onClick={handleOpenPayOrder}>结账</Button>}
             </Space>
           </Grid.Col>

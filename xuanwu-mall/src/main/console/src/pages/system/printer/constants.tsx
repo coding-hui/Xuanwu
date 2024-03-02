@@ -9,6 +9,8 @@ export const Status = ['未启用', '已启用'];
 
 export const Types = ['USB', '网口', '云打印'];
 
+export const PrintModes = ['前台', '后厨'];
+
 export function getColumns(
   callback: (record: Record<string, any>, type: string, status?: boolean) => Promise<void>
 ) {
@@ -26,6 +28,12 @@ export function getColumns(
       title: '类型',
       render: (_col, record) => (
         <span>{record.type > Types.length ? '-' : Types[record.type]}</span>
+      )
+    },
+    {
+      title: '使用场景',
+      render: (_col, record) => (
+          <span>{record.printMode > PrintModes.length ? '-' : PrintModes[record.printMode]}</span>
       )
     },
     {

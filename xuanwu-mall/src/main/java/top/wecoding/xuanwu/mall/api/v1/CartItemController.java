@@ -19,6 +19,8 @@ import top.wecoding.xuanwu.mall.domain.request.CartItemListRequest;
 import top.wecoding.xuanwu.mall.domain.request.UpdateFoodQuantityRequest;
 import top.wecoding.xuanwu.mall.service.CartItemService;
 
+import java.util.List;
+
 /**
  * 购物车表 - API Controller
  *
@@ -47,6 +49,12 @@ public class CartItemController {
 	@PostMapping("")
 	public R<CartItem> create(@RequestBody @Validated CartItem cartItem) {
 		cartItemService.addCartItem(cartItem);
+		return R.ok();
+	}
+
+	@PostMapping("/batch_add")
+	public R<CartItem> batchCreate(@RequestBody @Validated List<CartItem> cartItems) {
+		cartItemService.batchAddCartItem(cartItems);
 		return R.ok();
 	}
 

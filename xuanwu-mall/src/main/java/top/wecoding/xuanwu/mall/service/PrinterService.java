@@ -22,7 +22,7 @@ public interface PrinterService extends BaseService<Printer, Long> {
 
 	PageResult<Printer> listPrinterService(PrinterServicePageRequest query, Pageable pageable);
 
-	void printSalesTicket(OrderDetail orderDetail);
+	void printSalesTicket(OrderDetail orderDetail, Integer type);
 
 	boolean printTestPage(Long id);
 

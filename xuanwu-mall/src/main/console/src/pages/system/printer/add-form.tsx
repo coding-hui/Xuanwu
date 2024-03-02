@@ -8,7 +8,7 @@ import {
   updatePrinter,
   UpdatePrinterRequest
 } from '@/api/food/printer';
-import { Types } from '@/pages/system/printer/constants';
+import {PrintModes, Types} from '@/pages/system/printer/constants';
 
 const RadioGroup = Radio.Group;
 
@@ -138,6 +138,19 @@ function AddForm(props: Props) {
                 </Form.Item>
               </>
             }
+            <Form.Item label="使用场景" field="printMode" required>
+              <RadioGroup
+                  type="button"
+                  name="printMode"
+                  defaultValue={0}
+              >
+                {
+                  PrintModes.map((t, i) => {
+                    return <Radio key={i} value={i}>{t}</Radio>;
+                  })
+                }
+              </RadioGroup>
+            </Form.Item>
             <Form.Item label="打印机描述" field="description">
               <Input.TextArea placeholder="请输入打印机描述" allowClear />
             </Form.Item>

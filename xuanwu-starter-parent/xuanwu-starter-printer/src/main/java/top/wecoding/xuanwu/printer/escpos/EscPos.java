@@ -2,6 +2,7 @@ package top.wecoding.xuanwu.printer.escpos;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.ObjectUtils;
 import top.wecoding.xuanwu.core.exception.SystemErrorCode;
 import top.wecoding.xuanwu.core.util.ArgumentAssert;
 import top.wecoding.xuanwu.printer.escpos.params.BarCode;
@@ -21,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,7 +58,7 @@ public class EscPos {
 		this.socketOut = socket.getOutputStream();
 		socket.isClosed();
 		this.encoding = encoding;
-		this.writer = new OutputStreamWriter(socketOut, StandardCharsets.UTF_8);
+		this.writer = new OutputStreamWriter(socketOut, StandardCharsets.ISO_8859_1);
 	}
 
 	public synchronized static EscPos getInstance(String ip, Integer port, String encoding) throws IOException {
@@ -95,7 +97,9 @@ public class EscPos {
 
 		while (matcher.find()) {
 			String key = matcher.group(1);
-			matcher.appendReplacement(sb, keyMap.get(key).toString());
+			Object value = keyMap.get(key);
+			value = Objects.isNull(value) ? "" : value.toString();
+			matcher.appendReplacement(sb, value.toString());
 		}
 
 		matcher.appendTail(sb);
@@ -205,7 +209,7 @@ public class EscPos {
 		escPos.align(goods.getFormat())
 			.bold(false)
 			.underline(false)
-			.size(1)
+			.size(6)
 			.printStr(fillLength(goods.getName(), goods))
 			.boldOff(false)
 			.underlineOff(false)
@@ -230,7 +234,7 @@ public class EscPos {
 				.underlineOff(false)
 				.line(0);
 		}
-		escPos.line(1);
+		escPos.line(2);
 	}
 
 	/**

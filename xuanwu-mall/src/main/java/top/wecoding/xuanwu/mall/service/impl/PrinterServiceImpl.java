@@ -66,7 +66,7 @@ public class PrinterServiceImpl extends BaseServiceImpl<Printer, Long> implement
 
 	@Override
 	@SneakyThrows
-	public void printSalesTicket(OrderDetail orderDetail) {
+	public void printSalesTicket(OrderDetail orderDetail, Integer printType) {
 		List<Printer> printerServices = getAvailablePrinterService();
 
 		ArgumentAssert.notEmpty(printerServices, PARAM_ERROR, "没有可用的打印机");
@@ -74,10 +74,10 @@ public class PrinterServiceImpl extends BaseServiceImpl<Printer, Long> implement
 		for (Printer printerService : printerServices) {
 			Integer type = printerService.getType();
 			try {
-				if (POS.is(type)) {
+				if (POS.is(type) && printerService.getPrintMode().equals(printType)) {
 					printEscPosPage(printerService, orderDetail);
 				}
-				else if (USB.is(type)) {
+				else if (USB.is(type) && printerService.getPrintMode().equals(printType)) {
 					SalesTicket salesTicket = new SalesTicket(orderDetail);
 					new SalesTicketPrinter(salesTicket).printer(printerService.getName());
 				}

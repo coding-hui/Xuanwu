@@ -64,9 +64,12 @@ export function printTestPage(id: number) {
   });
 }
 
-export function submitPrintJob(orderId: number) {
+export function submitPrintJob(orderId: number, type: number) {
   return request({
     url: `/api/v1/printer/submit_print_job/${orderId}`,
+    params: {
+      type: type
+    },
     method: 'get'
   });
 }

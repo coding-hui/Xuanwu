@@ -22,6 +22,8 @@ public interface CartItemService extends BaseService<CartItem, Long> {
 
 	void addCartItem(CartItem cartItem);
 
+	void batchAddCartItem(List<CartItem> cartItems);
+
 	boolean deleteCartItem(String tableCode, Long foodId);
 
 }

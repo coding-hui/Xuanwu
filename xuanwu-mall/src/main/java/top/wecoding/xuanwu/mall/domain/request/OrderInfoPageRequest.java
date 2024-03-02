@@ -4,6 +4,7 @@ import lombok.Data;
 import top.wecoding.xuanwu.orm.annotation.Query;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author wecoding
@@ -29,6 +30,9 @@ public class OrderInfoPageRequest implements Serializable {
 
 	@Query
 	private Integer status;
+
+	@Query(propName = "status", type = Query.Type.IN)
+	private List<Integer> statusList;
 
 	@Query(blurry = "note")
 	private String note;

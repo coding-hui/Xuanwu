@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.wecoding.xuanwu.core.annotation.Version;
 import top.wecoding.xuanwu.core.base.R;
@@ -70,9 +71,9 @@ public class PrinterController {
 	}
 
 	@GetMapping("/submit_print_job/{orderId}")
-	public R<?> submitPrintJob(@PathVariable("orderId") Long orderId) {
+	public R<?> submitPrintJob(@PathVariable("orderId") Long orderId, @RequestParam("type") Integer type) {
 		OrderDetail detail = orderService.detail(orderId);
-		printerService.printSalesTicket(detail);
+		printerService.printSalesTicket(detail, type);
 		return R.ok();
 	}
 
