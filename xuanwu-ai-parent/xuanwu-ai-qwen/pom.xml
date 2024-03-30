@@ -5,17 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>top.wecoding.xuanwu</groupId>
-        <artifactId>xuanwu-parent</artifactId>
+        <artifactId>xuanwu-ai-parent</artifactId>
         <version>0.10.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>xuanwu-sdk-parent</artifactId>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>xuanwu-sdk-api</module>
-        <module>xuanwu-sdk-examples</module>
-        <module>xuanwu-sdk-common</module>
-    </modules>
+    <artifactId>xuanwu-ai-qwen</artifactId>
 
 </project>

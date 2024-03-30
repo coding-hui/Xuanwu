@@ -12,18 +12,21 @@
 
     <groupId>top.wecoding.xuanwu</groupId>
     <artifactId>xuanwu-parent</artifactId>
-    <version>0.9-SNAPSHOT</version>
+    <version>0.10.0-SNAPSHOT</version>
+
     <packaging>pom</packaging>
+    <url>https://github.com/coding-hui/Xuanwu</url>
+
+    <name>Xuanwu Projects</name>
+    <description>Building xuanwu applications</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>21</java.version>
 
-        <xuanwu.starter.version>0.9-SNAPSHOT</xuanwu.starter.version>
-
+        <!-- production dependencies -->
         <spring-ai.version>0.8.1-SNAPSHOT</spring-ai.version>
-
         <fastjson.version>1.2.83</fastjson.version>
         <httpclient5.version>5.2.1</httpclient5.version>
         <velocity.version>2.3</velocity.version>
@@ -31,12 +34,14 @@
         <commons.io.version>2.13.0</commons.io.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <lombok.version>1.18.30</lombok.version>
+
+        <!-- plugin versions -->
         <docker.plugin.version>0.43.4</docker.plugin.version>
         <docker.registry>devops-wecoding-docker.pkg.coding.net</docker.registry>
         <docker.namespace>wecoding/images</docker.namespace>
-
         <git.commit.plugin>6.0.0</git.commit.plugin>
         <spring.checkstyle.plugin>0.0.39</spring.checkstyle.plugin>
+        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
         <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
     </properties>
 
@@ -110,66 +115,66 @@
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-parent</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-core</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-orm</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-metric</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-redis</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-mongo</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-printer</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- xuanwu file starters  -->
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-file-parent</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-file-core</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- xuanwu sdk starters -->
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-sdk-parent</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-sdk-common</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-sdk-api</artifactId>
-                <version>${xuanwu.starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -361,8 +366,54 @@
                     </includeOnlyProperties>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <configuration>
+                            <updatePomFile>true</updatePomFile>
+                            <flattenMode>ossrh</flattenMode>
+                            <pomElements>
+                                <distributionManagement>remove</distributionManagement>
+                                <dependencyManagement>remove</dependencyManagement>
+                                <repositories>remove</repositories>
+                                <scm>keep</scm>
+                                <url>keep</url>
+                                <organization>resolve</organization>
+                            </pomElements>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
+    <developers>
+        <developer>
+            <id>wecoding</id>
+            <name>Coding-hui</name>
+            <email>wecoding@yeah.net</email>
+            <organization>WeCoding</organization>
+            <organizationUrl>http://www.wecoding.top</organizationUrl>
+            <roles>
+                <role>lead</role>
+            </roles>
+        </developer>
+    </developers>
 
     <repositories>
         <repository>
