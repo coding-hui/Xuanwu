@@ -15,7 +15,7 @@ images.build.%:
 	mvn package docker:build \
 		$(if $(filter xuanwu-mall,$(IMAGE)),-Pmall-frontend) \
 		$(if $(filter xuanwu-codegen,$(IMAGE)),-Pcodegen-frontend) \
-		-DskipTests -pl $(IMAGE)
+		-DskipTests -pl services/$(IMAGE)
 
 .PHONY: images.push
 images.push: mvn.build $(addprefix images.push., $(IMAGES))
@@ -24,7 +24,7 @@ images.push: mvn.build $(addprefix images.push., $(IMAGES))
 images.push.%: images.build.%
 	$(eval IMAGE := $*)
 	@echo "===========> Pushing docker image $(IMAGE) $(VERSION)"
-	mvn docker:push -pl $(IMAGE)
+	mvn docker:push -pl services/$(IMAGE)
 
 .PHONY: k8s.install
 k8s.install:
