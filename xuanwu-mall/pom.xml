@@ -171,7 +171,7 @@
                                 <configuration>
                                     <nodeVersion>v18.17.1</nodeVersion>
                                     <yarnVersion>v1.22.11</yarnVersion>
-                                    <nodeDownloadRoot>https://npm.taobao.org/mirrors/node/</nodeDownloadRoot>
+                                    <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
                                 </configuration>
                             </execution>
                             <execution>
