@@ -2,13 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: traefik
   name: xuanwu-codegen
   namespace: xuanwu-system
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   rules:
-    - host: codegen.wecoding.local
+    - host: codegen.wecoding.top
       http:
         paths:
           - path: /
