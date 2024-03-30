@@ -49,10 +49,10 @@
         <module>xuanwu-codegen</module>
         <module>xuanwu-starter-parent</module>
         <module>xuanwu-starter-file-parent</module>
-        <module>xuanwu-sdk-parent</module>
         <module>xuanwu-boot-parent</module>
-        <module>xuanwu-mall</module>
         <module>xuanwu-ai-parent</module>
+        <module>services/xuanwu-mall</module>
+        <module>services/xuanwu-sdk-parent</module>
     </modules>
 
     <dependencyManagement>
