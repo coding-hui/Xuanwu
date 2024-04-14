@@ -22,8 +22,8 @@ public class UserInfoController {
 	private final AuthenticationApi authenticationApi;
 
 	@GetMapping("/user-info")
-	public R<?> currentUserInfo(@CookieValue(value = "IAM_TOKEN") String accessToken) {
-		return authenticationApi.currentUserInfo(accessToken);
+	public R<?> currentUserInfo(@CookieValue(value = "IAM_TOKEN", required = false) String accessToken) {
+		return authenticationApi.currentUserInfo(String.format("Bearer %s", accessToken));
 	}
 
 }

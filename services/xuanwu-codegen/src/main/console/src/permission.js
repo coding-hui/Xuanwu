@@ -56,7 +56,7 @@ router.beforeEach((to, from, next) => {
     } else {
       // 跳转到 IAM 进行认证
       const currentPath = `${window.location.protocol}//${window.location.host}${to.fullPath}`
-      const loginPath = iamLoginPath === undefined ? "http://iam.wecoding.local/login" : iamLoginPath
+      const loginPath = iamLoginPath === undefined ? "http://iam.wecoding.top/login" : iamLoginPath
       window.location.href = `${loginPath}?redirect=${currentPath}`;
       NProgress.done()
     }
