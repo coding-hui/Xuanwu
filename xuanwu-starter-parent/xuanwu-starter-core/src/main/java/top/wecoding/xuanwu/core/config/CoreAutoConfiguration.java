@@ -66,9 +66,13 @@ public class CoreAutoConfiguration implements WebMvcRegistrations {
 					String[] basePath = Arrays.stream(version.value())
 						.map(v -> "/api" + (v.startsWith("/") ? v : "/" + v))
 						.toArray(String[]::new);
-					return RequestMappingInfo.paths(basePath).build().combine(info);
+					return RequestMappingInfo.paths(basePath)
+						.options(this.getBuilderConfiguration())
+						.build()
+						.combine(info);
 				}
 				catch (Exception e) {
+					log.error("Failed to update api prefix version: {}", version.value(), e);
 					return super.getMappingForMethod(method, handlerType);
 				}
 			}
