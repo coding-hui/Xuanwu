@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class ApiClient {
 
-	private static final String DEFAULT_API_BASE = "http://iam.wecoding.local";
+	private static final String DEFAULT_API_BASE = "http://iam.wecoding.top";
 
 	private final RestTemplate restTemplate;
 

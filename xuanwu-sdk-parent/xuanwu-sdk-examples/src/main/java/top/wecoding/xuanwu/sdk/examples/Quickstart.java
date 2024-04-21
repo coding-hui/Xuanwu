@@ -24,7 +24,7 @@ public class Quickstart {
 		final String email = "quickstart@example.com";
 		final String password = "WeCoding@.123";
 
-		String basePath = "http://iam.wecoding.local";
+		String basePath = "http://iam.wecoding.top";
 		if (args.length > 0 && !args[0].isEmpty()) {
 			basePath = args[0];
 		}
