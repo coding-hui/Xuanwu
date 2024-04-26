@@ -8,6 +8,8 @@ import top.wecoding.xuanwu.core.base.R;
 import top.wecoding.xuanwu.iam.model.TokenInfo;
 import top.wecoding.xuanwu.iam.model.UserInfo;
 import top.wecoding.xuanwu.iam.model.request.AuthenticationRequest;
+import top.wecoding.xuanwu.iam.model.request.AuthorizationRequest;
+import top.wecoding.xuanwu.iam.model.response.AuthorizationResponse;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
@@ -25,5 +27,12 @@ public interface AuthenticationApi {
 
 	@GetExchange("/api/v1/auth/user-info")
 	R<UserInfo> currentUserInfo(@RequestHeader(value = AUTHORIZATION, required = false) String accessToken);
+
+	@PostExchange("/api/v1/authz")
+	R<AuthorizationResponse> authorize(@RequestBody AuthorizationRequest request);
+
+	default R<AuthorizationResponse> authorize(String subject, String resource, String action) {
+		return authorize(AuthorizationRequest.builder().subject(subject).resource(resource).action(action).build());
+	}
 
 }

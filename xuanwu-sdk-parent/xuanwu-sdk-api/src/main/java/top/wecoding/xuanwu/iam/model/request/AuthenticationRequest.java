@@ -1,13 +1,19 @@
 package top.wecoding.xuanwu.iam.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Wecoding Liu
  * @since 0.8
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthenticationRequest {
 
 	@JsonProperty("username")
@@ -15,13 +21,5 @@ public class AuthenticationRequest {
 
 	@JsonProperty("password")
 	private String password;
-
-	public AuthenticationRequest() {
-	}
-
-	public AuthenticationRequest(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
 
 }

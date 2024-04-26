@@ -7,16 +7,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author Wecoding Liu
- * @since 0.8
+ * @author wecoding
+ * @since 0.10
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RefreshTokenRequest {
+public class AuthorizationRequest {
 
-	@JsonProperty("refreshToken")
-	private String refreshToken;
+	@JsonProperty("resource")
+	private String resource;
+
+	@JsonProperty("action")
+	private String action;
+
+	@JsonProperty("subject")
+	private String subject;
 
 }
