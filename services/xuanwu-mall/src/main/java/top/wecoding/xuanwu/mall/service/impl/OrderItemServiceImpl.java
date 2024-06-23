@@ -32,11 +32,11 @@ public class OrderItemServiceImpl extends BaseServiceImpl<OrderItem, Long> imple
 	@Override
 	public void deleteOrderItem(Long orderId, Long orderItemId) {
 		Order order = orderRepository.getReferenceById(orderId);
-		
+
 		ArgumentAssert.notNull(order, SystemErrorCode.DATA_NOT_EXIST);
 
 		OrderItem orderItem = orderItemRepository.getReferenceById(orderItemId);
-		
+
 		ArgumentAssert.notNull(orderItem, SystemErrorCode.DATA_NOT_EXIST);
 
 		int quantity = orderItem.getFoodQuantity();
@@ -46,7 +46,8 @@ public class OrderItemServiceImpl extends BaseServiceImpl<OrderItem, Long> imple
 
 		if (quantity == 0) {
 			orderItemRepository.deleteById(orderItemId);
-		} else {
+		}
+		else {
 			orderItem.setFoodQuantity(quantity);
 			orderItemRepository.save(orderItem);
 		}

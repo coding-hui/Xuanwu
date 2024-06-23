@@ -1,0 +1,41 @@
+server:
+  port: 9040
+  servlet:
+    context-path: /
+  shutdown: graceful
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,application/javascript,application/json,image/svg+xml
+    min-response-size: 1024
+  # undertow
+  undertow:
+    threads:
+      io: 32
+      worker: 256
+    buffer-size: 1024
+
+spring:
+  application:
+    name: @artifactId@
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://wecoding.top:3306/xuanwu_judge_1?createDatabaseIfNotExist=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
+    username: root
+    password: WeCoding@2023
+  jpa:
+    generate-ddl: true
+    show-sql: true
+
+logging:
+  level:
+    top.wecoding.xuanwu: debug
+    org.springframework: warn

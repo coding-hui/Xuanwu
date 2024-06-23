@@ -66,7 +66,7 @@ public class CartItemServiceImpl extends BaseServiceImpl<CartItem, Long> impleme
 
 	@Override
 	public void batchAddCartItem(List<CartItem> cartItems) {
-		if(cartItems == null || cartItems.isEmpty()) {
+		if (cartItems == null || cartItems.isEmpty()) {
 			return;
 		}
 		cartItems.forEach(this::addCartItem);
