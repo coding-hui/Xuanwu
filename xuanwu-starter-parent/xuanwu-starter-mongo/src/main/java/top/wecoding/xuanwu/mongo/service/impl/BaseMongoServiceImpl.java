@@ -1,6 +1,7 @@
 package top.wecoding.xuanwu.mongo.service.impl;
 
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,6 +25,7 @@ import java.util.List;
  * @author liuyuhui
  * @date 2022/02/19
  */
+@Slf4j
 public class BaseMongoServiceImpl<T> implements BaseMongoService<T> {
 
 	@Resource
@@ -135,6 +137,11 @@ public class BaseMongoServiceImpl<T> implements BaseMongoService<T> {
 		return new PageImpl<>(records, pageRequest, total);
 	}
 
+	@Override
+	public Page<T> page(PageRequest pageRequest, Object query) {
+		return page(pageRequest, this.buildBaseQuery(query));
+	}
+
 	private Update buildBaseUpdate(T t) {
 		Update update = new Update();
 
@@ -148,13 +155,13 @@ public class BaseMongoServiceImpl<T> implements BaseMongoService<T> {
 				}
 			}
 			catch (Exception e) {
-				e.printStackTrace();
+				log.warn("failed to build update field: {}", field.getName(), e);
 			}
 		}
 		return update;
 	}
 
-	private Query buildBaseQuery(T t) {
+	private Query buildBaseQuery(Object t) {
 		Query query = new Query();
 
 		Field[] fields = t.getClass().getDeclaredFields();
@@ -170,12 +177,13 @@ public class BaseMongoServiceImpl<T> implements BaseMongoService<T> {
 				}
 			}
 			catch (IllegalArgumentException | IllegalAccessException e) {
-				e.printStackTrace();
+				log.warn("failed to build query field: {}", field.getName(), e);
 			}
 		}
 		return query;
 	}
 
+	@SuppressWarnings("unchecked")
 	private Class<T> getEntityClass() {
 		return ((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
 	}

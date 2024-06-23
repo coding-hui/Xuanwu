@@ -124,4 +124,12 @@ public interface BaseMongoService<T> {
 	 */
 	Page<T> page(PageRequest pageRequest, Query query);
 
+	/**
+	 * 翻页查询
+	 * @param pageRequest 翻页查询对象
+	 * @param query 查询包装类
+	 * @return pageResult
+	 */
+	Page<T> page(PageRequest pageRequest, Object query);
+
 }
