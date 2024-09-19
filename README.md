@@ -1,92 +1,53 @@
-# Getting Started
+# Xuanwu
 
-### Reference Documentation
+![Project Status](https://img.shields.io/badge/status-active-brightgreen.svg)
+[![Build Status](https://img.shields.io/travis/coding-hui/Xuanwu.svg)](https://travis-ci.org/coding-hui/Xuanwu)
+[![Coverage Status](https://img.shields.io/coveralls/github/coding-hui/Xuanwu.svg)](https://coveralls.io/github/coding-hui/Xuanwu)
 
-For further reference, please consider the following sections:
+## Overview
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.1.5/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.1.5/maven-plugin/reference/html/#build-image)
-* [GraalVM Native Image Support](https://docs.spring.io/spring-boot/docs/3.1.5/reference/html/native-image.html#native-image)
-* [Spring REST Docs](https://docs.spring.io/spring-restdocs/docs/current/reference/html5/)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#data.sql.jpa-and-spring-data)
-* [Spring Configuration Processor](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#appendix.configuration-metadata.annotation-processor)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#web)
-* [Docker Compose Support](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#features.docker-compose)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.1.5/reference/htmlsingle/index.html#using.devtools)
+The Xuanwu Project is a collection of services and tools designed to facilitate various aspects of application development and deployment. It includes modules for code generation, mall services, and more.
 
-### Guides
+## Getting Started
 
-The following guides illustrate how to use some features concretely:
+### Prerequisites
 
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
+- Java 21
+- Maven
+- Docker
 
-### Additional Links
+### Building the Project
 
-These additional references should also help you:
+To build the project, run the following command:
 
-* [Configure AOT settings in Build Plugin](https://docs.spring.io/spring-boot/docs/3.1.5/maven-plugin/reference/htmlsingle/#aot)
-
-### Docker Compose support
-
-This project contains a Docker Compose file named `compose.yaml`.
-In this file, the following services have been defined:
-
-* mysql: [`mysql:latest`](https://hub.docker.com/_/mysql)
-
-Please review the tags of the used images and set them to the same as you're running in production.
-
-## GraalVM Native Support
-
-This project has been configured to let you generate either a lightweight container or a native executable.
-It is also possible to run your tests in a native image.
-
-### Lightweight Container with Cloud Native Buildpacks
-
-If you're already familiar with Spring Boot container images support, this is the easiest way to get started.
-Docker should be installed and configured on your machine prior to creating the image.
-
-To create the image, run the following goal:
-
-```
-$ ./mvnw spring-boot:build-image -Pnative
+```sh
+make mvn.build
 ```
 
-Then, you can run the app like any other container:
+### Building Docker Images
 
-```
-$ docker run --rm -p 8080:8080 xuanwu:0.9-SNAPSHOT
-```
+To build Docker images for the services, run:
 
-### Executable with Native Build Tools
-
-Use this option if you want to explore more options such as running your tests in a native image.
-The GraalVM `native-image` compiler should be installed and configured on your machine.
-
-NOTE: GraalVM 22.3+ is required.
-
-To create the executable, run the following goal:
-
-```
-$ ./mvnw native:compile -Pnative
+```sh
+make images.build
 ```
 
-Then, you can run the app as follows:
+### Deploying to Kubernetes
 
-```
-$ target/xuanwu
-```
+To deploy the services to a Kubernetes cluster, run:
 
-You can also run your existing tests suite in a native image.
-This is an efficient way to validate the compatibility of your application.
-
-To run your existing tests in a native image, run the following goal:
-
-```
-$ ./mvnw test -PnativeTest
+```sh
+make k8s.install
 ```
 
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Contact
+
+For any questions or feedback, please contact us at [wecoding@yeah.net](mailto:wecoding@yeah.net).
