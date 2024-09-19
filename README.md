@@ -1,9 +1,5 @@
 # Xuanwu
 
-![Project Status](https://img.shields.io/badge/status-active-brightgreen.svg)
-[![Build Status](https://img.shields.io/travis/coding-hui/Xuanwu.svg)](https://travis-ci.org/coding-hui/Xuanwu)
-[![Coverage Status](https://img.shields.io/coveralls/github/coding-hui/Xuanwu.svg)](https://coveralls.io/github/coding-hui/Xuanwu)
-
 ## Overview
 
 The Xuanwu Project is a collection of services and tools designed to facilitate various aspects of application development and deployment. It includes modules for code generation, mall services, and more.
