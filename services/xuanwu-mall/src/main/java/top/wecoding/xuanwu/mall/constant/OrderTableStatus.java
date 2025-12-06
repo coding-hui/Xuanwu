@@ -9,12 +9,12 @@ import lombok.Getter;
 @Getter
 public enum OrderTableStatus {
 
-	AVAILABLE(1), ORDERING(2), IN_USE(3);
+    AVAILABLE(1), ORDERING(2), IN_USE(3);
 
-	private final Integer status;
+    private final Integer status;
 
-	OrderTableStatus(Integer status) {
-		this.status = status;
-	}
+    OrderTableStatus(Integer status) {
+        this.status = status;
+    }
 
 }

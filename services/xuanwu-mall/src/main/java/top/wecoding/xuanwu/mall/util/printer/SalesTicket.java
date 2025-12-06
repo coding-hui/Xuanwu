@@ -21,30 +21,30 @@ import java.util.List;
  */
 public class SalesTicket implements Printable {
 
-	private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-	private Order order;
+    private Order order;
 
-	private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems;
 
-	private String orgName = "三味鱼火锅";
+    private String orgName = "三味鱼火锅";
 
-	public SalesTicket(OrderDetail orderDetail) {
-		super();
-		this.order = orderDetail.getOrder();
-		this.orderItems = orderDetail.getOrderItems();
-	}
+    public SalesTicket(OrderDetail orderDetail) {
+        super();
+        this.order = orderDetail.getOrder();
+        this.orderItems = orderDetail.getOrderItems();
+    }
 
-	/**
-	 * 打印方法
-	 * @param graphics - 用来绘制页面的上下文，即打印的图形
-	 * @param pageFormat - 将绘制页面的大小和方向，即设置打印格式，如页面大小一点为计量单位（以1/72
-	 * 英寸为单位，1英寸为25.4毫米。A4纸大致为595 × 842点） 小票纸宽度一般为58mm，大概为165点
-	 * @param pageIndex - 要绘制的页面从 0 开始的索引 ，即页号
-	 */
-	@Override
-	public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-		// @formatter:off
+    /**
+     * 打印方法
+     * @param graphics - 用来绘制页面的上下文，即打印的图形
+     * @param pageFormat - 将绘制页面的大小和方向，即设置打印格式，如页面大小一点为计量单位（以1/72
+     * 英寸为单位，1英寸为25.4毫米。A4纸大致为595 × 842点） 小票纸宽度一般为58mm，大概为165点
+     * @param pageIndex - 要绘制的页面从 0 开始的索引 ，即页号
+     */
+    @Override
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        // @formatter:off
 		// 此 Graphics2D 类扩展 Graphics 类，以提供对几何形状、坐标转换、颜色管理和文本布局更为复杂的控制。
 		// 它是用于在 Java(tm) 平台上呈现二维形状、文本和图像的基础类。
 		Graphics2D g2 = (Graphics2D) graphics;
@@ -152,6 +152,6 @@ public class SalesTicket implements Printable {
 		}
 		return NO_SUCH_PAGE;
 		// @formatter:on
-	}
+    }
 
 }

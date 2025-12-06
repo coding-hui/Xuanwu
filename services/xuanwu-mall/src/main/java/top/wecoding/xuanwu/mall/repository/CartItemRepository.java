@@ -15,10 +15,10 @@ import java.util.List;
  */
 public interface CartItemRepository extends LogicDeleteRepository<CartItem, Long>, JpaSpecificationExecutor<CartItem> {
 
-	CartItem getByTableCodeAndFoodId(String tableCode, Long foodId);
+    CartItem getByTableCodeAndFoodId(String tableCode, Long foodId);
 
-	int deleteByTableCodeAndFoodId(String tableCode, Long foodId);
+    int deleteByTableCodeAndFoodId(String tableCode, Long foodId);
 
-	List<CartItem> findByTableCode(String tableCode);
+    List<CartItem> findByTableCode(String tableCode);
 
 }

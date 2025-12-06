@@ -25,37 +25,37 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderItemServiceImpl extends BaseServiceImpl<OrderItem, Long> implements OrderItemService {
 
-	private final OrderItemRepository orderItemRepository;
+    private final OrderItemRepository orderItemRepository;
 
-	private final OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-	@Override
-	public void deleteOrderItem(Long orderId, Long orderItemId) {
-		Order order = orderRepository.getReferenceById(orderId);
+    @Override
+    public void deleteOrderItem(Long orderId, Long orderItemId) {
+        Order order = orderRepository.getReferenceById(orderId);
 
-		ArgumentAssert.notNull(order, SystemErrorCode.DATA_NOT_EXIST);
+        ArgumentAssert.notNull(order, SystemErrorCode.DATA_NOT_EXIST);
 
-		OrderItem orderItem = orderItemRepository.getReferenceById(orderItemId);
+        OrderItem orderItem = orderItemRepository.getReferenceById(orderItemId);
 
-		ArgumentAssert.notNull(orderItem, SystemErrorCode.DATA_NOT_EXIST);
+        ArgumentAssert.notNull(orderItem, SystemErrorCode.DATA_NOT_EXIST);
 
-		int quantity = orderItem.getFoodQuantity();
-		quantity = quantity - 1;
+        int quantity = orderItem.getFoodQuantity();
+        quantity = quantity - 1;
 
-		order.setTotalAmount(order.getTotalAmount().subtract(orderItem.getFoodPrice()));
+        order.setTotalAmount(order.getTotalAmount().subtract(orderItem.getFoodPrice()));
 
-		if (quantity == 0) {
-			orderItemRepository.deleteById(orderItemId);
-		}
-		else {
-			orderItem.setFoodQuantity(quantity);
-			orderItemRepository.save(orderItem);
-		}
-	}
+        if (quantity == 0) {
+            orderItemRepository.deleteById(orderItemId);
+        }
+        else {
+            orderItem.setFoodQuantity(quantity);
+            orderItemRepository.save(orderItem);
+        }
+    }
 
-	@Override
-	protected JpaRepository<OrderItem, Long> getBaseRepository() {
-		return this.orderItemRepository;
-	}
+    @Override
+    protected JpaRepository<OrderItem, Long> getBaseRepository() {
+        return this.orderItemRepository;
+    }
 
 }

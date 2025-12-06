@@ -55,156 +55,156 @@ import static top.wecoding.xuanwu.mall.util.PriceUtil.calcTotalAmount;
 @RequiredArgsConstructor
 public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements OrderService {
 
-	private final OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-	private final OrderItemRepository orderItemRepository;
+    private final OrderItemRepository orderItemRepository;
 
-	private final CartItemRepository cartItemRepository;
+    private final CartItemRepository cartItemRepository;
 
-	private final OrderItemConverter orderItemConverter;
+    private final OrderItemConverter orderItemConverter;
 
-	private final OrderTableService orderTableService;
+    private final OrderTableService orderTableService;
 
-	private final PrinterService printerService;
+    private final PrinterService printerService;
 
-	private final OrderTableRepository orderTableRepository;
+    private final OrderTableRepository orderTableRepository;
 
-	@Override
-	public OrderDetail detail(Long orderId) {
-		Optional<Order> order = orderRepository.findById(orderId);
-		if (order.isEmpty()) {
-			ArgumentAssert.error(SystemErrorCode.DATA_NOT_EXIST);
-		}
-		List<OrderItem> orderItems = orderItemRepository.findByOrderId(orderId);
-		return OrderDetail.builder().order(order.get()).orderItems(orderItems).build();
-	}
+    @Override
+    public OrderDetail detail(Long orderId) {
+        Optional<Order> order = orderRepository.findById(orderId);
+        if (order.isEmpty()) {
+            ArgumentAssert.error(SystemErrorCode.DATA_NOT_EXIST);
+        }
+        List<OrderItem> orderItems = orderItemRepository.findByOrderId(orderId);
+        return OrderDetail.builder().order(order.get()).orderItems(orderItems).build();
+    }
 
-	@Override
-	public PageResult<Order> listOrders(OrderInfoPageRequest queryParams, Pageable pageable) {
-		Page<Order> pageResult = this.orderRepository.findAll(
-				(root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, queryParams, criteriaBuilder),
-				pageable);
-		return PageResult.of(pageResult.getContent(), pageResult.getTotalElements());
-	}
+    @Override
+    public PageResult<Order> listOrders(OrderInfoPageRequest queryParams, Pageable pageable) {
+        Page<Order> pageResult = this.orderRepository.findAll(
+                (root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, queryParams, criteriaBuilder),
+                pageable);
+        return PageResult.of(pageResult.getContent(), pageResult.getTotalElements());
+    }
 
-	@Override
-	public void cancelOrder(Long orderId) {
-		Optional<Order> order = orderRepository.findById(orderId);
-		if (order.isEmpty()) {
-			return;
-		}
-		order.get().setStatus(OrderStatus.CANCEL.getCode());
-		orderRepository.save(order.get());
-		orderTableService.updateStatusByCode(order.get().getTableCode(), OrderTableStatus.AVAILABLE.getStatus());
-	}
+    @Override
+    public void cancelOrder(Long orderId) {
+        Optional<Order> order = orderRepository.findById(orderId);
+        if (order.isEmpty()) {
+            return;
+        }
+        order.get().setStatus(OrderStatus.CANCEL.getCode());
+        orderRepository.save(order.get());
+        orderTableService.updateStatusByCode(order.get().getTableCode(), OrderTableStatus.AVAILABLE.getStatus());
+    }
 
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public CreateOrderResponse createOrder(CreateOrderRequest createReq) {
-		// 获取订单桌号
-		OrderTable orderTable = orderTableRepository.getByCode(createReq.getTableCode());
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public CreateOrderResponse createOrder(CreateOrderRequest createReq) {
+        // 获取订单桌号
+        OrderTable orderTable = orderTableRepository.getByCode(createReq.getTableCode());
 
-		// 获取订单桌号的菜品
-		List<CartItem> cartItems = cartItemRepository.findByTableCode(createReq.getTableCode());
+        // 获取订单桌号的菜品
+        List<CartItem> cartItems = cartItemRepository.findByTableCode(createReq.getTableCode());
 
-		ArgumentAssert.notEmpty(cartItems, "菜品不能空为");
+        ArgumentAssert.notEmpty(cartItems, "菜品不能空为");
 
-		List<OrderItem> orderItems = cartItems.stream().map(orderItemConverter::cartItemToEntity).toList();
+        List<OrderItem> orderItems = cartItems.stream().map(orderItemConverter::cartItemToEntity).toList();
 
-		// 创建订单
-		Order order = new Order();
-		if (createReq.getOrderId() != null) {
-			order = orderRepository.findById(createReq.getOrderId()).orElseGet(Order::new);
-		}
-		// 初始化一些信息
-		if (order.getId() == null) {
-			order = new Order();
-			order.setDiscountAmount(new BigDecimal(0));
-			order.setFreightAmount(new BigDecimal(0));
-			// 订单来源：0->PC订单；1->app订单
-			order.setSourceType(0);
-			// 订单状态：0->待付款；1->已完成；2->已关闭
-			order.setStatus(0);
-			// 订单类型：0->正常订单；1->秒杀订单
-			order.setOrderType(0);
-			// 0->未支付；1->支付宝；2->微信
-			order.setPayType(createReq.getPayType() == null ? 0 : createReq.getPayType());
-			// 生成订单号
-			order.setOrderSn(generateOrderSn(order));
-		}
-		order.setPeopleCount(orderTable.getNumberOfDiners());
-		order.setTableCode(createReq.getTableCode());
-		order.setPayAmount(calcPayAmount(order));
-		order.setPromotionAmount(calcPromotionAmount(order, orderItems));
-		order.setTotalAmount(calcTotalAmount(order, orderItems));
+        // 创建订单
+        Order order = new Order();
+        if (createReq.getOrderId() != null) {
+            order = orderRepository.findById(createReq.getOrderId()).orElseGet(Order::new);
+        }
+        // 初始化一些信息
+        if (order.getId() == null) {
+            order = new Order();
+            order.setDiscountAmount(new BigDecimal(0));
+            order.setFreightAmount(new BigDecimal(0));
+            // 订单来源：0->PC订单；1->app订单
+            order.setSourceType(0);
+            // 订单状态：0->待付款；1->已完成；2->已关闭
+            order.setStatus(0);
+            // 订单类型：0->正常订单；1->秒杀订单
+            order.setOrderType(0);
+            // 0->未支付；1->支付宝；2->微信
+            order.setPayType(createReq.getPayType() == null ? 0 : createReq.getPayType());
+            // 生成订单号
+            order.setOrderSn(generateOrderSn(order));
+        }
+        order.setPeopleCount(orderTable.getNumberOfDiners());
+        order.setTableCode(createReq.getTableCode());
+        order.setPayAmount(calcPayAmount(order));
+        order.setPromotionAmount(calcPromotionAmount(order, orderItems));
+        order.setTotalAmount(calcTotalAmount(order, orderItems));
 
-		// 插入order表和order_item表
-		orderRepository.save(order);
-		for (OrderItem orderItem : orderItems) {
-			OrderItem oldItem = orderItemRepository.findByOrderIdAndFoodId(order.getId(), orderItem.getFoodId());
-			if (oldItem != null) {
-				orderItem.setId(oldItem.getId());
-				orderItem.setFoodQuantity(orderItem.getFoodQuantity() + oldItem.getFoodQuantity());
-			}
-			orderItem.setOrderId(order.getId());
-			orderItem.setOrderSn(order.getOrderSn());
-		}
-		orderItemRepository.saveAll(orderItems);
+        // 插入order表和order_item表
+        orderRepository.save(order);
+        for (OrderItem orderItem : orderItems) {
+            OrderItem oldItem = orderItemRepository.findByOrderIdAndFoodId(order.getId(), orderItem.getFoodId());
+            if (oldItem != null) {
+                orderItem.setId(oldItem.getId());
+                orderItem.setFoodQuantity(orderItem.getFoodQuantity() + oldItem.getFoodQuantity());
+            }
+            orderItem.setOrderId(order.getId());
+            orderItem.setOrderSn(order.getOrderSn());
+        }
+        orderItemRepository.saveAll(orderItems);
 
-		// 清空购物车
-		cartItemRepository.deleteAll(cartItems);
+        // 清空购物车
+        cartItemRepository.deleteAll(cartItems);
 
-		// 更新订单桌号状态
-		orderTableService.updateStatusByCode(createReq.getTableCode(), OrderTableStatus.IN_USE.getStatus());
+        // 更新订单桌号状态
+        orderTableService.updateStatusByCode(createReq.getTableCode(), OrderTableStatus.IN_USE.getStatus());
 
-		// 打印小票
-		// if (createReq.getPrintSalesTicket() != null && createReq.getPrintSalesTicket())
-		// {
-		// printerService.printSalesTicket(OrderDetail.builder().order(order).orderItems(orderItems).build());
-		// }
+        // 打印小票
+        // if (createReq.getPrintSalesTicket() != null && createReq.getPrintSalesTicket())
+        // {
+        // printerService.printSalesTicket(OrderDetail.builder().order(order).orderItems(orderItems).build());
+        // }
 
-		return CreateOrderResponse.builder().order(order).orderItems(orderItems).build();
-	}
+        return CreateOrderResponse.builder().order(order).orderItems(orderItems).build();
+    }
 
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void deleteOrder(Long orderId) {
-		var order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalParameterException(DATA_NOT_EXIST));
-		Integer status = order.getStatus();
-		if (OrderStatus.PENDING_PAYMENT.getCode() == status) {
-			ArgumentAssert.error(PARAM_ERROR, "只能删除已完成或已关闭的订单！");
-		}
-		orderRepository.deleteById(orderId);
-	}
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteOrder(Long orderId) {
+        var order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalParameterException(DATA_NOT_EXIST));
+        Integer status = order.getStatus();
+        if (OrderStatus.PENDING_PAYMENT.getCode() == status) {
+            ArgumentAssert.error(PARAM_ERROR, "只能删除已完成或已关闭的订单！");
+        }
+        orderRepository.deleteById(orderId);
+    }
 
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void paySuccessCallback(Long orderId, Integer payType) {
-		Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalParameterException(PARAM_ERROR));
-		order.setStatus(OrderStatus.COMPLETED.getCode());
-		order.setPayType(payType);
-		order.setPaymentTime(new Date());
-		orderRepository.save(order);
-		orderTableService.updateStatusByCode(order.getTableCode(), OrderTableStatus.AVAILABLE.getStatus());
-	}
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void paySuccessCallback(Long orderId, Integer payType) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalParameterException(PARAM_ERROR));
+        order.setStatus(OrderStatus.COMPLETED.getCode());
+        order.setPayType(payType);
+        order.setPaymentTime(new Date());
+        orderRepository.save(order);
+        orderTableService.updateStatusByCode(order.getTableCode(), OrderTableStatus.AVAILABLE.getStatus());
+    }
 
-	@Override
-	protected JpaRepository<Order, Long> getBaseRepository() {
-		return this.orderRepository;
-	}
+    @Override
+    protected JpaRepository<Order, Long> getBaseRepository() {
+        return this.orderRepository;
+    }
 
-	/**
-	 * 生成18位订单编号:8位日期+2位平台号码+2位支付方式+6位以上自增id
-	 */
-	private String generateOrderSn(Order order) {
-		StringBuilder sb = new StringBuilder();
-		String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
-		String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 6);
-		sb.append(date);
-		sb.append(String.format("%02d", order.getSourceType()));
-		sb.append(String.format("%02d", order.getPayType()));
-		sb.append(uuid);
-		return sb.toString();
-	}
+    /**
+     * 生成18位订单编号:8位日期+2位平台号码+2位支付方式+6位以上自增id
+     */
+    private String generateOrderSn(Order order) {
+        StringBuilder sb = new StringBuilder();
+        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 6);
+        sb.append(date);
+        sb.append(String.format("%02d", order.getSourceType()));
+        sb.append(String.format("%02d", order.getPayType()));
+        sb.append(uuid);
+        return sb.toString();
+    }
 
 }

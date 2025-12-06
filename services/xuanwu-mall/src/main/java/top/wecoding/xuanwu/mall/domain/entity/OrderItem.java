@@ -31,63 +31,63 @@ import java.math.BigDecimal;
 @Table(name = "mall_order_item")
 public class OrderItem extends LogicDeleteEntity implements Serializable {
 
-	@Serial
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	/** 订单id */
-	@Column(name = "order_id")
-	private Long orderId;
+    /** 订单id */
+    @Column(name = "order_id")
+    private Long orderId;
 
-	@Column(name = "table_code")
-	private String tableCode;
+    @Column(name = "table_code")
+    private String tableCode;
 
-	/** 订单编号 */
-	private String orderSn;
+    /** 订单编号 */
+    private String orderSn;
 
-	private Long foodId;
+    private Long foodId;
 
-	private String foodPic;
+    private String foodPic;
 
-	private String foodName;
+    private String foodName;
 
-	private String foodSn;
+    private String foodSn;
 
-	/** 销售价格 */
-	private BigDecimal foodPrice;
+    /** 销售价格 */
+    private BigDecimal foodPrice;
 
-	/** 购买数量 */
-	private Integer foodQuantity;
+    /** 购买数量 */
+    private Integer foodQuantity;
 
-	/** 商品sku编号 */
-	private Integer foodSkuId;
+    /** 商品sku编号 */
+    private Integer foodSkuId;
 
-	/** 商品sku条码 */
-	private String foodSkuCode;
+    /** 商品sku条码 */
+    private String foodSkuCode;
 
-	/** 商品分类id */
-	private Integer foodCategoryId;
+    /** 商品分类id */
+    private Integer foodCategoryId;
 
-	private Integer giftIntegration;
+    private Integer giftIntegration;
 
-	private Integer giftGrowth;
+    private Integer giftGrowth;
 
-	/** 商品促销分解金额 */
-	private BigDecimal promotionAmount;
+    /** 商品促销分解金额 */
+    private BigDecimal promotionAmount;
 
-	/** 优惠券优惠分解金额 */
-	private BigDecimal couponAmount;
+    /** 优惠券优惠分解金额 */
+    private BigDecimal couponAmount;
 
-	/** 积分优惠分解金额 */
-	private BigDecimal integrationAmount;
+    /** 积分优惠分解金额 */
+    private BigDecimal integrationAmount;
 
-	/** 该商品经过优惠后的分解金额 */
-	private BigDecimal realAmount;
+    /** 该商品经过优惠后的分解金额 */
+    private BigDecimal realAmount;
 
-	/** 商品销售属性:[{"key":"颜色","value":"颜色"},{"key":"容量","value":"4G"}] */
-	private String productAttr;
+    /** 商品销售属性:[{"key":"颜色","value":"颜色"},{"key":"容量","value":"4G"}] */
+    private String productAttr;
 
 }

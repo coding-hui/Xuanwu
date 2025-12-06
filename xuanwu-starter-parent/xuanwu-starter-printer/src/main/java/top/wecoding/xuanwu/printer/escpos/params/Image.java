@@ -13,24 +13,24 @@ import lombok.Data;
 @Data
 public class Image {
 
-	/**
-	 * 打印内容类型
-	 */
-	private int type;
+    /**
+     * 打印内容类型
+     */
+    private int type;
 
-	/**
-	 * 对齐方式 居左、居中、居右
-	 */
-	private int format;
+    /**
+     * 对齐方式 居左、居中、居右
+     */
+    private int format;
 
-	/**
-	 * 空行行数
-	 */
-	private int line;
+    /**
+     * 空行行数
+     */
+    private int line;
 
-	/**
-	 * 图片绝对路径
-	 */
-	private String path;
+    /**
+     * 图片绝对路径
+     */
+    private String path;
 
 }

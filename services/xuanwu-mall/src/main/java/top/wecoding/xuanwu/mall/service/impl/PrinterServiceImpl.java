@@ -47,100 +47,100 @@ import static top.wecoding.xuanwu.mall.constant.PrinterType.USB;
 @RequiredArgsConstructor
 public class PrinterServiceImpl extends BaseServiceImpl<Printer, Long> implements PrinterService {
 
-	private final PrinterRepository printerRepository;
+    private final PrinterRepository printerRepository;
 
-	private final PrinterConfig printerConfig;
+    private final PrinterConfig printerConfig;
 
-	@Override
-	public List<Printer> getAvailablePrinterService() {
-		return printerRepository.findByStatus(AVAILABLE.getStatus());
-	}
+    @Override
+    public List<Printer> getAvailablePrinterService() {
+        return printerRepository.findByStatus(AVAILABLE.getStatus());
+    }
 
-	@Override
-	public PageResult<Printer> listPrinterService(PrinterServicePageRequest query, Pageable pageable) {
-		Page<Printer> pageResult = this.printerRepository.findAll(
-				(root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, query, criteriaBuilder),
-				pageable);
-		return PageResult.of(pageResult.getContent(), pageResult.getTotalElements());
-	}
+    @Override
+    public PageResult<Printer> listPrinterService(PrinterServicePageRequest query, Pageable pageable) {
+        Page<Printer> pageResult = this.printerRepository.findAll(
+                (root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, query, criteriaBuilder),
+                pageable);
+        return PageResult.of(pageResult.getContent(), pageResult.getTotalElements());
+    }
 
-	@Override
-	@SneakyThrows
-	public void printSalesTicket(OrderDetail orderDetail, Integer printType) {
-		List<Printer> printerServices = getAvailablePrinterService();
+    @Override
+    @SneakyThrows
+    public void printSalesTicket(OrderDetail orderDetail, Integer printType) {
+        List<Printer> printerServices = getAvailablePrinterService();
 
-		ArgumentAssert.notEmpty(printerServices, PARAM_ERROR, "没有可用的打印机");
+        ArgumentAssert.notEmpty(printerServices, PARAM_ERROR, "没有可用的打印机");
 
-		for (Printer printerService : printerServices) {
-			Integer type = printerService.getType();
-			try {
-				if (POS.is(type) && printerService.getPrintMode().equals(printType)) {
-					printEscPosPage(printerService, orderDetail);
-				}
-				else if (USB.is(type) && printerService.getPrintMode().equals(printType)) {
-					SalesTicket salesTicket = new SalesTicket(orderDetail);
-					new SalesTicketPrinter(salesTicket).printer(printerService.getName());
-				}
-			}
-			catch (Exception e) {
-				log.error("Failed to print sales ticket, order: {}, printer: {}", orderDetail.getOrder().getId(),
-						printerService.getName(), e);
-			}
-		}
-	}
+        for (Printer printerService : printerServices) {
+            Integer type = printerService.getType();
+            try {
+                if (POS.is(type) && printerService.getPrintMode().equals(printType)) {
+                    printEscPosPage(printerService, orderDetail);
+                }
+                else if (USB.is(type) && printerService.getPrintMode().equals(printType)) {
+                    SalesTicket salesTicket = new SalesTicket(orderDetail);
+                    new SalesTicketPrinter(salesTicket).printer(printerService.getName());
+                }
+            }
+            catch (Exception e) {
+                log.error("Failed to print sales ticket, order: {}, printer: {}", orderDetail.getOrder().getId(),
+                        printerService.getName(), e);
+            }
+        }
+    }
 
-	@Override
-	@SneakyThrows
-	public boolean printTestPage(Long id) {
-		Optional<Printer> printerOptional = getById(id);
-		if (printerOptional.isEmpty()) {
-			ArgumentAssert.error(SystemErrorCode.DATA_NOT_EXIST);
-		}
+    @Override
+    @SneakyThrows
+    public boolean printTestPage(Long id) {
+        Optional<Printer> printerOptional = getById(id);
+        if (printerOptional.isEmpty()) {
+            ArgumentAssert.error(SystemErrorCode.DATA_NOT_EXIST);
+        }
 
-		String orderDetailJsonStr = printerConfig.getDemoOrder().getContentAsString(StandardCharsets.UTF_8);
+        String orderDetailJsonStr = printerConfig.getDemoOrder().getContentAsString(StandardCharsets.UTF_8);
 
-		OrderDetail orderDetail = JsonUtil.readValue(orderDetailJsonStr, OrderDetail.class);
+        OrderDetail orderDetail = JsonUtil.readValue(orderDetailJsonStr, OrderDetail.class);
 
-		ArgumentAssert.notNull(orderDetail, FAILURE, "加载测试订单失败");
+        ArgumentAssert.notNull(orderDetail, FAILURE, "加载测试订单失败");
 
-		Printer printer = printerOptional.get();
+        Printer printer = printerOptional.get();
 
-		ArgumentAssert.isTrue(AVAILABLE.is(printer.getStatus()), PARAM_ERROR, "打印机未启用");
+        ArgumentAssert.isTrue(AVAILABLE.is(printer.getStatus()), PARAM_ERROR, "打印机未启用");
 
-		Integer type = printer.getType();
+        Integer type = printer.getType();
 
-		if (POS.is(type)) {
-			return printEscPosPage(printer, orderDetail);
-		}
-		else if (USB.is(type)) {
-			SalesTicket salesTicket = new SalesTicket(orderDetail);
-			new SalesTicketPrinter(salesTicket).printer(printer.getName());
-			return true;
-		}
-		log.warn("Unsupported printer type: {}", type);
-		return false;
-	}
+        if (POS.is(type)) {
+            return printEscPosPage(printer, orderDetail);
+        }
+        else if (USB.is(type)) {
+            SalesTicket salesTicket = new SalesTicket(orderDetail);
+            new SalesTicketPrinter(salesTicket).printer(printer.getName());
+            return true;
+        }
+        log.warn("Unsupported printer type: {}", type);
+        return false;
+    }
 
-	@Override
-	protected JpaRepository<Printer, Long> getBaseRepository() {
-		return this.printerRepository;
-	}
+    @Override
+    protected JpaRepository<Printer, Long> getBaseRepository() {
+        return this.printerRepository;
+    }
 
-	private boolean printEscPosPage(Printer printer, OrderDetail orderDetail) {
-		try {
-			EscPos.getInstance(printer.getIp(), printer.getPort());
-			String kitchenTpl = printerConfig.getKitchenTemplate().getContentAsString(StandardCharsets.UTF_8);
-			Map<String, Object> params = new HashMap<>();
-			params.put("keys", orderDetail.getOrder());
-			params.put("goods", orderDetail.getOrderItems());
-			EscPos.print(kitchenTpl, JsonUtil.toJsonStr(params));
-			return true;
-		}
-		catch (Exception e) {
-			log.error("Failed to print EscPos page: ", e);
-			ArgumentAssert.error(FAILURE, e.getLocalizedMessage());
-		}
-		return false;
-	}
+    private boolean printEscPosPage(Printer printer, OrderDetail orderDetail) {
+        try {
+            EscPos.getInstance(printer.getIp(), printer.getPort());
+            String kitchenTpl = printerConfig.getKitchenTemplate().getContentAsString(StandardCharsets.UTF_8);
+            Map<String, Object> params = new HashMap<>();
+            params.put("keys", orderDetail.getOrder());
+            params.put("goods", orderDetail.getOrderItems());
+            EscPos.print(kitchenTpl, JsonUtil.toJsonStr(params));
+            return true;
+        }
+        catch (Exception e) {
+            log.error("Failed to print EscPos page: ", e);
+            ArgumentAssert.error(FAILURE, e.getLocalizedMessage());
+        }
+        return false;
+    }
 
 }

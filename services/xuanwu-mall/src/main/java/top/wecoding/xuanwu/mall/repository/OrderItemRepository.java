@@ -14,10 +14,10 @@ import java.util.List;
  * @date 2023-12-30 11:29:53
  */
 public interface OrderItemRepository
-		extends LogicDeleteRepository<OrderItem, Long>, JpaSpecificationExecutor<OrderItem> {
+        extends LogicDeleteRepository<OrderItem, Long>, JpaSpecificationExecutor<OrderItem> {
 
-	List<OrderItem> findByOrderId(Long orderId);
+    List<OrderItem> findByOrderId(Long orderId);
 
-	OrderItem findByOrderIdAndFoodId(Long orderId, Long foodId);
+    OrderItem findByOrderIdAndFoodId(Long orderId, Long foodId);
 
 }

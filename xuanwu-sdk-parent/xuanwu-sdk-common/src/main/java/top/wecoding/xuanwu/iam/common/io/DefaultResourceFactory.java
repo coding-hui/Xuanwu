@@ -10,21 +10,21 @@ import java.util.Locale;
  */
 public class DefaultResourceFactory implements ResourceFactory {
 
-	@Override
-	public Resource createResource(String location) {
-		Assert.hasText(location, "location argument cannot be null or empty.");
+    @Override
+    public Resource createResource(String location) {
+        Assert.hasText(location, "location argument cannot be null or empty.");
 
-		if (location.startsWith(ClasspathResource.SCHEME_PREFIX)) {
-			return new ClasspathResource(location);
-		}
+        if (location.startsWith(ClasspathResource.SCHEME_PREFIX)) {
+            return new ClasspathResource(location);
+        }
 
-		String lcase = location.toLowerCase(Locale.ROOT);
+        String lcase = location.toLowerCase(Locale.ROOT);
 
-		if (location.startsWith(UrlResource.SCHEME_PREFIX) || lcase.startsWith("http:") || lcase.startsWith("https:")) {
-			return new UrlResource(location);
-		}
+        if (location.startsWith(UrlResource.SCHEME_PREFIX) || lcase.startsWith("http:") || lcase.startsWith("https:")) {
+            return new UrlResource(location);
+        }
 
-		return new FileResource(location);
-	}
+        return new FileResource(location);
+    }
 
 }

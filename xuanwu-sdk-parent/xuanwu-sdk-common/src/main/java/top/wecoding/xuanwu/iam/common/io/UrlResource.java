@@ -10,23 +10,23 @@ import java.net.URL;
  */
 public class UrlResource extends AbstractResource {
 
-	private static final String SCHEME = "url";
+    private static final String SCHEME = "url";
 
-	public static final String SCHEME_PREFIX = SCHEME + ":";
+    public static final String SCHEME_PREFIX = SCHEME + ":";
 
-	public UrlResource(String location) {
-		super(location);
-	}
+    public UrlResource(String location) {
+        super(location);
+    }
 
-	@Override
-	protected String getScheme() {
-		return SCHEME;
-	}
+    @Override
+    protected String getScheme() {
+        return SCHEME;
+    }
 
-	@Override
-	public InputStream getInputStream() throws IOException {
-		URL url = new URL(getLocation());
-		return url.openStream();
-	}
+    @Override
+    public InputStream getInputStream() throws IOException {
+        URL url = new URL(getLocation());
+        return url.openStream();
+    }
 
 }

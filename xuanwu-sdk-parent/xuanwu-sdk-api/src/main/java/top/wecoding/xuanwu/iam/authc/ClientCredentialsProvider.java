@@ -8,6 +8,6 @@ package top.wecoding.xuanwu.iam.authc;
 @SuppressWarnings("rawtypes")
 public interface ClientCredentialsProvider {
 
-	ClientCredentials resolveCredentials();
+    ClientCredentials resolveCredentials();
 
 }

@@ -16,52 +16,52 @@ import java.util.Optional;
  * @since 0.9
  */
 public interface TableInfoRepository
-		extends LogicDeleteRepository<TableEntity, Long>, JpaSpecificationExecutor<TableEntity> {
+        extends LogicDeleteRepository<TableEntity, Long>, JpaSpecificationExecutor<TableEntity> {
 
-	Optional<TableEntity> findByTableName(String tableName);
+    Optional<TableEntity> findByTableName(String tableName);
 
-	@Query(nativeQuery = true, value = """
-			SELECT
-			    table_name,
-			    engine AS db_engine,
-			    table_collation,
-			    table_comment,
-			    create_time AS create_at,
-			    update_time AS update_at
-			FROM information_schema.tables
-			WHERE table_schema = (SELECT database())
-			AND table_name LIKE CONCAT('%', :tableName, '%')
-			ORDER BY create_time DESC
-			""")
-	Page<Object> listDbTablesByName(@Param("tableName") String tableName, Pageable pageable);
+    @Query(nativeQuery = true, value = """
+            SELECT
+                table_name,
+                engine AS db_engine,
+                table_collation,
+                table_comment,
+                create_time AS create_at,
+                update_time AS update_at
+            FROM information_schema.tables
+            WHERE table_schema = (SELECT database())
+            AND table_name LIKE CONCAT('%', :tableName, '%')
+            ORDER BY create_time DESC
+            """)
+    Page<Object> listDbTablesByName(@Param("tableName") String tableName, Pageable pageable);
 
-	@Query(nativeQuery = true, value = """
-			SELECT
-			    table_name,
-			    engine AS db_engine,
-			    table_collation,
-			    table_comment,
-			    create_time AS create_at,
-			    update_time AS update_at
-			FROM information_schema.tables
-			WHERE table_schema = (SELECT database())
-			AND table_name IN :tableNames
-			ORDER BY create_time DESC
-			""")
-	List<Object> listDbTablesByNames(@Param("tableNames") List<String> tableNames);
+    @Query(nativeQuery = true, value = """
+            SELECT
+                table_name,
+                engine AS db_engine,
+                table_collation,
+                table_comment,
+                create_time AS create_at,
+                update_time AS update_at
+            FROM information_schema.tables
+            WHERE table_schema = (SELECT database())
+            AND table_name IN :tableNames
+            ORDER BY create_time DESC
+            """)
+    List<Object> listDbTablesByNames(@Param("tableNames") List<String> tableNames);
 
-	@Query(nativeQuery = true, value = """
-			SELECT
-			    table_name,
-			    engine AS db_engine,
-			    table_collation,
-			    table_comment,
-			    create_time AS create_at,
-			    update_time AS update_at
-			FROM information_schema.tables
-			WHERE table_schema = (SELECT database())
-			ORDER BY create_time DESC
-			""")
-	Page<Object> listDbTables(Pageable pageable);
+    @Query(nativeQuery = true, value = """
+            SELECT
+                table_name,
+                engine AS db_engine,
+                table_collation,
+                table_comment,
+                create_time AS create_at,
+                update_time AS update_at
+            FROM information_schema.tables
+            WHERE table_schema = (SELECT database())
+            ORDER BY create_time DESC
+            """)
+    Page<Object> listDbTables(Pageable pageable);
 
 }

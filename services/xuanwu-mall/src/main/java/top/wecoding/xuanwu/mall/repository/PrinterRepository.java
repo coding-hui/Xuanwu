@@ -15,10 +15,10 @@ import java.util.List;
  */
 public interface PrinterRepository extends LogicDeleteRepository<Printer, Long>, JpaSpecificationExecutor<Printer> {
 
-	Printer getByName(String name);
+    Printer getByName(String name);
 
-	boolean existsByName(String name);
+    boolean existsByName(String name);
 
-	List<Printer> findByStatus(Integer status);
+    List<Printer> findByStatus(Integer status);
 
 }

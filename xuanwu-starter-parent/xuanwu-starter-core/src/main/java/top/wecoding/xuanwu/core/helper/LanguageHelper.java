@@ -11,26 +11,26 @@ import java.util.Locale;
  */
 public class LanguageHelper {
 
-	@Getter
-	private static volatile String defaultLanguage = "zh_CN";
+    @Getter
+    private static volatile String defaultLanguage = "zh_CN";
 
-	private LanguageHelper() {
-	}
+    private LanguageHelper() {
+    }
 
-	public static void setDefaultLanguage(String lang) {
-		LanguageHelper.defaultLanguage = lang;
-	}
+    public static void setDefaultLanguage(String lang) {
+        LanguageHelper.defaultLanguage = lang;
+    }
 
-	/**
-	 * 根据当前登陆用户获取语言信息
-	 * @return String
-	 */
-	public static String language() {
-		return defaultLanguage;
-	}
+    /**
+     * 根据当前登陆用户获取语言信息
+     * @return String
+     */
+    public static String language() {
+        return defaultLanguage;
+    }
 
-	public static Locale locale() {
-		return LocaleUtils.toLocale(LanguageHelper.language());
-	}
+    public static Locale locale() {
+        return LocaleUtils.toLocale(LanguageHelper.language());
+    }
 
 }

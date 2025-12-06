@@ -9,30 +9,30 @@ import lombok.Data;
 @Data
 public class FileInfo {
 
-	private String attachmentUuid;
+    private String attachmentUuid;
 
-	private String directory;
+    private String directory;
 
-	private String fileUrl;
+    private String fileUrl;
 
-	private String fileType;
+    private String fileType;
 
-	private String fileName;
+    private String fileName;
 
-	private Long fileSize;
+    private Long fileSize;
 
-	private String bucketName;
+    private String bucketName;
 
-	private String fileKey;
+    private String fileKey;
 
-	private Long tenantId;
+    private Long tenantId;
 
-	private String md5;
+    private String md5;
 
-	private String storageCode;
+    private String storageCode;
 
-	private String sourceType;
+    private String sourceType;
 
-	private String serverCode;
+    private String serverCode;
 
 }

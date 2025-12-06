@@ -18,12 +18,12 @@ import java.util.List;
  */
 public interface PrinterService extends BaseService<Printer, Long> {
 
-	List<Printer> getAvailablePrinterService();
+    List<Printer> getAvailablePrinterService();
 
-	PageResult<Printer> listPrinterService(PrinterServicePageRequest query, Pageable pageable);
+    PageResult<Printer> listPrinterService(PrinterServicePageRequest query, Pageable pageable);
 
-	void printSalesTicket(OrderDetail orderDetail, Integer type);
+    void printSalesTicket(OrderDetail orderDetail, Integer type);
 
-	boolean printTestPage(Long id);
+    boolean printTestPage(Long id);
 
 }

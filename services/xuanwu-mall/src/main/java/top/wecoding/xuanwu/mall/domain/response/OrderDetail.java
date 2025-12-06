@@ -21,9 +21,9 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderDetail implements Serializable {
 
-	@JsonUnwrapped
-	private Order order;
+    @JsonUnwrapped
+    private Order order;
 
-	private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems;
 
 }

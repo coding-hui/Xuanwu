@@ -16,13 +16,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthorizationRequest {
 
-	@JsonProperty("resource")
-	private String resource;
+    @JsonProperty("resource")
+    private String resource;
 
-	@JsonProperty("action")
-	private String action;
+    @JsonProperty("action")
+    private String action;
 
-	@JsonProperty("subject")
-	private String subject;
+    @JsonProperty("subject")
+    private String subject;
 
 }

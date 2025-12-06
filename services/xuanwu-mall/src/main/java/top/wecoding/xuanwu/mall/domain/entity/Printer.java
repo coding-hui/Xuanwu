@@ -30,38 +30,38 @@ import java.io.Serializable;
 @Table(name = "mall_printer")
 public class Printer extends LogicDeleteEntity implements Serializable {
 
-	@Serial
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-	/** 是否启用 */
-	@Column(name = "status")
-	private Integer status;
+    /** 是否启用 */
+    @Column(name = "status")
+    private Integer status;
 
-	/** 打印机名称 */
-	@Column(name = "name")
-	private String name;
+    /** 打印机名称 */
+    @Column(name = "name")
+    private String name;
 
-	@Column(name = "description")
-	private String description;
+    @Column(name = "description")
+    private String description;
 
-	@Column(name = "type")
-	private Integer type;
+    @Column(name = "type")
+    private Integer type;
 
-	@Column(name = "ip")
-	private String ip;
+    @Column(name = "ip")
+    private String ip;
 
-	@Column(name = "port")
-	private Integer port;
+    @Column(name = "port")
+    private Integer port;
 
-	@Column(name = "encoding")
-	private String encoding;
+    @Column(name = "encoding")
+    private String encoding;
 
-	@Column(name = "print_mode")
-	private Integer printMode;
+    @Column(name = "print_mode")
+    private Integer printMode;
 
 }

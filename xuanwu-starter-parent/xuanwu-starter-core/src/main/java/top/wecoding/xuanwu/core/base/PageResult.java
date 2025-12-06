@@ -27,25 +27,25 @@ import java.util.function.Function;
  */
 public class PageResult<T> extends PageSerializable<T> {
 
-	public PageResult() {
-	}
+    public PageResult() {
+    }
 
-	public PageResult(List<T> list, long total) {
-		this.records = list;
-		this.total = total;
-	}
+    public PageResult(List<T> list, long total) {
+        this.records = list;
+        this.total = total;
+    }
 
-	public static <T> PageResult<T> of(List<T> list, long total) {
-		return new PageResult<>(list, total);
-	}
+    public static <T> PageResult<T> of(List<T> list, long total) {
+        return new PageResult<>(list, total);
+    }
 
-	public static <T> PageResult<T> empty() {
-		return new PageResult<>(Collections.emptyList(), 0L);
-	}
+    public static <T> PageResult<T> empty() {
+        return new PageResult<>(Collections.emptyList(), 0L);
+    }
 
-	@Override
-	public <U> PageResult<U> map(Function<? super T, ? extends U> converter) {
-		return of(getConvertedContent(converter), total);
-	}
+    @Override
+    public <U> PageResult<U> map(Function<? super T, ? extends U> converter) {
+        return of(getConvertedContent(converter), total);
+    }
 
 }

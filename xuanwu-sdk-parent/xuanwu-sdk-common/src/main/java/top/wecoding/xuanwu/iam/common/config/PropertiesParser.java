@@ -12,10 +12,10 @@ import java.util.Scanner;
  */
 public interface PropertiesParser {
 
-	Map<String, String> parse(String source);
+    Map<String, String> parse(String source);
 
-	Map<String, String> parse(Resource resource) throws IOException;
+    Map<String, String> parse(Resource resource) throws IOException;
 
-	Map<String, String> parse(Scanner source);
+    Map<String, String> parse(Scanner source);
 
 }

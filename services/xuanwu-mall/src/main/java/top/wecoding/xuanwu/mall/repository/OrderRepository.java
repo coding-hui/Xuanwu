@@ -15,8 +15,8 @@ import java.util.List;
  */
 public interface OrderRepository extends LogicDeleteRepository<Order, Long>, JpaSpecificationExecutor<Order> {
 
-	List<Order> findByTableCodeAndStatus(String tableCode, Integer status);
+    List<Order> findByTableCodeAndStatus(String tableCode, Integer status);
 
-	int countByTableCodeAndStatus(String tableCode, Integer status);
+    int countByTableCodeAndStatus(String tableCode, Integer status);
 
 }

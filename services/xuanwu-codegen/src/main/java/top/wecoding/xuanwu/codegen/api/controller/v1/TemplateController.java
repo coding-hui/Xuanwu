@@ -18,11 +18,11 @@ import top.wecoding.xuanwu.core.base.R;
 @RequestMapping("/templates")
 public class TemplateController {
 
-	private final TemplateFactory templateFactory;
+    private final TemplateFactory templateFactory;
 
-	@GetMapping("")
-	public R<?> getAllTemplates() {
-		return R.ok(templateFactory.getAllTemplates());
-	}
+    @GetMapping("")
+    public R<?> getAllTemplates() {
+        return R.ok(templateFactory.getAllTemplates());
+    }
 
 }

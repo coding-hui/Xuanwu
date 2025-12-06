@@ -20,42 +20,42 @@ import java.util.stream.Collectors;
  */
 public class ApiClient {
 
-	private static final String DEFAULT_API_BASE = "http://iam.wecoding.top";
+    private static final String DEFAULT_API_BASE = "http://iam.wecoding.top";
 
-	private final RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
-	private final HttpServiceProxyFactory factory;
+    private final HttpServiceProxyFactory factory;
 
-	public ApiClient(ClientConfiguration clientConfig, RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
-		this.setBasePath(clientConfig.getApiBase());
+    public ApiClient(ClientConfiguration clientConfig, RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+        this.setBasePath(clientConfig.getApiBase());
 
-		RestTemplateAdapter adapter = RestTemplateAdapter.create(restTemplate);
-		this.factory = HttpServiceProxyFactory.builderFor(adapter).build();
-	}
+        RestTemplateAdapter adapter = RestTemplateAdapter.create(restTemplate);
+        this.factory = HttpServiceProxyFactory.builderFor(adapter).build();
+    }
 
-	public ApiClient setBasePath(String basePath) {
-		basePath = StringUtils.isBlank(basePath) ? DEFAULT_API_BASE : basePath;
-		this.restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(basePath));
-		return this;
-	}
+    public ApiClient setBasePath(String basePath) {
+        basePath = StringUtils.isBlank(basePath) ? DEFAULT_API_BASE : basePath;
+        this.restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(basePath));
+        return this;
+    }
 
-	public ApiClient setApiToken(String apiToken) {
-		List<ClientHttpRequestInterceptor> interceptors = this.restTemplate.getInterceptors()
-			.stream()
-			.filter(i -> !(i instanceof BearerTokenAuthenticationInterceptor))
-			.collect(Collectors.toList());
-		interceptors.add(new BearerTokenAuthenticationInterceptor(apiToken));
-		this.restTemplate.setInterceptors(interceptors);
-		return this;
-	}
+    public ApiClient setApiToken(String apiToken) {
+        List<ClientHttpRequestInterceptor> interceptors = this.restTemplate.getInterceptors()
+            .stream()
+            .filter(i -> !(i instanceof BearerTokenAuthenticationInterceptor))
+            .collect(Collectors.toList());
+        interceptors.add(new BearerTokenAuthenticationInterceptor(apiToken));
+        this.restTemplate.setInterceptors(interceptors);
+        return this;
+    }
 
-	public AuthenticationApi authenticationApi() {
-		return this.factory.createClient(AuthenticationApi.class);
-	}
+    public AuthenticationApi authenticationApi() {
+        return this.factory.createClient(AuthenticationApi.class);
+    }
 
-	public UserApi userApi() {
-		return this.factory.createClient(UserApi.class);
-	}
+    public UserApi userApi() {
+        return this.factory.createClient(UserApi.class);
+    }
 
 }

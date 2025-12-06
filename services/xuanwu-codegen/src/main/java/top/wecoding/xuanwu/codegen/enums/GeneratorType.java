@@ -13,17 +13,17 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 public enum GeneratorType {
 
-	ZIP, DOWNLOAD;
+    ZIP, DOWNLOAD;
 
-	public static GeneratorType of(Object code) {
-		if (code == null) {
-			return ZIP;
-		}
-		return DOWNLOAD.is(code) ? DOWNLOAD : ZIP;
-	}
+    public static GeneratorType of(Object code) {
+        if (code == null) {
+            return ZIP;
+        }
+        return DOWNLOAD.is(code) ? DOWNLOAD : ZIP;
+    }
 
-	public boolean is(Object code) {
-		return this.name().equalsIgnoreCase(String.valueOf(code));
-	}
+    public boolean is(Object code) {
+        return this.name().equalsIgnoreCase(String.valueOf(code));
+    }
 
 }

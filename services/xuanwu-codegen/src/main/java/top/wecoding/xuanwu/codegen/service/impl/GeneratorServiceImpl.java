@@ -21,33 +21,33 @@ import java.util.zip.ZipOutputStream;
 @RequiredArgsConstructor
 public class GeneratorServiceImpl implements GeneratorService {
 
-	private final TemplateFactory templateFactory;
+    private final TemplateFactory templateFactory;
 
-	private final TableInfoService tableInfoService;
+    private final TableInfoService tableInfoService;
 
-	@Override
-	public void generator(Long tableId) {
-		TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
-		TemplateService tplSvc = templateFactory.create(tableInfo.getTplCategory());
-		tplSvc.renderToFile(tableInfo);
-	}
+    @Override
+    public void generator(Long tableId) {
+        TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
+        TemplateService tplSvc = templateFactory.create(tableInfo.getTplCategory());
+        tplSvc.renderToFile(tableInfo);
+    }
 
-	@Override
-	public byte[] download(Long tableId) {
-		TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
-		TemplateService tplSvc = templateFactory.create(tableInfo.getTplCategory());
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		ZipOutputStream zip = new ZipOutputStream(outputStream);
-		tplSvc.renderToZipStream(tableInfo, zip);
-		IOUtils.closeQuietly(zip);
-		return outputStream.toByteArray();
-	}
+    @Override
+    public byte[] download(Long tableId) {
+        TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
+        TemplateService tplSvc = templateFactory.create(tableInfo.getTplCategory());
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ZipOutputStream zip = new ZipOutputStream(outputStream);
+        tplSvc.renderToZipStream(tableInfo, zip);
+        IOUtils.closeQuietly(zip);
+        return outputStream.toByteArray();
+    }
 
-	@Override
-	public Map<String, String> preview(Long tableId) {
-		TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
-		TemplateService tplSvc = templateFactory.create(tableInfo.getTplCategory());
-		return tplSvc.render(tableInfo);
-	}
+    @Override
+    public Map<String, String> preview(Long tableId) {
+        TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
+        TemplateService tplSvc = templateFactory.create(tableInfo.getTplCategory());
+        return tplSvc.render(tableInfo);
+    }
 
 }

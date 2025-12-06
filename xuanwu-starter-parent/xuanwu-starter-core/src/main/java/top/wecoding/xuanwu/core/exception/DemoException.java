@@ -23,16 +23,16 @@ package top.wecoding.xuanwu.core.exception;
  */
 public class DemoException extends BaseUncheckedException {
 
-	public DemoException() {
-		super();
-	}
+    public DemoException() {
+        super();
+    }
 
-	public DemoException(ErrorCode supplier, String exception, String url, Object... args) {
-		this(supplier, null, exception, url, args);
-	}
+    public DemoException(ErrorCode supplier, String exception, String url, Object... args) {
+        this(supplier, null, exception, url, args);
+    }
 
-	public DemoException(ErrorCode supplier, Throwable cause, String exception, String url, Object... args) {
-		super(supplier, cause, exception, url, args);
-	}
+    public DemoException(ErrorCode supplier, Throwable cause, String exception, String url, Object... args) {
+        super(supplier, cause, exception, url, args);
+    }
 
 }

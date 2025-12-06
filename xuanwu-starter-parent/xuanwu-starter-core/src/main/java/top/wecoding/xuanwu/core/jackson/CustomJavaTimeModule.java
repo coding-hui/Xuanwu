@@ -28,28 +28,28 @@ import static top.wecoding.xuanwu.core.constant.Constant.NORM_DATETIME_PATTERN;
  */
 public class CustomJavaTimeModule extends SimpleModule {
 
-	public CustomJavaTimeModule() {
-		super(PackageVersion.VERSION);
+    public CustomJavaTimeModule() {
+        super(PackageVersion.VERSION);
 
-		// yyyy-MM-dd HH:mm:ss
-		this.addSerializer(LocalDateTime.class,
-				new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(NORM_DATETIME_PATTERN)));
-		// yyyy-MM-dd
-		this.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ISO_LOCAL_DATE));
-		// HH:mm:ss
-		this.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ISO_LOCAL_TIME));
-		// INSTANCE
-		this.addSerializer(Instant.class, InstantSerializer.INSTANCE);
+        // yyyy-MM-dd HH:mm:ss
+        this.addSerializer(LocalDateTime.class,
+                new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(NORM_DATETIME_PATTERN)));
+        // yyyy-MM-dd
+        this.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ISO_LOCAL_DATE));
+        // HH:mm:ss
+        this.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ISO_LOCAL_TIME));
+        // INSTANCE
+        this.addSerializer(Instant.class, InstantSerializer.INSTANCE);
 
-		// yyyy-MM-dd HH:mm:ss
-		this.addDeserializer(LocalDateTime.class,
-				new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(NORM_DATETIME_PATTERN)));
-		// yyyy-MM-dd
-		this.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ISO_LOCAL_DATE));
-		// HH:mm:ss
-		this.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ISO_LOCAL_TIME));
-		// INSTANT
-		this.addDeserializer(Instant.class, InstantDeserializer.INSTANT);
-	}
+        // yyyy-MM-dd HH:mm:ss
+        this.addDeserializer(LocalDateTime.class,
+                new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(NORM_DATETIME_PATTERN)));
+        // yyyy-MM-dd
+        this.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ISO_LOCAL_DATE));
+        // HH:mm:ss
+        this.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ISO_LOCAL_TIME));
+        // INSTANT
+        this.addDeserializer(Instant.class, InstantDeserializer.INSTANT);
+    }
 
 }

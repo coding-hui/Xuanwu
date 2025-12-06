@@ -11,20 +11,20 @@ import java.nio.file.Paths;
  */
 public class FileResource extends AbstractResource {
 
-	private static final String SCHEME = "file";
+    private static final String SCHEME = "file";
 
-	public FileResource(String location) {
-		super(location);
-	}
+    public FileResource(String location) {
+        super(location);
+    }
 
-	@Override
-	protected String getScheme() {
-		return SCHEME;
-	}
+    @Override
+    protected String getScheme() {
+        return SCHEME;
+    }
 
-	@Override
-	public InputStream getInputStream() throws IOException {
-		return Files.newInputStream(Paths.get(getLocation()));
-	}
+    @Override
+    public InputStream getInputStream() throws IOException {
+        return Files.newInputStream(Paths.get(getLocation()));
+    }
 
 }

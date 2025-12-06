@@ -13,19 +13,19 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 public enum YesOrNo {
 
-	YES("1"), NO("0");
+    YES("1"), NO("0");
 
-	private final String code;
+    private final String code;
 
-	public static YesOrNo of(Object code) {
-		if (code == null) {
-			return NO;
-		}
-		return YES.is(code) ? YES : NO;
-	}
+    public static YesOrNo of(Object code) {
+        if (code == null) {
+            return NO;
+        }
+        return YES.is(code) ? YES : NO;
+    }
 
-	public boolean is(Object code) {
-		return this.code.equals(String.valueOf(code));
-	}
+    public boolean is(Object code) {
+        return this.code.equals(String.valueOf(code));
+    }
 
 }

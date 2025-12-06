@@ -38,40 +38,40 @@ import java.util.List;
 @RequestMapping("/foods")
 public class FoodController {
 
-	private final FoodService foodService;
+    private final FoodService foodService;
 
-	@GetMapping("/{id}")
-	public R<Food> getInfo(@PathVariable("id") Long id) {
-		Food foodInfo = foodService.getById(id).orElseThrow(DateNotFoundException::new);
-		if (foodInfo.getSkus() != null) {
-			List<SkuStock> skus = foodInfo.getSkus().stream().sorted(Comparator.comparing(SkuStock::getSort)).toList();
-			foodInfo.setSkus(skus);
-		}
-		return R.ok(foodInfo);
-	}
+    @GetMapping("/{id}")
+    public R<Food> getInfo(@PathVariable("id") Long id) {
+        Food foodInfo = foodService.getById(id).orElseThrow(DateNotFoundException::new);
+        if (foodInfo.getSkus() != null) {
+            List<SkuStock> skus = foodInfo.getSkus().stream().sorted(Comparator.comparing(SkuStock::getSort)).toList();
+            foodInfo.setSkus(skus);
+        }
+        return R.ok(foodInfo);
+    }
 
-	@GetMapping("")
-	public R<?> paging(@PageableDefault Pageable pageReq, FoodInfoPageRequest queryParams) {
-		return R.ok(foodService.listFoods(queryParams, pageReq));
-	}
+    @GetMapping("")
+    public R<?> paging(@PageableDefault Pageable pageReq, FoodInfoPageRequest queryParams) {
+        return R.ok(foodService.listFoods(queryParams, pageReq));
+    }
 
-	@PostMapping("")
-	public R<Food> create(@RequestBody @Validated CreateFoodRequest createReq) {
-		foodService.createFood(createReq);
-		return R.ok();
-	}
+    @PostMapping("")
+    public R<Food> create(@RequestBody @Validated CreateFoodRequest createReq) {
+        foodService.createFood(createReq);
+        return R.ok();
+    }
 
-	@PutMapping("/{id}")
-	public R<Food> update(@PathVariable("id") Long id, @RequestBody @Validated UpdateFoodRequest updateReq) {
-		updateReq.setId(id);
-		foodService.updateFood(updateReq);
-		return R.ok();
-	}
+    @PutMapping("/{id}")
+    public R<Food> update(@PathVariable("id") Long id, @RequestBody @Validated UpdateFoodRequest updateReq) {
+        updateReq.setId(id);
+        foodService.updateFood(updateReq);
+        return R.ok();
+    }
 
-	@DeleteMapping("/{id}")
-	public R<?> delete(@PathVariable("id") Long id) {
-		foodService.deleteById(id);
-		return R.ok();
-	}
+    @DeleteMapping("/{id}")
+    public R<?> delete(@PathVariable("id") Long id) {
+        foodService.deleteById(id);
+        return R.ok();
+    }
 
 }

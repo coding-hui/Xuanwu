@@ -10,24 +10,24 @@ import lombok.Data;
 @Data
 public class BarCode {
 
-	/**
-	 * 打印内容类型
-	 */
-	private int type;
+    /**
+     * 打印内容类型
+     */
+    private int type;
 
-	/**
-	 * 条形码数字
-	 */
-	private String text;
+    /**
+     * 条形码数字
+     */
+    private String text;
 
-	/**
-	 * 对齐方式 居左、居中、居右
-	 */
-	private int format;
+    /**
+     * 对齐方式 居左、居中、居右
+     */
+    private int format;
 
-	/**
-	 * 空行行数
-	 */
-	private int line;
+    /**
+     * 空行行数
+     */
+    private int line;
 
 }

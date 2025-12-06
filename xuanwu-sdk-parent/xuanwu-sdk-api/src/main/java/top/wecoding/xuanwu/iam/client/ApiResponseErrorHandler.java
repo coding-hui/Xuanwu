@@ -30,36 +30,36 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
  */
 public class ApiResponseErrorHandler extends DefaultResponseErrorHandler {
 
-	@Setter
-	private List<HttpMessageConverter<?>> messageConverters;
+    @Setter
+    private List<HttpMessageConverter<?>> messageConverters;
 
-	public ApiResponseErrorHandler() {
-		this(List.of(new MappingJackson2HttpMessageConverter(), new FormHttpMessageConverter(),
-				new StringHttpMessageConverter()));
-	}
+    public ApiResponseErrorHandler() {
+        this(List.of(new MappingJackson2HttpMessageConverter(), new FormHttpMessageConverter(),
+                new StringHttpMessageConverter()));
+    }
 
-	public ApiResponseErrorHandler(List<HttpMessageConverter<?>> messageConverters) {
-		this.messageConverters = messageConverters;
-	}
+    public ApiResponseErrorHandler(List<HttpMessageConverter<?>> messageConverters) {
+        this.messageConverters = messageConverters;
+    }
 
-	@Override
-	public void handleError(ClientHttpResponse response, HttpStatusCode statusCode, @Nullable URI url,
-			@Nullable HttpMethod method) throws IOException {
-		R<?> apiResult = extract(response);
-		if (apiResult == null) {
-			super.handleError(response, statusCode, url, method);
-			return;
-		}
-		if (UNAUTHORIZED.isSameCodeAs(statusCode)) {
-			throw new UnauthorizedException(apiResult::getCode, apiResult.getMsg());
-		}
-		String message = I18n.getMessage(apiResult.getCode().toString(), apiResult.getMsg());
-		throw new IamApiException(apiResult::getCode, message);
-	}
+    @Override
+    public void handleError(ClientHttpResponse response, HttpStatusCode statusCode, @Nullable URI url,
+            @Nullable HttpMethod method) throws IOException {
+        R<?> apiResult = extract(response);
+        if (apiResult == null) {
+            super.handleError(response, statusCode, url, method);
+            return;
+        }
+        if (UNAUTHORIZED.isSameCodeAs(statusCode)) {
+            throw new UnauthorizedException(apiResult::getCode, apiResult.getMsg());
+        }
+        String message = I18n.getMessage(apiResult.getCode().toString(), apiResult.getMsg());
+        throw new IamApiException(apiResult::getCode, message);
+    }
 
-	private R<?> extract(ClientHttpResponse response) throws IOException {
-		var extractor = new HttpMessageConverterExtractor<>(R.class, this.messageConverters);
-		return extractor.extractData(response);
-	}
+    private R<?> extract(ClientHttpResponse response) throws IOException {
+        var extractor = new HttpMessageConverterExtractor<>(R.class, this.messageConverters);
+        return extractor.extractData(response);
+    }
 
 }

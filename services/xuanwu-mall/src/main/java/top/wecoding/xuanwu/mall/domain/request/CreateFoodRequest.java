@@ -21,43 +21,43 @@ import java.util.List;
 @AllArgsConstructor
 public class CreateFoodRequest {
 
-	/** 菜品名称 */
-	@NotBlank(message = "菜品名称不能为空")
-	private String name;
+    /** 菜品名称 */
+    @NotBlank(message = "菜品名称不能为空")
+    private String name;
 
-	/** 菜品描述 */
-	private String description;
+    /** 菜品描述 */
+    private String description;
 
-	@NotNull(message = "菜品分类不能为空")
-	private Long categoryId;
+    @NotNull(message = "菜品分类不能为空")
+    private Long categoryId;
 
-	/** 菜品价格 */
-	@NotNull(message = "菜品价格不能为空")
-	private BigDecimal price;
+    /** 菜品价格 */
+    @NotNull(message = "菜品价格不能为空")
+    private BigDecimal price;
 
-	/** 最小订购数量 */
-	private Integer minOrderCount;
+    /** 最小订购数量 */
+    private Integer minOrderCount;
 
-	/** 单位 */
-	@NotBlank(message = "菜品单位不能为空")
-	private String unit;
+    /** 单位 */
+    @NotBlank(message = "菜品单位不能为空")
+    private String unit;
 
-	/** 包装盒数量 */
-	private Integer boxNum;
+    /** 包装盒数量 */
+    private Integer boxNum;
 
-	/** 包装盒价格 */
-	private BigDecimal boxPrice;
+    /** 包装盒价格 */
+    private BigDecimal boxPrice;
 
-	/** 菜品上下架状态，0表上架，1表下架 */
-	@NotNull(message = "菜品上下架状态不能为空")
-	private Integer soldOut;
+    /** 菜品上下架状态，0表上架，1表下架 */
+    @NotNull(message = "菜品上下架状态不能为空")
+    private Integer soldOut;
 
-	/** 菜品图片 URL */
-	private String picture;
+    /** 菜品图片 URL */
+    private String picture;
 
-	/** 菜品排序序号 */
-	private Integer sort;
+    /** 菜品排序序号 */
+    private Integer sort;
 
-	private List<SkuStock> skus;
+    private List<SkuStock> skus;
 
 }

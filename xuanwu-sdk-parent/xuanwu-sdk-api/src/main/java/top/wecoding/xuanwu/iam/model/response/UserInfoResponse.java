@@ -11,13 +11,13 @@ import top.wecoding.xuanwu.iam.model.UserInfo;
 @Data
 public class UserInfoResponse {
 
-	@JsonProperty("code")
-	private int code;
+    @JsonProperty("code")
+    private int code;
 
-	@JsonProperty("msg")
-	private String msg;
+    @JsonProperty("msg")
+    private String msg;
 
-	@JsonProperty("data")
-	private UserInfo userInfo;
+    @JsonProperty("data")
+    private UserInfo userInfo;
 
 }

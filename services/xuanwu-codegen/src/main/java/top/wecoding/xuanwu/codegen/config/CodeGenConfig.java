@@ -16,34 +16,34 @@ import java.util.Set;
 @ConfigurationProperties(prefix = CodeGenConfig.PREFIX)
 public class CodeGenConfig {
 
-	public static final String PREFIX = "xuanwu.codegen";
+    public static final String PREFIX = "xuanwu.codegen";
 
-	private String author;
+    private String author;
 
-	private String packageName;
+    private String packageName;
 
-	private boolean autoRemovePre;
+    private boolean autoRemovePre;
 
-	private String tablePrefix;
+    private String tablePrefix;
 
-	private Map<String, Set<Template>> templates;
+    private Map<String, Set<Template>> templates;
 
-	private Frontend frontend;
+    private Frontend frontend;
 
-	@Data
-	public static class Frontend {
+    @Data
+    public static class Frontend {
 
-		public boolean enabled = true;
+        public boolean enabled = true;
 
-	}
+    }
 
-	@Data
-	public static class Template {
+    @Data
+    public static class Template {
 
-		private String name;
+        private String name;
 
-		private String fileNameFormat;
+        private String fileNameFormat;
 
-	}
+    }
 
 }

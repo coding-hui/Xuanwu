@@ -13,22 +13,22 @@ import java.util.Map;
 @Slf4j
 public class OptionalPropertiesSource implements PropertiesSource {
 
-	private final PropertiesSource propertiesSource;
+    private final PropertiesSource propertiesSource;
 
-	public OptionalPropertiesSource(PropertiesSource source) {
-		Assert.notNull(source, "source cannot be null.");
-		this.propertiesSource = source;
-	}
+    public OptionalPropertiesSource(PropertiesSource source) {
+        Assert.notNull(source, "source cannot be null.");
+        this.propertiesSource = source;
+    }
 
-	@Override
-	public Map<String, String> getProperties() {
-		try {
-			return propertiesSource.getProperties();
-		}
-		catch (Exception e) {
-			log.debug("Unable to obtain properties from optional properties source {}", propertiesSource);
-		}
-		return new LinkedHashMap<>();
-	}
+    @Override
+    public Map<String, String> getProperties() {
+        try {
+            return propertiesSource.getProperties();
+        }
+        catch (Exception e) {
+            log.debug("Unable to obtain properties from optional properties source {}", propertiesSource);
+        }
+        return new LinkedHashMap<>();
+    }
 
 }

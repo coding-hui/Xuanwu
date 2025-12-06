@@ -29,27 +29,27 @@ import top.wecoding.xuanwu.mall.service.OrderItemService;
 @RequestMapping("/order/{orderId}/item")
 public class OrderItemController {
 
-	private final OrderItemService orderItemService;
+    private final OrderItemService orderItemService;
 
-	@GetMapping("/{id}")
-	public R<OrderItem> getInfo(@PathVariable("id") Long id) {
-		return R.ok(orderItemService.getById(id).orElseThrow(DateNotFoundException::new));
-	}
+    @GetMapping("/{id}")
+    public R<OrderItem> getInfo(@PathVariable("id") Long id) {
+        return R.ok(orderItemService.getById(id).orElseThrow(DateNotFoundException::new));
+    }
 
-	@PostMapping("")
-	public R<OrderItem> create(@RequestBody @Validated OrderItem orderItem) {
-		return R.ok(orderItemService.create(orderItem));
-	}
+    @PostMapping("")
+    public R<OrderItem> create(@RequestBody @Validated OrderItem orderItem) {
+        return R.ok(orderItemService.create(orderItem));
+    }
 
-	@PutMapping("/{id}")
-	public R<OrderItem> update(@PathVariable("id") Long id, @RequestBody @Validated OrderItem orderItem) {
-		return R.ok(orderItemService.updateById(id, orderItem));
-	}
+    @PutMapping("/{id}")
+    public R<OrderItem> update(@PathVariable("id") Long id, @RequestBody @Validated OrderItem orderItem) {
+        return R.ok(orderItemService.updateById(id, orderItem));
+    }
 
-	@DeleteMapping("/{orderItemId}")
-	public R<?> delete(@PathVariable("orderId") Long orderId, @PathVariable("orderItemId") Long orderItemId) {
-		orderItemService.deleteOrderItem(orderId, orderItemId);
-		return R.ok();
-	}
+    @DeleteMapping("/{orderItemId}")
+    public R<?> delete(@PathVariable("orderId") Long orderId, @PathVariable("orderItemId") Long orderItemId) {
+        orderItemService.deleteOrderItem(orderId, orderItemId);
+        return R.ok();
+    }
 
 }

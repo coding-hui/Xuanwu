@@ -10,19 +10,19 @@ import lombok.Data;
 @Data
 public class UserInfo {
 
-	@JsonProperty("metadata")
-	private Metadata metadata;
+    @JsonProperty("metadata")
+    private Metadata metadata;
 
-	@JsonProperty("alias")
-	private String alias;
+    @JsonProperty("alias")
+    private String alias;
 
-	@JsonProperty("email")
-	private String email;
+    @JsonProperty("email")
+    private String email;
 
-	@JsonProperty("phone")
-	private String phone;
+    @JsonProperty("phone")
+    private String phone;
 
-	@JsonProperty("userType")
-	private String userType;
+    @JsonProperty("userType")
+    private String userType;
 
 }

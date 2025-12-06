@@ -20,14 +20,14 @@ import java.util.Map;
 @AllArgsConstructor
 public class PosParam {
 
-	/**
-	 * 替换模板中占位符的参数
-	 */
-	private Map<String, Object> keys;
+    /**
+     * 替换模板中占位符的参数
+     */
+    private Map<String, Object> keys;
 
-	/**
-	 * 商品信息参数集合
-	 */
-	private List<Map<String, Object>> goods;
+    /**
+     * 商品信息参数集合
+     */
+    private List<Map<String, Object>> goods;
 
 }

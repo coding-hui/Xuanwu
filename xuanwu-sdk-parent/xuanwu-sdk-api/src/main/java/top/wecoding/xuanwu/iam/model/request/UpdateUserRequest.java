@@ -16,22 +16,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateUserRequest {
 
-	@JsonProperty("name")
-	private String name;
+    @JsonProperty("name")
+    private String name;
 
-	@JsonProperty("password")
-	private String password;
+    @JsonProperty("password")
+    private String password;
 
-	@JsonProperty("alias")
-	private String alias;
+    @JsonProperty("alias")
+    private String alias;
 
-	@JsonProperty("email")
-	private String email;
+    @JsonProperty("email")
+    private String email;
 
-	@JsonProperty("phone")
-	private String phone;
+    @JsonProperty("phone")
+    private String phone;
 
-	@JsonProperty("userType")
-	private String userType;
+    @JsonProperty("userType")
+    private String userType;
 
 }

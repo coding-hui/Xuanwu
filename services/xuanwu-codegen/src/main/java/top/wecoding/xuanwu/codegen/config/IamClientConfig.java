@@ -13,14 +13,14 @@ import top.wecoding.xuanwu.iam.client.Clients;
 @Configuration
 public class IamClientConfig {
 
-	@Bean
-	public ApiClient apiClient() {
-		return Clients.builder().build();
-	}
+    @Bean
+    public ApiClient apiClient() {
+        return Clients.builder().build();
+    }
 
-	@Bean
-	public AuthenticationApi authenticationApi(ApiClient apiClient) {
-		return apiClient.authenticationApi();
-	}
+    @Bean
+    public AuthenticationApi authenticationApi(ApiClient apiClient) {
+        return apiClient.authenticationApi();
+    }
 
 }

@@ -37,54 +37,54 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 @RequestMapping("/order_tables")
 public class OrderTableController {
 
-	private final OrderTableService orderTableService;
+    private final OrderTableService orderTableService;
 
-	private final OrderTableRepository orderTableRepository;
+    private final OrderTableRepository orderTableRepository;
 
-	@GetMapping("/{id}")
-	public R<OrderTable> getInfo(@PathVariable("id") Long id) {
-		return R.ok(orderTableService.getById(id).orElseThrow(DateNotFoundException::new));
-	}
+    @GetMapping("/{id}")
+    public R<OrderTable> getInfo(@PathVariable("id") Long id) {
+        return R.ok(orderTableService.getById(id).orElseThrow(DateNotFoundException::new));
+    }
 
-	@GetMapping("")
-	public R<?> paging(@PageableDefault(sort = "status", direction = DESC) Pageable pageReq, OrderTable params) {
-		return R.ok(orderTableService.listOrderTables(params, pageReq));
-	}
+    @GetMapping("")
+    public R<?> paging(@PageableDefault(sort = "status", direction = DESC) Pageable pageReq, OrderTable params) {
+        return R.ok(orderTableService.listOrderTables(params, pageReq));
+    }
 
-	@PostMapping("")
-	public R<OrderTable> create(@RequestBody @Validated OrderTable orderTable) {
-		if (orderTable.getStatus() == null) {
-			orderTable.setStatus(OrderTableStatus.AVAILABLE.getStatus());
-		}
-		if (orderTableRepository.existsByCode(orderTable.getCode())) {
-			return R.error("订单桌号【" + orderTable.getCode() + "】已存在");
-		}
-		return R.ok(orderTableService.create(orderTable));
-	}
+    @PostMapping("")
+    public R<OrderTable> create(@RequestBody @Validated OrderTable orderTable) {
+        if (orderTable.getStatus() == null) {
+            orderTable.setStatus(OrderTableStatus.AVAILABLE.getStatus());
+        }
+        if (orderTableRepository.existsByCode(orderTable.getCode())) {
+            return R.error("订单桌号【" + orderTable.getCode() + "】已存在");
+        }
+        return R.ok(orderTableService.create(orderTable));
+    }
 
-	@PutMapping("/{id}")
-	public R<OrderTable> update(@PathVariable("id") Long id, @RequestBody @Validated OrderTable orderTable) {
-		Optional<OrderTable> old = orderTableService.getById(id);
-		if (old.isEmpty()) {
-			return R.error("订单桌号【" + orderTable.getCode() + "】不存在");
-		}
-		String oldCode = old.get().getCode();
-		if (!oldCode.equals(orderTable.getCode()) && orderTableRepository.existsByCode(orderTable.getCode())) {
-			return R.error("订单桌号【" + orderTable.getCode() + "】已存在");
-		}
-		return R.ok(orderTableService.updateById(id, orderTable));
-	}
+    @PutMapping("/{id}")
+    public R<OrderTable> update(@PathVariable("id") Long id, @RequestBody @Validated OrderTable orderTable) {
+        Optional<OrderTable> old = orderTableService.getById(id);
+        if (old.isEmpty()) {
+            return R.error("订单桌号【" + orderTable.getCode() + "】不存在");
+        }
+        String oldCode = old.get().getCode();
+        if (!oldCode.equals(orderTable.getCode()) && orderTableRepository.existsByCode(orderTable.getCode())) {
+            return R.error("订单桌号【" + orderTable.getCode() + "】已存在");
+        }
+        return R.ok(orderTableService.updateById(id, orderTable));
+    }
 
-	@DeleteMapping("/{id}")
-	public R<?> delete(@PathVariable("id") Long id) {
-		orderTableService.deleteById(id);
-		return R.ok();
-	}
+    @DeleteMapping("/{id}")
+    public R<?> delete(@PathVariable("id") Long id) {
+        orderTableService.deleteById(id);
+        return R.ok();
+    }
 
-	@DeleteMapping("/completed/{id}")
-	public R<?> completed(@PathVariable("id") Long id) {
-		orderTableService.completedOrderTable(id);
-		return R.ok();
-	}
+    @DeleteMapping("/completed/{id}")
+    public R<?> completed(@PathVariable("id") Long id) {
+        orderTableService.completedOrderTable(id);
+        return R.ok();
+    }
 
 }

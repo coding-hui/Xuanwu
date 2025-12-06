@@ -15,12 +15,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateOrderRequest {
 
-	private Long orderId;
+    private Long orderId;
 
-	private Integer payType;
+    private Integer payType;
 
-	private String tableCode;
+    private String tableCode;
 
-	private Boolean printSalesTicket;
+    private Boolean printSalesTicket;
 
 }

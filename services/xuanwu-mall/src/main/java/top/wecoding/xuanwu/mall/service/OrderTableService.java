@@ -15,10 +15,10 @@ import top.wecoding.xuanwu.orm.service.BaseService;
  */
 public interface OrderTableService extends BaseService<OrderTable, Long> {
 
-	PageResult<OrderTableInfo> listOrderTables(OrderTable params, Pageable pageable);
+    PageResult<OrderTableInfo> listOrderTables(OrderTable params, Pageable pageable);
 
-	void updateStatusByCode(String tableCode, Integer status);
+    void updateStatusByCode(String tableCode, Integer status);
 
-	void completedOrderTable(Long id);
+    void completedOrderTable(Long id);
 
 }

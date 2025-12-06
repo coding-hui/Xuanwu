@@ -25,30 +25,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PrinterServiceInitialize implements ApplicationRunner {
 
-	private final PrinterRepository printerRepository;
+    private final PrinterRepository printerRepository;
 
-	@Override
-	@SneakyThrows
-	public void run(ApplicationArguments args) {
-		PrintService[] printServices = PrinterJob.lookupPrintServices();
+    @Override
+    @SneakyThrows
+    public void run(ApplicationArguments args) {
+        PrintService[] printServices = PrinterJob.lookupPrintServices();
 
-		List<String> printerServiceNames = Arrays.stream(printServices).map(PrintService::getName).toList();
+        List<String> printerServiceNames = Arrays.stream(printServices).map(PrintService::getName).toList();
 
-		for (String printerServiceName : printerServiceNames) {
-			if (printerRepository.existsByName(printerServiceName)) {
-				log.info("Printer [{}] has been initialize.", printerServiceName);
-				continue;
-			}
-			Printer printer = Printer.builder()
-				.name(printerServiceName)
-				.type(PrinterType.USB.getCode())
-				.description("System Initialized")
-				.status(PrinterStatus.DISABLED.getStatus())
-				.build();
-			printerRepository.save(printer);
-			log.info("Create system printer: [{}]", printerServiceName);
-		}
+        for (String printerServiceName : printerServiceNames) {
+            if (printerRepository.existsByName(printerServiceName)) {
+                log.info("Printer [{}] has been initialize.", printerServiceName);
+                continue;
+            }
+            Printer printer = Printer.builder()
+                .name(printerServiceName)
+                .type(PrinterType.USB.getCode())
+                .description("System Initialized")
+                .status(PrinterStatus.DISABLED.getStatus())
+                .build();
+            printerRepository.save(printer);
+            log.info("Create system printer: [{}]", printerServiceName);
+        }
 
-	}
+    }
 
 }

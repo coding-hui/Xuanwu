@@ -12,19 +12,19 @@ import java.util.Map;
 @Data
 public class Metadata {
 
-	@JsonProperty("instanceId")
-	private String instanceId;
+    @JsonProperty("instanceId")
+    private String instanceId;
 
-	@JsonProperty("name")
-	private String name;
+    @JsonProperty("name")
+    private String name;
 
-	@JsonProperty("createdAt")
-	private String createdAt;
+    @JsonProperty("createdAt")
+    private String createdAt;
 
-	@JsonProperty("updatedAt")
-	private String updatedAt;
+    @JsonProperty("updatedAt")
+    private String updatedAt;
 
-	@JsonProperty("extend")
-	private Map<String, Object> extend;
+    @JsonProperty("extend")
+    private Map<String, Object> extend;
 
 }

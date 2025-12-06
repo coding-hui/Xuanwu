@@ -19,34 +19,34 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @Setter
 public class HttpBearerAuth implements Authentication {
 
-	public static final String NAME = "bearer";
+    public static final String NAME = "bearer";
 
-	public static final String DEFAULT_SCHEME = "bearer";
+    public static final String DEFAULT_SCHEME = "bearer";
 
-	private final String scheme;
+    private final String scheme;
 
-	private String bearerToken;
+    private String bearerToken;
 
-	public HttpBearerAuth() {
-		this(DEFAULT_SCHEME);
-	}
+    public HttpBearerAuth() {
+        this(DEFAULT_SCHEME);
+    }
 
-	public HttpBearerAuth(String scheme) {
-		this.scheme = scheme;
-	}
+    public HttpBearerAuth(String scheme) {
+        this.scheme = scheme;
+    }
 
-	@Override
-	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
-			throws IOException {
-		HttpHeaders headers = request.getHeaders();
-		if (bearerToken != null) {
-			headers.set(AUTHORIZATION, (scheme != null ? upperCaseBearer(scheme) + " " : "") + bearerToken);
-		}
-		return execution.execute(request, body);
-	}
+    @Override
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+            throws IOException {
+        HttpHeaders headers = request.getHeaders();
+        if (bearerToken != null) {
+            headers.set(AUTHORIZATION, (scheme != null ? upperCaseBearer(scheme) + " " : "") + bearerToken);
+        }
+        return execution.execute(request, body);
+    }
 
-	private String upperCaseBearer(String scheme) {
-		return ("bearer".equalsIgnoreCase(scheme)) ? "Bearer" : scheme;
-	}
+    private String upperCaseBearer(String scheme) {
+        return ("bearer".equalsIgnoreCase(scheme)) ? "Bearer" : scheme;
+    }
 
 }

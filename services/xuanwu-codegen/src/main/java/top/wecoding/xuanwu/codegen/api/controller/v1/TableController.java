@@ -31,75 +31,75 @@ import java.util.List;
 @RequestMapping("/tables")
 public class TableController {
 
-	private final TableInfoService tableInfoService;
+    private final TableInfoService tableInfoService;
 
-	@GetMapping("/{tableId}")
-	public R<?> tableInfo(@PathVariable("tableId") Long tableId) {
-		return R.ok(tableInfoService.getTableInfo(tableId));
-	}
+    @GetMapping("/{tableId}")
+    public R<?> tableInfo(@PathVariable("tableId") Long tableId) {
+        return R.ok(tableInfoService.getTableInfo(tableId));
+    }
 
-	@GetMapping("/from_db")
-	public R<?> listDbTables(@PageableDefault Pageable pageReq,
-			@RequestParam(value = "database", required = false) String db,
-			@RequestParam(value = "tableName", required = false) String tableName) {
-		return R.ok(tableInfoService.listDbTables(db, tableName, pageReq));
-	}
+    @GetMapping("/from_db")
+    public R<?> listDbTables(@PageableDefault Pageable pageReq,
+            @RequestParam(value = "database", required = false) String db,
+            @RequestParam(value = "tableName", required = false) String tableName) {
+        return R.ok(tableInfoService.listDbTables(db, tableName, pageReq));
+    }
 
-	@GetMapping("")
-	public R<?> listTables(@PageableDefault Pageable pageReq,
-			@RequestParam(value = "tableName", required = false) String tableName) {
-		return R.ok(tableInfoService.listTables(tableName, pageReq));
-	}
+    @GetMapping("")
+    public R<?> listTables(@PageableDefault Pageable pageReq,
+            @RequestParam(value = "tableName", required = false) String tableName) {
+        return R.ok(tableInfoService.listTables(tableName, pageReq));
+    }
 
-	@PostMapping
-	public R<TableEntity> createTable(@RequestBody @Validated TableEntity tableEntity) {
-		return R.ok(tableInfoService.createTable(tableEntity));
-	}
+    @PostMapping
+    public R<TableEntity> createTable(@RequestBody @Validated TableEntity tableEntity) {
+        return R.ok(tableInfoService.createTable(tableEntity));
+    }
 
-	@PutMapping("/{id}")
-	public R<TableEntity> updateTable(@PathVariable("id") Long id, @RequestBody @Validated TableEntity tableEntity) {
-		return R.ok(tableInfoService.updateTable(id, tableEntity));
-	}
+    @PutMapping("/{id}")
+    public R<TableEntity> updateTable(@PathVariable("id") Long id, @RequestBody @Validated TableEntity tableEntity) {
+        return R.ok(tableInfoService.updateTable(id, tableEntity));
+    }
 
-	@GetMapping("/{table_name}/columns")
-	public R<?> listColumns(@PathVariable("table_name") String tableName) {
-		return R.ok(tableInfoService.listDbTableColumnsByTableName(tableName));
-	}
+    @GetMapping("/{table_name}/columns")
+    public R<?> listColumns(@PathVariable("table_name") String tableName) {
+        return R.ok(tableInfoService.listDbTableColumnsByTableName(tableName));
+    }
 
-	@GetMapping("/{table_name}/import")
-	public R<?> importTable(@PathVariable("table_name") String tableName) {
-		List<TableEntity> tableEntities = tableInfoService.batchImportTableFromDb(List.of(tableName));
-		return R.ok(tableEntities.stream().findFirst().orElse(null));
-	}
+    @GetMapping("/{table_name}/import")
+    public R<?> importTable(@PathVariable("table_name") String tableName) {
+        List<TableEntity> tableEntities = tableInfoService.batchImportTableFromDb(List.of(tableName));
+        return R.ok(tableEntities.stream().findFirst().orElse(null));
+    }
 
-	@GetMapping("/batch_import")
-	public R<?> batchImportTable(@RequestParam("tableNames") List<String> tableNames) {
-		return R.ok(tableInfoService.batchImportTableFromDb(tableNames));
-	}
+    @GetMapping("/batch_import")
+    public R<?> batchImportTable(@RequestParam("tableNames") List<String> tableNames) {
+        return R.ok(tableInfoService.batchImportTableFromDb(tableNames));
+    }
 
-	@GetMapping("/{tableId}/sync_db")
-	public R<?> syncFromDb(@PathVariable("tableId") Long tableId) {
-		tableInfoService.syncTableFromDb(Collections.singletonList(tableId));
-		return R.ok();
-	}
+    @GetMapping("/{tableId}/sync_db")
+    public R<?> syncFromDb(@PathVariable("tableId") Long tableId) {
+        tableInfoService.syncTableFromDb(Collections.singletonList(tableId));
+        return R.ok();
+    }
 
-	@GetMapping("/batch_sync_db")
-	public R<?> batchSyncFromDb(@RequestParam("tableIds") List<Long> tableIds) {
-		tableInfoService.syncTableFromDb(tableIds);
-		return R.ok();
-	}
+    @GetMapping("/batch_sync_db")
+    public R<?> batchSyncFromDb(@RequestParam("tableIds") List<Long> tableIds) {
+        tableInfoService.syncTableFromDb(tableIds);
+        return R.ok();
+    }
 
-	@DeleteMapping("/{tableId}")
-	public R<?> delete(@PathVariable("tableId") Long tableId) {
-		TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
-		tableInfoService.delete(tableInfo);
-		return R.ok();
-	}
+    @DeleteMapping("/{tableId}")
+    public R<?> delete(@PathVariable("tableId") Long tableId) {
+        TableEntity tableInfo = tableInfoService.getTableInfo(tableId);
+        tableInfoService.delete(tableInfo);
+        return R.ok();
+    }
 
-	@DeleteMapping("/batch_delete")
-	public R<?> batchDelete(@RequestParam("tableIds") List<Long> tableIds) {
-		tableInfoService.batchDelete(tableIds);
-		return R.ok();
-	}
+    @DeleteMapping("/batch_delete")
+    public R<?> batchDelete(@RequestParam("tableIds") List<Long> tableIds) {
+        tableInfoService.batchDelete(tableIds);
+        return R.ok();
+    }
 
 }

@@ -19,11 +19,11 @@ import top.wecoding.xuanwu.orm.service.BaseServiceImpl;
 @RequiredArgsConstructor
 public class FoodCatServiceImpl extends BaseServiceImpl<FoodCat, Long> implements FoodCatService {
 
-	private final FoodCatRepository foodCatRepository;
+    private final FoodCatRepository foodCatRepository;
 
-	@Override
-	protected JpaRepository<FoodCat, Long> getBaseRepository() {
-		return this.foodCatRepository;
-	}
+    @Override
+    protected JpaRepository<FoodCat, Long> getBaseRepository() {
+        return this.foodCatRepository;
+    }
 
 }

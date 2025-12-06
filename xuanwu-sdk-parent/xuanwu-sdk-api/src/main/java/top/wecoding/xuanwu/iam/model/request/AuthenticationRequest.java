@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthenticationRequest {
 
-	@JsonProperty("username")
-	private String username;
+    @JsonProperty("username")
+    private String username;
 
-	@JsonProperty("password")
-	private String password;
+    @JsonProperty("password")
+    private String password;
 
 }

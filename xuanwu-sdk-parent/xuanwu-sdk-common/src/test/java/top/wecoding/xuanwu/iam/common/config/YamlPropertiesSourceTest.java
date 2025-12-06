@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class YamlPropertiesSourceTest {
 
-	@Test
-	void testGetProperties() {
-		String testStr = "wecoding:\n  client:\n    apiBase: xxx\n";
-		val properties = new YamlPropertiesSource(new TestStringResource(testStr));
-		assertEquals(properties.getProperties().get("wecoding.client.apiBase"), "xxx");
-	}
+    @Test
+    void testGetProperties() {
+        String testStr = "wecoding:\n  client:\n    apiBase: xxx\n";
+        val properties = new YamlPropertiesSource(new TestStringResource(testStr));
+        assertEquals(properties.getProperties().get("wecoding.client.apiBase"), "xxx");
+    }
 
 }

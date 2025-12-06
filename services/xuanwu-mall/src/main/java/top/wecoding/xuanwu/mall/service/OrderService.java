@@ -18,16 +18,16 @@ import top.wecoding.xuanwu.orm.service.BaseService;
  */
 public interface OrderService extends BaseService<Order, Long> {
 
-	OrderDetail detail(Long orderId);
+    OrderDetail detail(Long orderId);
 
-	PageResult<Order> listOrders(OrderInfoPageRequest queryParams, Pageable pageable);
+    PageResult<Order> listOrders(OrderInfoPageRequest queryParams, Pageable pageable);
 
-	void cancelOrder(Long orderId);
+    void cancelOrder(Long orderId);
 
-	CreateOrderResponse createOrder(CreateOrderRequest createReq);
+    CreateOrderResponse createOrder(CreateOrderRequest createReq);
 
-	void deleteOrder(Long orderId);
+    void deleteOrder(Long orderId);
 
-	void paySuccessCallback(Long orderId, Integer payType);
+    void paySuccessCallback(Long orderId, Integer payType);
 
 }

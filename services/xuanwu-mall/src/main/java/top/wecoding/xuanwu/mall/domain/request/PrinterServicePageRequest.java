@@ -12,13 +12,13 @@ import java.io.Serializable;
 @Data
 public class PrinterServicePageRequest implements Serializable {
 
-	@Query
-	private Long id;
+    @Query
+    private Long id;
 
-	@Query(blurry = "name")
-	private String name;
+    @Query(blurry = "name")
+    private String name;
 
-	@Query(blurry = "description")
-	private String description;
+    @Query(blurry = "description")
+    private String description;
 
 }

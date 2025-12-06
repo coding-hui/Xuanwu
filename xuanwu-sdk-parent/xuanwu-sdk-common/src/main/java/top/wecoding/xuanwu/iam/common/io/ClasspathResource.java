@@ -10,27 +10,27 @@ import java.io.InputStream;
  */
 public class ClasspathResource extends AbstractResource {
 
-	private static final String SCHEME = "classpath";
+    private static final String SCHEME = "classpath";
 
-	public static final String SCHEME_PREFIX = SCHEME + ":";
+    public static final String SCHEME_PREFIX = SCHEME + ":";
 
-	public ClasspathResource(String location) {
-		super(location);
-	}
+    public ClasspathResource(String location) {
+        super(location);
+    }
 
-	@Override
-	protected String getScheme() {
-		return SCHEME;
-	}
+    @Override
+    protected String getScheme() {
+        return SCHEME;
+    }
 
-	@Override
-	public InputStream getInputStream() {
-		return Classes.getResourceAsStream(getLocation());
-	}
+    @Override
+    public InputStream getInputStream() {
+        return Classes.getResourceAsStream(getLocation());
+    }
 
-	@Override
-	public String toString() {
-		return SCHEME_PREFIX + getLocation();
-	}
+    @Override
+    public String toString() {
+        return SCHEME_PREFIX + getLocation();
+    }
 
 }

@@ -11,13 +11,13 @@ import top.wecoding.xuanwu.iam.model.TokenInfo;
 @Data
 public class RefreshTokenResponse {
 
-	@JsonProperty("code")
-	private int code;
+    @JsonProperty("code")
+    private int code;
 
-	@JsonProperty("msg")
-	private String msg;
+    @JsonProperty("msg")
+    private String msg;
 
-	@JsonProperty("data")
-	private TokenInfo tokenInfo;
+    @JsonProperty("data")
+    private TokenInfo tokenInfo;
 
 }

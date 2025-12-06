@@ -7,14 +7,14 @@ import top.wecoding.xuanwu.core.message.I18n;
  */
 public interface ErrorCode {
 
-	Integer getCode();
+    Integer getCode();
 
-	default String getDesc(String defaultMessage) {
-		return I18n.getMessage(getCode().toString(), defaultMessage);
-	}
+    default String getDesc(String defaultMessage) {
+        return I18n.getMessage(getCode().toString(), defaultMessage);
+    }
 
-	default String getDesc(Object... args) {
-		return I18n.getMessage(getCode().toString(), args);
-	}
+    default String getDesc(Object... args) {
+        return I18n.getMessage(getCode().toString(), args);
+    }
 
 }

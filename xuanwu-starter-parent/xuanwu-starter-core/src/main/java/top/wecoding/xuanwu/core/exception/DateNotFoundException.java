@@ -6,8 +6,8 @@ package top.wecoding.xuanwu.core.exception;
  */
 public class DateNotFoundException extends BaseUncheckedException {
 
-	public DateNotFoundException() {
-		super(SystemErrorCode.DATA_NOT_EXIST);
-	}
+    public DateNotFoundException() {
+        super(SystemErrorCode.DATA_NOT_EXIST);
+    }
 
 }

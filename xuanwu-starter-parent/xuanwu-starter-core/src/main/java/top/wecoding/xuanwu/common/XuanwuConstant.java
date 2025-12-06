@@ -6,6 +6,6 @@ package top.wecoding.xuanwu.common;
  */
 public class XuanwuConstant {
 
-	public static final String ADMIN = "admin";
+    public static final String ADMIN = "admin";
 
 }

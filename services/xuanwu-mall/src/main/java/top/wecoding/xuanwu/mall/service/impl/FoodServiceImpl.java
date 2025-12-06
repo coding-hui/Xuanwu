@@ -33,50 +33,50 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FoodServiceImpl extends BaseServiceImpl<Food, Long> implements FoodService {
 
-	private final FoodRepository foodRepository;
+    private final FoodRepository foodRepository;
 
-	private final SkuStockRepository skuStockRepository;
+    private final SkuStockRepository skuStockRepository;
 
-	private final FoodConverter foodConverter;
+    private final FoodConverter foodConverter;
 
-	@Override
-	public PageResult<Food> listFoods(FoodInfoPageRequest queryParams, Pageable pageable) {
-		Page<Food> pageResult = this.foodRepository.findAll(
-				(root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, queryParams, criteriaBuilder),
-				pageable);
-		return PageResult.of(pageResult.getContent(), pageResult.getTotalElements());
-	}
+    @Override
+    public PageResult<Food> listFoods(FoodInfoPageRequest queryParams, Pageable pageable) {
+        Page<Food> pageResult = this.foodRepository.findAll(
+                (root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, queryParams, criteriaBuilder),
+                pageable);
+        return PageResult.of(pageResult.getContent(), pageResult.getTotalElements());
+    }
 
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void createFood(CreateFoodRequest createReq) {
-		Food food = foodConverter.createFoodRequestToEntity(createReq);
-		// save food info
-		this.foodRepository.save(food);
-		// save skus
-		if (!CollectionUtils.isEmpty(createReq.getSkus())) {
-			List<SkuStock> skus = createReq.getSkus().stream().peek(s -> s.setFood(food)).toList();
-			skuStockRepository.saveAll(skus);
-		}
-	}
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void createFood(CreateFoodRequest createReq) {
+        Food food = foodConverter.createFoodRequestToEntity(createReq);
+        // save food info
+        this.foodRepository.save(food);
+        // save skus
+        if (!CollectionUtils.isEmpty(createReq.getSkus())) {
+            List<SkuStock> skus = createReq.getSkus().stream().peek(s -> s.setFood(food)).toList();
+            skuStockRepository.saveAll(skus);
+        }
+    }
 
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void updateFood(UpdateFoodRequest updateReq) {
-		Food food = foodConverter.updateFoodRequestToEntity(updateReq);
-		// save food info
-		this.foodRepository.save(food);
-		// save skus
-		if (!CollectionUtils.isEmpty(updateReq.getSkus())) {
-			skuStockRepository.deleteByFoodId(food.getId());
-			List<SkuStock> skus = updateReq.getSkus().stream().peek(s -> s.setFood(food)).toList();
-			skuStockRepository.saveAll(skus);
-		}
-	}
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateFood(UpdateFoodRequest updateReq) {
+        Food food = foodConverter.updateFoodRequestToEntity(updateReq);
+        // save food info
+        this.foodRepository.save(food);
+        // save skus
+        if (!CollectionUtils.isEmpty(updateReq.getSkus())) {
+            skuStockRepository.deleteByFoodId(food.getId());
+            List<SkuStock> skus = updateReq.getSkus().stream().peek(s -> s.setFood(food)).toList();
+            skuStockRepository.saveAll(skus);
+        }
+    }
 
-	@Override
-	protected JpaRepository<Food, Long> getBaseRepository() {
-		return this.foodRepository;
-	}
+    @Override
+    protected JpaRepository<Food, Long> getBaseRepository() {
+        return this.foodRepository;
+    }
 
 }

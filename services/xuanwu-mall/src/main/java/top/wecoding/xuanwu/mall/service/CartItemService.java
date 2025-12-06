@@ -16,14 +16,14 @@ import java.util.List;
  */
 public interface CartItemService extends BaseService<CartItem, Long> {
 
-	List<CartItem> listCartItems(CartItemListRequest listRequest);
+    List<CartItem> listCartItems(CartItemListRequest listRequest);
 
-	void updateFoodQuantity(UpdateFoodQuantityRequest updateReq);
+    void updateFoodQuantity(UpdateFoodQuantityRequest updateReq);
 
-	void addCartItem(CartItem cartItem);
+    void addCartItem(CartItem cartItem);
 
-	void batchAddCartItem(List<CartItem> cartItems);
+    void batchAddCartItem(List<CartItem> cartItems);
 
-	boolean deleteCartItem(String tableCode, Long foodId);
+    boolean deleteCartItem(String tableCode, Long foodId);
 
 }

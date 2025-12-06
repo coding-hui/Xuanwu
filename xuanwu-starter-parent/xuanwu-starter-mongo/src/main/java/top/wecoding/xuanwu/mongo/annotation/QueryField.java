@@ -32,8 +32,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface QueryField {
 
-	QueryType type();
+    QueryType type();
 
-	String attribute() default "";
+    String attribute() default "";
 
 }

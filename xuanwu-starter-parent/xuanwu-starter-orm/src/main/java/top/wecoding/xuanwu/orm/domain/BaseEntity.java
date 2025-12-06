@@ -25,21 +25,21 @@ import java.time.LocalDateTime;
 @EntityListeners({ AuditingEntityListener.class })
 public class BaseEntity implements Serializable {
 
-	public static final String CREATED_AT = "createdAt";
+    public static final String CREATED_AT = "createdAt";
 
-	public static final String UPDATED_AT = "updatedAt";
+    public static final String UPDATED_AT = "updatedAt";
 
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@CreatedDate
-	@Column(name = CREATED_AT, updatable = false)
-	private LocalDateTime createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @CreatedDate
+    @Column(name = CREATED_AT, updatable = false)
+    private LocalDateTime createdAt;
 
-	@LastModifiedDate
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Column(name = UPDATED_AT)
-	private LocalDateTime updatedAt;
+    @LastModifiedDate
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = UPDATED_AT)
+    private LocalDateTime updatedAt;
 
-	public BaseEntity() {
-	}
+    public BaseEntity() {
+    }
 
 }

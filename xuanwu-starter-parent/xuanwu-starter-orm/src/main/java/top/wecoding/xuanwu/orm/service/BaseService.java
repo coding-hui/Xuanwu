@@ -11,24 +11,24 @@ import java.util.Optional;
  */
 public interface BaseService<T, ID> {
 
-	List<T> list();
+    List<T> list();
 
-	Page<T> pageAll(int page, int size);
+    Page<T> pageAll(int page, int size);
 
-	Page<T> page(T record, int page, int size);
+    Page<T> page(T record, int page, int size);
 
-	Optional<T> getById(ID key);
+    Optional<T> getById(ID key);
 
-	long count(T record);
+    long count(T record);
 
-	T create(T record);
+    T create(T record);
 
-	void delete(T record);
+    void delete(T record);
 
-	void deleteById(ID key);
+    void deleteById(ID key);
 
-	boolean existsWithId(ID key);
+    boolean existsWithId(ID key);
 
-	T updateById(ID key, T record);
+    T updateById(ID key, T record);
 
 }

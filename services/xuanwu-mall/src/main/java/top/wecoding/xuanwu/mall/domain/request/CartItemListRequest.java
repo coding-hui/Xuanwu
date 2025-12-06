@@ -12,13 +12,13 @@ import java.io.Serializable;
 @Data
 public class CartItemListRequest implements Serializable {
 
-	@Query
-	private Long id;
+    @Query
+    private Long id;
 
-	@Query(blurry = "tableCode")
-	private String tableCode;
+    @Query(blurry = "tableCode")
+    private String tableCode;
 
-	@Query
-	private Integer status;
+    @Query
+    private Integer status;
 
 }

@@ -33,34 +33,34 @@ import top.wecoding.xuanwu.mall.service.FoodCatService;
 @RequestMapping("/food/cats")
 public class FoodCatController {
 
-	private final FoodCatService foodCatService;
+    private final FoodCatService foodCatService;
 
-	@GetMapping("/{id}")
-	public R<FoodCat> getInfo(@PathVariable("id") Long id) {
-		return R.ok(foodCatService.getById(id).orElseThrow(DateNotFoundException::new));
-	}
+    @GetMapping("/{id}")
+    public R<FoodCat> getInfo(@PathVariable("id") Long id) {
+        return R.ok(foodCatService.getById(id).orElseThrow(DateNotFoundException::new));
+    }
 
-	@GetMapping("")
-	public R<?> paging(@PageableDefault Pageable pageReq, FoodCat foodCat) {
-		Page<FoodCat> pageResult = foodCatService.page(foodCat, pageReq.getPageNumber(), pageReq.getPageSize());
-		return R.ok(PageResult.of(pageResult.getContent(), pageResult.getTotalElements()));
-	}
+    @GetMapping("")
+    public R<?> paging(@PageableDefault Pageable pageReq, FoodCat foodCat) {
+        Page<FoodCat> pageResult = foodCatService.page(foodCat, pageReq.getPageNumber(), pageReq.getPageSize());
+        return R.ok(PageResult.of(pageResult.getContent(), pageResult.getTotalElements()));
+    }
 
-	@PostMapping("")
-	public R<FoodCat> create(@RequestBody @Validated FoodCat foodCat) {
-		return R.ok(foodCatService.create(foodCat));
-	}
+    @PostMapping("")
+    public R<FoodCat> create(@RequestBody @Validated FoodCat foodCat) {
+        return R.ok(foodCatService.create(foodCat));
+    }
 
-	@PutMapping("/{id}")
-	public R<FoodCat> update(@PathVariable("id") Long id, @RequestBody @Validated FoodCat foodCat) {
-		foodCat.setId(id);
-		return R.ok(foodCatService.updateById(id, foodCat));
-	}
+    @PutMapping("/{id}")
+    public R<FoodCat> update(@PathVariable("id") Long id, @RequestBody @Validated FoodCat foodCat) {
+        foodCat.setId(id);
+        return R.ok(foodCatService.updateById(id, foodCat));
+    }
 
-	@DeleteMapping("/{id}")
-	public R<?> delete(@PathVariable("id") Long id) {
-		foodCatService.deleteById(id);
-		return R.ok();
-	}
+    @DeleteMapping("/{id}")
+    public R<?> delete(@PathVariable("id") Long id) {
+        foodCatService.deleteById(id);
+        return R.ok();
+    }
 
 }

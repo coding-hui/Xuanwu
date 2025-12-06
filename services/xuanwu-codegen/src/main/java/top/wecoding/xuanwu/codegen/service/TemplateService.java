@@ -13,16 +13,16 @@ import java.util.zip.ZipOutputStream;
  */
 public interface TemplateService {
 
-	String type();
+    String type();
 
-	void initTableConfig(TableEntity table);
+    void initTableConfig(TableEntity table);
 
-	void initTableColumnConfig(TableEntity table, List<ColumnEntity> columns);
+    void initTableColumnConfig(TableEntity table, List<ColumnEntity> columns);
 
-	Map<String, String> render(TableEntity table);
+    Map<String, String> render(TableEntity table);
 
-	void renderToFile(TableEntity table);
+    void renderToFile(TableEntity table);
 
-	void renderToZipStream(TableEntity table, ZipOutputStream zip);
+    void renderToZipStream(TableEntity table, ZipOutputStream zip);
 
 }

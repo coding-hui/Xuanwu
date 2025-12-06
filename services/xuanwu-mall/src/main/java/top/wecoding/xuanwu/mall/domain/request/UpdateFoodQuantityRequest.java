@@ -11,10 +11,10 @@ import java.io.Serializable;
 @Data
 public class UpdateFoodQuantityRequest implements Serializable {
 
-	private String tableCode;
+    private String tableCode;
 
-	private Long foodId;
+    private Long foodId;
 
-	private Long foodQuantity;
+    private Long foodQuantity;
 
 }

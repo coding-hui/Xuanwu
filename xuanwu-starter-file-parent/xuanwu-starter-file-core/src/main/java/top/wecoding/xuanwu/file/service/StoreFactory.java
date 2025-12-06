@@ -6,8 +6,8 @@ package top.wecoding.xuanwu.file.service;
  */
 public interface StoreFactory {
 
-	Integer type();
+    Integer type();
 
-	AbstractFileService create();
+    AbstractFileService create();
 
 }

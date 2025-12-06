@@ -33,66 +33,66 @@ import java.math.BigDecimal;
 @Table(name = "mall_cart_item")
 public class CartItem extends LogicDeleteEntity implements Serializable {
 
-	@Serial
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotBlank(message = "订单桌号不能为空")
-	@Column(name = "table_code")
-	private String tableCode;
+    @NotBlank(message = "订单桌号不能为空")
+    @Column(name = "table_code")
+    private String tableCode;
 
-	@NotNull(message = "菜品不能为空")
-	@Column(name = "food_id")
-	private Long foodId;
+    @NotNull(message = "菜品不能为空")
+    @Column(name = "food_id")
+    private Long foodId;
 
-	@Column(name = "food_sku_id")
-	private Long foodSkuId;
+    @Column(name = "food_sku_id")
+    private Long foodSkuId;
 
-	/** 购买数量 */
-	@NotNull(message = "购买数量不能为空")
-	@Column(name = "food_quantity")
-	private Long foodQuantity;
+    /** 购买数量 */
+    @NotNull(message = "购买数量不能为空")
+    @Column(name = "food_quantity")
+    private Long foodQuantity;
 
-	/** 添加到购物车的价格 */
-	@Column(name = "food_price")
-	private BigDecimal foodPrice;
+    /** 添加到购物车的价格 */
+    @Column(name = "food_price")
+    private BigDecimal foodPrice;
 
-	/** 商品主图 */
-	@Column(name = "food_pic")
-	private String foodPic;
+    /** 商品主图 */
+    @Column(name = "food_pic")
+    private String foodPic;
 
-	/** 商品名称 */
-	@Column(name = "food_name")
-	private String foodName;
+    /** 商品名称 */
+    @Column(name = "food_name")
+    private String foodName;
 
-	/** 商品副标题（卖点） */
-	@Column(name = "food_sub_title")
-	private String foodSubTitle;
+    /** 商品副标题（卖点） */
+    @Column(name = "food_sub_title")
+    private String foodSubTitle;
 
-	/** 商品sku条码 */
-	@Column(name = "food_sku_code")
-	private String foodSkuCode;
+    /** 商品sku条码 */
+    @Column(name = "food_sku_code")
+    private String foodSkuCode;
 
-	/** 会员昵称 */
-	@Column(name = "member_nickname")
-	private String memberNickname;
+    /** 会员昵称 */
+    @Column(name = "member_nickname")
+    private String memberNickname;
 
-	/** 是否删除 */
-	@Column(name = "delete_status")
-	private Long deleteStatus;
+    /** 是否删除 */
+    @Column(name = "delete_status")
+    private Long deleteStatus;
 
-	/** 商品分类 */
-	@Column(name = "food_category_id")
-	private Long foodCategoryId;
+    /** 商品分类 */
+    @Column(name = "food_category_id")
+    private Long foodCategoryId;
 
-	@Column(name = "food_sn")
-	private String foodSn;
+    @Column(name = "food_sn")
+    private String foodSn;
 
-	/** 商品销售属性:[{"key":"颜色","value":"颜色"},{"key":"容量","value":"4G"}] */
-	@Column(name = "food_attr")
-	private String foodAttr;
+    /** 商品销售属性:[{"key":"颜色","value":"颜色"},{"key":"容量","value":"4G"}] */
+    @Column(name = "food_attr")
+    private String foodAttr;
 
 }

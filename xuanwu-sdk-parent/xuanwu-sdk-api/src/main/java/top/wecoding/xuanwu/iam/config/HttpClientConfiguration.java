@@ -12,41 +12,41 @@ import top.wecoding.xuanwu.iam.client.Proxy;
 @Setter
 public class HttpClientConfiguration {
 
-	private long connectionTimeout;
+    private long connectionTimeout;
 
-	private int retryMaxElapsed;
+    private int retryMaxElapsed;
 
-	private int retryMaxAttempts;
+    private int retryMaxAttempts;
 
-	private String apiBase;
+    private String apiBase;
 
-	private int proxyPort;
+    private int proxyPort;
 
-	private String proxyHost;
+    private String proxyHost;
 
-	private String proxyUsername;
+    private String proxyUsername;
 
-	private String proxyPassword;
+    private String proxyPassword;
 
-	private Proxy proxy;
+    private Proxy proxy;
 
-	public Proxy getProxy() {
-		if (this.proxy != null) {
-			return proxy;
-		}
+    public Proxy getProxy() {
+        if (this.proxy != null) {
+            return proxy;
+        }
 
-		Proxy proxy = null;
-		// use proxy overrides if they're set
-		if ((getProxyPort() > 0 || getProxyHost() != null)
-				&& (getProxyUsername() == null || getProxyPassword() == null)) {
-			proxy = new Proxy(getProxyHost(), getProxyPort());
-		}
-		else if (getProxyUsername() != null && getProxyPassword() != null) {
-			proxy = new Proxy(getProxyHost(), getProxyPort(), getProxyUsername(), getProxyPassword());
-		}
+        Proxy proxy = null;
+        // use proxy overrides if they're set
+        if ((getProxyPort() > 0 || getProxyHost() != null)
+                && (getProxyUsername() == null || getProxyPassword() == null)) {
+            proxy = new Proxy(getProxyHost(), getProxyPort());
+        }
+        else if (getProxyUsername() != null && getProxyPassword() != null) {
+            proxy = new Proxy(getProxyHost(), getProxyPort(), getProxyUsername(), getProxyPassword());
+        }
 
-		this.proxy = proxy;
-		return this.proxy;
-	}
+        this.proxy = proxy;
+        return this.proxy;
+    }
 
 }

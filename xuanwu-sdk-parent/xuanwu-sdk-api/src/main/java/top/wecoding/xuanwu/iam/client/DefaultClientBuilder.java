@@ -70,63 +70,63 @@ import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_RET
 @SuppressWarnings("rawtypes")
 public class DefaultClientBuilder implements ClientBuilder {
 
-	private static final String ENVVARS_TOKEN = "envvars";
+    private static final String ENVVARS_TOKEN = "envvars";
 
-	private static final String SYSPROPS_TOKEN = "sysprops";
+    private static final String SYSPROPS_TOKEN = "sysprops";
 
-	private static final String WECODING_SDK_CONFIG = "top.wecoding/config/";
+    private static final String WECODING_SDK_CONFIG = "top.wecoding/config/";
 
-	private static final String WECODING_YAML = "wecoding.yaml";
+    private static final String WECODING_YAML = "wecoding.yaml";
 
-	private static final String WECODING_PROPERTIES = "wecoding.properties";
+    private static final String WECODING_PROPERTIES = "wecoding.properties";
 
-	@Getter
-	private final ClientConfiguration clientConfig = new ClientConfiguration();
+    @Getter
+    private final ClientConfiguration clientConfig = new ClientConfiguration();
 
-	private ClientCredentials clientCredentials;
+    private ClientCredentials clientCredentials;
 
-	public DefaultClientBuilder() {
-		this(new DefaultResourceFactory());
-	}
+    public DefaultClientBuilder() {
+        this(new DefaultResourceFactory());
+    }
 
-	DefaultClientBuilder(ResourceFactory resourceFactory) {
-		Collection<PropertiesSource> sources = new ArrayList<>();
+    DefaultClientBuilder(ResourceFactory resourceFactory) {
+        Collection<PropertiesSource> sources = new ArrayList<>();
 
-		for (String location : configSources()) {
+        for (String location : configSources()) {
 
-			if (ENVVARS_TOKEN.equalsIgnoreCase(location)) {
-				sources.add(EnvironmentVariablesPropertiesSource.filteredPropertiesSource());
-			}
-			else if (SYSPROPS_TOKEN.equalsIgnoreCase(location)) {
-				sources.add(SystemPropertiesSource.filteredPropertiesSource());
-			}
-			else {
-				Resource resource = resourceFactory.createResource(location);
+            if (ENVVARS_TOKEN.equalsIgnoreCase(location)) {
+                sources.add(EnvironmentVariablesPropertiesSource.filteredPropertiesSource());
+            }
+            else if (SYSPROPS_TOKEN.equalsIgnoreCase(location)) {
+                sources.add(SystemPropertiesSource.filteredPropertiesSource());
+            }
+            else {
+                Resource resource = resourceFactory.createResource(location);
 
-				PropertiesSource wrappedSource;
-				if (Strings.endsWithIgnoreCase(location, ".yaml") || Strings.endsWithIgnoreCase(location, ".yml")) {
-					wrappedSource = new YamlPropertiesSource(resource);
-				}
-				else {
-					wrappedSource = new ResourcePropertiesSource(resource);
-				}
+                PropertiesSource wrappedSource;
+                if (Strings.endsWithIgnoreCase(location, ".yaml") || Strings.endsWithIgnoreCase(location, ".yml")) {
+                    wrappedSource = new YamlPropertiesSource(resource);
+                }
+                else {
+                    wrappedSource = new ResourcePropertiesSource(resource);
+                }
 
-				PropertiesSource propertiesSource = new OptionalPropertiesSource(wrappedSource);
-				sources.add(propertiesSource);
-			}
-		}
+                PropertiesSource propertiesSource = new OptionalPropertiesSource(wrappedSource);
+                sources.add(propertiesSource);
+            }
+        }
 
-		Map<String, String> props = new LinkedHashMap<>();
+        Map<String, String> props = new LinkedHashMap<>();
 
-		for (PropertiesSource source : sources) {
-			Map<String, String> srcProps = source.getProperties();
-			props.putAll(srcProps);
-		}
+        for (PropertiesSource source : sources) {
+            Map<String, String> srcProps = source.getProperties();
+            props.putAll(srcProps);
+        }
 
-		// check to see if property value is null before setting value
-		// if != null, allow it to override previously set values
+        // check to see if property value is null before setting value
+        // if != null, allow it to override previously set values
 
-		// @formatter:off
+        // @formatter:off
 		if (Strings.hasText(props.get(DEFAULT_CLIENT_API_TOKEN_PROPERTY_NAME))) {
 			clientConfig.setApiToken(props.get(DEFAULT_CLIENT_API_TOKEN_PROPERTY_NAME));
 		}
@@ -178,12 +178,12 @@ public class DefaultClientBuilder implements ClientBuilder {
 			clientConfig.setRetryMaxAttempts(Integer.parseInt(props.get(DEFAULT_CLIENT_RETRY_MAX_ATTEMPTS_PROPERTY_NAME)));
 		}
 		// @formatter:on
-	}
+    }
 
-	private static String[] configSources() {
-		// lazy load the config sources as the user.home system prop could change for
-		// testing
-		// @formatter:off
+    private static String[] configSources() {
+        // lazy load the config sources as the user.home system prop could change for
+        // testing
+        // @formatter:off
 		return new String[] {
 				ClasspathResource.SCHEME_PREFIX + WECODING_SDK_CONFIG + WECODING_PROPERTIES,
 				ClasspathResource.SCHEME_PREFIX + WECODING_SDK_CONFIG + WECODING_YAML,
@@ -194,57 +194,57 @@ public class DefaultClientBuilder implements ClientBuilder {
 				SYSPROPS_TOKEN
 		};
 		// @formatter:on
-	}
+    }
 
-	@Override
-	public ClientBuilder setApiBase(String apiBase) {
-		this.clientConfig.setApiBase(apiBase);
-		return this;
-	}
+    @Override
+    public ClientBuilder setApiBase(String apiBase) {
+        this.clientConfig.setApiBase(apiBase);
+        return this;
+    }
 
-	@Override
-	public ClientBuilder setConnectionTimeout(long connectionTimeout) {
-		Assert.isTrue(connectionTimeout >= 0, "Timeout cannot be a negative number.");
-		this.clientConfig.setConnectionTimeout(connectionTimeout);
-		return this;
-	}
+    @Override
+    public ClientBuilder setConnectionTimeout(long connectionTimeout) {
+        Assert.isTrue(connectionTimeout >= 0, "Timeout cannot be a negative number.");
+        this.clientConfig.setConnectionTimeout(connectionTimeout);
+        return this;
+    }
 
-	@Override
-	public ClientBuilder setClientCredentials(ClientCredentials clientCredentials) {
-		Assert.isInstanceOf(ClientCredentials.class, clientCredentials);
-		this.clientCredentials = clientCredentials;
-		return this;
-	}
+    @Override
+    public ClientBuilder setClientCredentials(ClientCredentials clientCredentials) {
+        Assert.isInstanceOf(ClientCredentials.class, clientCredentials);
+        this.clientCredentials = clientCredentials;
+        return this;
+    }
 
-	@Override
-	public ClientBuilder setProxy(Proxy proxy) {
-		if (proxy == null) {
-			throw new IllegalArgumentException("proxy argument cannot be null.");
-		}
-		else {
-			this.clientConfig.setProxyHost(proxy.getHost());
-			this.clientConfig.setProxyPort(proxy.getPort());
-			this.clientConfig.setProxyUsername(proxy.getUsername());
-			this.clientConfig.setProxyPassword(proxy.getPassword());
-			return this;
-		}
-	}
+    @Override
+    public ClientBuilder setProxy(Proxy proxy) {
+        if (proxy == null) {
+            throw new IllegalArgumentException("proxy argument cannot be null.");
+        }
+        else {
+            this.clientConfig.setProxyHost(proxy.getHost());
+            this.clientConfig.setProxyPort(proxy.getPort());
+            this.clientConfig.setProxyUsername(proxy.getUsername());
+            this.clientConfig.setProxyPassword(proxy.getPassword());
+            return this;
+        }
+    }
 
-	@Override
-	public ClientBuilder setRetryMaxElapsed(int maxElapsed) {
-		this.clientConfig.setRetryMaxElapsed(maxElapsed);
-		return this;
-	}
+    @Override
+    public ClientBuilder setRetryMaxElapsed(int maxElapsed) {
+        this.clientConfig.setRetryMaxElapsed(maxElapsed);
+        return this;
+    }
 
-	@Override
-	public ClientBuilder setRetryMaxAttempts(int maxAttempts) {
-		this.clientConfig.setRetryMaxAttempts(maxAttempts);
-		return this;
-	}
+    @Override
+    public ClientBuilder setRetryMaxAttempts(int maxAttempts) {
+        this.clientConfig.setRetryMaxAttempts(maxAttempts);
+        return this;
+    }
 
-	@Override
-	public ApiClient build() {
-		// @formatter:off
+    @Override
+    public ApiClient build() {
+        // @formatter:off
 		HttpClientBuilder httpClientBuilder = createHttpClientBuilder(clientConfig);
 
 		if (this.clientConfig.getProxy() != null) {
@@ -290,63 +290,63 @@ public class DefaultClientBuilder implements ClientBuilder {
 		apiClient.setApiToken((String) apiToken);
 
 		// @formatter:on
-		return apiClient;
-	}
+        return apiClient;
+    }
 
-	/**
-	 * Override to customize the client, allowing one to add additional interceptors.
-	 * @param clientConfig the current ClientConfiguration
-	 * @return an {@link HttpClientBuilder} initialized with default configuration
-	 */
-	protected HttpClientBuilder createHttpClientBuilder(ClientConfiguration clientConfig) {
-		return HttpClients.custom()
-			.setDefaultRequestConfig(createHttpRequestConfigBuilder(clientConfig).build())
-			.setConnectionManager(createHttpClientConnectionManagerBuilder(clientConfig).build())
-			.setRetryStrategy(new DefaultHttpRequestRetryStrategy())
-			.setConnectionBackoffStrategy(new DefaultBackoffStrategy())
-			.setKeepAliveStrategy(new DefaultConnectionKeepAliveStrategy())
-			.setConnectionReuseStrategy(new DefaultConnectionReuseStrategy())
-			.disableCookieManagement();
-	}
+    /**
+     * Override to customize the client, allowing one to add additional interceptors.
+     * @param clientConfig the current ClientConfiguration
+     * @return an {@link HttpClientBuilder} initialized with default configuration
+     */
+    protected HttpClientBuilder createHttpClientBuilder(ClientConfiguration clientConfig) {
+        return HttpClients.custom()
+            .setDefaultRequestConfig(createHttpRequestConfigBuilder(clientConfig).build())
+            .setConnectionManager(createHttpClientConnectionManagerBuilder(clientConfig).build())
+            .setRetryStrategy(new DefaultHttpRequestRetryStrategy())
+            .setConnectionBackoffStrategy(new DefaultBackoffStrategy())
+            .setKeepAliveStrategy(new DefaultConnectionKeepAliveStrategy())
+            .setConnectionReuseStrategy(new DefaultConnectionReuseStrategy())
+            .disableCookieManagement();
+    }
 
-	/**
-	 * Override to customize the request config
-	 * @param clientConfig the current clientConfig
-	 * @return a {@link RequestConfig.Builder} initialized with default configuration
-	 */
-	protected RequestConfig.Builder createHttpRequestConfigBuilder(ClientConfiguration clientConfig) {
-		return RequestConfig.custom()
-			.setResponseTimeout(Timeout.ofSeconds(clientConfig.getConnectionTimeout()))
-			.setConnectionRequestTimeout(Timeout.ofSeconds(clientConfig.getConnectionTimeout()));
-	}
+    /**
+     * Override to customize the request config
+     * @param clientConfig the current clientConfig
+     * @return a {@link RequestConfig.Builder} initialized with default configuration
+     */
+    protected RequestConfig.Builder createHttpRequestConfigBuilder(ClientConfiguration clientConfig) {
+        return RequestConfig.custom()
+            .setResponseTimeout(Timeout.ofSeconds(clientConfig.getConnectionTimeout()))
+            .setConnectionRequestTimeout(Timeout.ofSeconds(clientConfig.getConnectionTimeout()));
+    }
 
-	/**
-	 * Override to customize the connection manager, allowing the increase of max
-	 * connections
-	 * @param clientConfig the current clientConfig
-	 * @return a {@link PoolingHttpClientConnectionManagerBuilder} initialized with
-	 * default configuration
-	 */
-	protected PoolingHttpClientConnectionManagerBuilder createHttpClientConnectionManagerBuilder(
-			ClientConfiguration clientConfig) {
-		return PoolingHttpClientConnectionManagerBuilder.create()
-			.setDefaultConnectionConfig(ConnectionConfig.custom()
-				.setConnectTimeout(Timeout.ofSeconds(clientConfig.getConnectionTimeout()))
-				.build());
-	}
+    /**
+     * Override to customize the connection manager, allowing the increase of max
+     * connections
+     * @param clientConfig the current clientConfig
+     * @return a {@link PoolingHttpClientConnectionManagerBuilder} initialized with
+     * default configuration
+     */
+    protected PoolingHttpClientConnectionManagerBuilder createHttpClientConnectionManagerBuilder(
+            ClientConfiguration clientConfig) {
+        return PoolingHttpClientConnectionManagerBuilder.create()
+            .setDefaultConnectionConfig(ConnectionConfig.custom()
+                .setConnectTimeout(Timeout.ofSeconds(clientConfig.getConnectionTimeout()))
+                .build());
+    }
 
-	private void setProxy(HttpClientBuilder clientBuilder, ClientConfiguration clientConfig) {
-		clientBuilder.useSystemProperties();
-		clientBuilder.setProxy(new HttpHost(clientConfig.getProxyHost(), clientConfig.getProxyPort()));
-		if (clientConfig.getProxyUsername() != null) {
-			BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-			AuthScope authScope = new AuthScope(clientConfig.getProxyHost(), clientConfig.getProxyPort());
-			UsernamePasswordCredentials usernamePasswordCredentials = new UsernamePasswordCredentials(
-					clientConfig.getProxyUsername(), clientConfig.getProxyPassword().toCharArray());
-			credentialsProvider.setCredentials(authScope, usernamePasswordCredentials);
-			clientBuilder.setDefaultCredentialsProvider(credentialsProvider);
-			clientBuilder.setProxyAuthenticationStrategy(new DefaultAuthenticationStrategy());
-		}
-	}
+    private void setProxy(HttpClientBuilder clientBuilder, ClientConfiguration clientConfig) {
+        clientBuilder.useSystemProperties();
+        clientBuilder.setProxy(new HttpHost(clientConfig.getProxyHost(), clientConfig.getProxyPort()));
+        if (clientConfig.getProxyUsername() != null) {
+            BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+            AuthScope authScope = new AuthScope(clientConfig.getProxyHost(), clientConfig.getProxyPort());
+            UsernamePasswordCredentials usernamePasswordCredentials = new UsernamePasswordCredentials(
+                    clientConfig.getProxyUsername(), clientConfig.getProxyPassword().toCharArray());
+            credentialsProvider.setCredentials(authScope, usernamePasswordCredentials);
+            clientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+            clientBuilder.setProxyAuthenticationStrategy(new DefaultAuthenticationStrategy());
+        }
+    }
 
 }

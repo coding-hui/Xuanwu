@@ -9,19 +9,19 @@ import top.wecoding.xuanwu.iam.config.ClientConfiguration;
 @SuppressWarnings("rawtypes")
 public class DefaultClientCredentialsProvider implements ClientCredentialsProvider {
 
-	private final ClientCredentials clientCredentials;
+    private final ClientCredentials clientCredentials;
 
-	public DefaultClientCredentialsProvider(ClientCredentials clientCredentials) {
-		this.clientCredentials = clientCredentials;
-	}
+    public DefaultClientCredentialsProvider(ClientCredentials clientCredentials) {
+        this.clientCredentials = clientCredentials;
+    }
 
-	public DefaultClientCredentialsProvider(ClientConfiguration clientConfiguration) {
-		this(new ApiTokenClientCredentials(clientConfiguration.getApiToken()));
-	}
+    public DefaultClientCredentialsProvider(ClientConfiguration clientConfiguration) {
+        this(new ApiTokenClientCredentials(clientConfiguration.getApiToken()));
+    }
 
-	@Override
-	public ClientCredentials resolveCredentials() {
-		return this.clientCredentials;
-	}
+    @Override
+    public ClientCredentials resolveCredentials() {
+        return this.clientCredentials;
+    }
 
 }
