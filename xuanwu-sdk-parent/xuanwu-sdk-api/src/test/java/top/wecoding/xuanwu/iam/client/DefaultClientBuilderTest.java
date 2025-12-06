@@ -13,7 +13,7 @@ import top.wecoding.xuanwu.iam.config.ClientConfiguration;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.spy;
@@ -30,7 +30,7 @@ class DefaultClientBuilderTest {
 		val resourceFactory = spy(new DefaultResourceFactory());
 		doAnswer((Answer<Resource>) invocation -> {
 			if (invocation.getArgument(0).toString().endsWith("/.wecoding/wecoding.yaml")) {
-				return (Resource) invocation.getMock();
+				return (Resource) () -> null;
 			}
 			else {
 				return (Resource) invocation.callRealMethod();
@@ -53,7 +53,7 @@ class DefaultClientBuilderTest {
 
 	@Test
 	void testDefaultBuilder() {
-		assertTrue(Clients.builder() instanceof DefaultClientBuilder);
+		assertInstanceOf(DefaultClientBuilder.class, Clients.builder());
 		val builder = new DefaultClientBuilder(noDefaultYamlResourceFactory());
 
 		assertEquals("https://api.wecoding.top/v1", builder.getClientConfig().getApiBase());

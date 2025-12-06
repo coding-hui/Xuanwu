@@ -1,12 +1,16 @@
 package top.wecoding.xuanwu.iam.client;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Setter;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.lang.NonNullApi;
+import org.springframework.lang.Nullable;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import top.wecoding.xuanwu.core.base.R;
@@ -15,6 +19,7 @@ import top.wecoding.xuanwu.core.message.I18n;
 import top.wecoding.xuanwu.iam.exception.IamApiException;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
@@ -38,10 +43,11 @@ public class ApiResponseErrorHandler extends DefaultResponseErrorHandler {
 	}
 
 	@Override
-	public void handleError(ClientHttpResponse response, HttpStatusCode statusCode) throws IOException {
+	public void handleError(ClientHttpResponse response, HttpStatusCode statusCode, @Nullable URI url,
+			@Nullable HttpMethod method) throws IOException {
 		R<?> apiResult = extract(response);
 		if (apiResult == null) {
-			super.handleError(response, statusCode);
+			super.handleError(response, statusCode, url, method);
 			return;
 		}
 		if (UNAUTHORIZED.isSameCodeAs(statusCode)) {

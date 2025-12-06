@@ -6,7 +6,7 @@
     <parent>
         <groupId>top.wecoding.xuanwu</groupId>
         <artifactId>xuanwu-starter-parent</artifactId>
-        <version>0.10.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>xuanwu-starter-printer</artifactId>
