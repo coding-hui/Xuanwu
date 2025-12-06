@@ -35,7 +35,7 @@ public class BearerTokenAuthenticationInterceptor implements ClientHttpRequestIn
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
 			throws IOException {
 		HttpHeaders headers = request.getHeaders();
-		if (bearerToken != null && !headers.containsKey(HttpHeaders.AUTHORIZATION)) {
+		if (bearerToken != null && !headers.containsHeader(HttpHeaders.AUTHORIZATION)) {
 			headers.set(AUTHORIZATION, (scheme != null ? upperCaseBearer(scheme) + " " : "") + bearerToken);
 		}
 		return execution.execute(request, body);

@@ -1,9 +1,0 @@
-wecoding:
-  client:
-    apiBase: "http://iam.wecoding.top"
-    connectionTimeout: 20
-#    proxy:
-#      host: "iam.wecoding.local"
-#      port: 80
-#      username: "ADMIN"
-#      password: "WECODING"
