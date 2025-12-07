@@ -14,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.accept.InvalidApiVersionException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -49,6 +50,16 @@ public class BaseExceptionHandler {
         }
         String message = NOT_FOUND.getDesc(e.getMessage());
         return R.error(NOT_FOUND, message, null);
+    }
+
+    @ExceptionHandler(InvalidApiVersionException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public R<Object> invalidApiVersionException(InvalidApiVersionException e, HttpServletRequest request) {
+        if (log.isWarnEnabled()) {
+            log.warn(exceptionMessage("Invalid API version exception", request));
+        }
+        String message = INVALID_API_VERSION.getDesc(e.getMessage());
+        return R.error(INVALID_API_VERSION, message, null);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

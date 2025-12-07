@@ -17,7 +17,7 @@ public enum SystemErrorCode implements ErrorCode {
      * 通用异常 Code
      */
     SUCCESS(100001), FAILURE(100002), PARAM_BIND_ERROR(100003), PARAM_VALID_ERROR(100004), PARAM_ERROR(100005),
-    NOT_FOUND(100006), INVALID_REQUEST(100007),
+    NOT_FOUND(100006), INVALID_REQUEST(100007), INVALID_API_VERSION(100008),
 
     // -------------------------------------------------------------//
     /**
