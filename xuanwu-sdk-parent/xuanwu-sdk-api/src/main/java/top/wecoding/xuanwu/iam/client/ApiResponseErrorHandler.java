@@ -1,6 +1,5 @@
 package top.wecoding.xuanwu.iam.client;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Setter;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatusCode;
@@ -8,8 +7,6 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.lang.NonNullApi;
 import org.springframework.lang.Nullable;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.HttpMessageConverterExtractor;
@@ -34,8 +31,7 @@ public class ApiResponseErrorHandler extends DefaultResponseErrorHandler {
     private List<HttpMessageConverter<?>> messageConverters;
 
     public ApiResponseErrorHandler() {
-        this(List.of(new MappingJackson2HttpMessageConverter(), new FormHttpMessageConverter(),
-                new StringHttpMessageConverter()));
+        this(List.of(new FormHttpMessageConverter(), new StringHttpMessageConverter()));
     }
 
     public ApiResponseErrorHandler(List<HttpMessageConverter<?>> messageConverters) {

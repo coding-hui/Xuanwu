@@ -22,18 +22,12 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 import top.wecoding.xuanwu.iam.authc.ClientCredentials;
 import top.wecoding.xuanwu.iam.authc.ClientCredentialsProvider;
 import top.wecoding.xuanwu.iam.authc.DefaultClientCredentialsProvider;
-import top.wecoding.xuanwu.iam.common.config.EnvironmentVariablesPropertiesSource;
-import top.wecoding.xuanwu.iam.common.config.OptionalPropertiesSource;
-import top.wecoding.xuanwu.iam.common.config.PropertiesSource;
-import top.wecoding.xuanwu.iam.common.config.ResourcePropertiesSource;
-import top.wecoding.xuanwu.iam.common.config.SystemPropertiesSource;
-import top.wecoding.xuanwu.iam.common.config.YamlPropertiesSource;
+import top.wecoding.xuanwu.iam.common.config.*;
 import top.wecoding.xuanwu.iam.common.io.ClasspathResource;
 import top.wecoding.xuanwu.iam.common.io.DefaultResourceFactory;
 import top.wecoding.xuanwu.iam.common.io.Resource;
@@ -42,25 +36,9 @@ import top.wecoding.xuanwu.iam.common.util.Strings;
 import top.wecoding.xuanwu.iam.config.ClientConfiguration;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_API_BASE_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_API_TOKEN_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CACHE_ENABLED_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CACHE_TTI_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CACHE_TTL_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CONNECTION_TIMEOUT_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_PROXY_HOST_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_PROXY_PASSWORD_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_PROXY_PORT_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_PROXY_USERNAME_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_REQUEST_TIMEOUT_PROPERTY_NAME;
-import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_RETRY_MAX_ATTEMPTS_PROPERTY_NAME;
+import static top.wecoding.xuanwu.iam.common.constant.Configs.*;
 
 /**
  * @author wecoding
@@ -252,7 +230,6 @@ public class DefaultClientBuilder implements ClientBuilder {
 		}
 
 		RestTemplate restTemplate = new RestTemplate(Arrays.asList(
-				new MappingJackson2HttpMessageConverter(),
 				new FormHttpMessageConverter(),
 				new StringHttpMessageConverter())
 		);
