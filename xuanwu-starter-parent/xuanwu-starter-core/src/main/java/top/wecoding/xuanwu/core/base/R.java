@@ -96,7 +96,7 @@ public class R<T> implements Serializable {
     }
 
     public static <T> R<T> error(ErrorCode codeSupplier) {
-        return error(codeSupplier, ERROR, null);
+        return error(codeSupplier, codeSupplier.getDesc(), null);
     }
 
     public static <T> R<T> error(ErrorCode codeSupplier, String errorMessage) {

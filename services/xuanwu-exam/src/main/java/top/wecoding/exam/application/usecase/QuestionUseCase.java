@@ -24,4 +24,10 @@ public interface QuestionUseCase {
      */
     Optional<Question> getQuestion(Long id);
 
+    /**
+     * Batch delete questions by IDs.
+     * @param ids the list of question IDs to delete
+     */
+    void batchDeleteQuestions(Iterable<Long> ids);
+
 }

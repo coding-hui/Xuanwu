@@ -25,12 +25,17 @@ public class Question implements Serializable {
     private Long id;
 
     /**
-     * Question Title/Content
+     * Question Title
+     */
+    private String title;
+
+    /**
+     * Question Content/Description
      */
     private String content;
 
     /**
-     * Question Type (e.g., Single Choice, Multiple Choice, True/False, Short Answer)
+     * Question Type (e.g., Single Choice, Multiple Choice, True/False, Short Answer, Coding)
      */
     private QuestionType type;
 
@@ -43,6 +48,31 @@ public class Question implements Serializable {
      * Score
      */
     private Integer score;
+
+    /**
+     * Status: 1-Draft, 2-Published, 3-Archived
+     */
+    private QuestionStatus status;
+
+    /**
+     * Type-specific Metadata (JSON)
+     */
+    private String metaInfo;
+
+    /**
+     * Tags (Comma separated)
+     */
+    private String tags;
+
+    /**
+     * Category ID
+     */
+    private Long categoryId;
+
+    /**
+     * Creator ID
+     */
+    private Long creatorId;
 
     /**
      * Creation Time

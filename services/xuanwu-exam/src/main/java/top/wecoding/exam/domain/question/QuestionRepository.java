@@ -22,4 +22,9 @@ public interface QuestionRepository {
      */
     void deleteById(Long id);
 
+    /**
+     * Batch delete questions by IDs
+     */
+    void batchDelete(Iterable<Long> ids);
+
 }

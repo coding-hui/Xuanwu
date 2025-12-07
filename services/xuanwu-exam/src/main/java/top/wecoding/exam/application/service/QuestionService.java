@@ -1,10 +1,11 @@
 package top.wecoding.exam.application.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import top.wecoding.exam.application.usecase.QuestionUseCase;
 import top.wecoding.exam.domain.question.Question;
 import top.wecoding.exam.domain.question.QuestionRepository;
-import org.springframework.stereotype.Service;
+import top.wecoding.exam.domain.question.QuestionStatus;
 
 import java.util.Optional;
 
@@ -25,6 +26,9 @@ public class QuestionService implements QuestionUseCase {
      */
     @Override
     public Question createQuestion(Question question) {
+        if (question.getStatus() == null) {
+            question.setStatus(QuestionStatus.DRAFT); // Default to Draft
+        }
         return questionRepository.save(question);
     }
 
@@ -36,6 +40,18 @@ public class QuestionService implements QuestionUseCase {
     @Override
     public Optional<Question> getQuestion(Long id) {
         return questionRepository.findById(id);
+    }
+
+    /**
+     * Batch delete questions by IDs.
+     * @param ids the list of question IDs to delete
+     */
+    @Override
+    public void batchDeleteQuestions(Iterable<Long> ids) {
+        if (ids == null) {
+            return;
+        }
+        questionRepository.batchDelete(ids);
     }
 
 }

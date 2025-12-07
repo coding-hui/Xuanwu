@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.wecoding.exam.infrastructure.persistence.question.mapper.QuestionMapper">
+
+    <resultMap id="BaseResultMap" type="top.wecoding.exam.infrastructure.persistence.question.po.QuestionPO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="difficulty" property="difficulty" jdbcType="TINYINT"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="meta_info" property="metaInfo" jdbcType="OTHER"/>
+        <result column="tags" property="tags" jdbcType="VARCHAR"/>
+        <result column="category_id" property="categoryId" jdbcType="BIGINT"/>
+        <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, title, content, type, difficulty, score, status, meta_info, tags, category_id, creator_id, created_at, updated_at
+    </sql>
+
+    <insert id="insert" parameterType="top.wecoding.exam.infrastructure.persistence.question.po.QuestionPO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO question (
+            title, content, type, difficulty, score, status, meta_info, tags, category_id, creator_id, created_at, updated_at
+        ) VALUES (
+            #{title}, #{content}, #{type}, #{difficulty}, #{score}, #{status}, #{metaInfo}, #{tags}, #{categoryId}, #{creatorId}, #{createdAt}, #{updatedAt}
+        )
+    </insert>
+
+    <update id="update" parameterType="top.wecoding.exam.infrastructure.persistence.question.po.QuestionPO">
+        UPDATE question
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="difficulty != null">difficulty = #{difficulty},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="metaInfo != null">meta_info = #{metaInfo},</if>
+            <if test="tags != null">tags = #{tags},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="creatorId != null">creator_id = #{creatorId},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM question
+        WHERE id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM question WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByIds">
+        DELETE FROM question WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

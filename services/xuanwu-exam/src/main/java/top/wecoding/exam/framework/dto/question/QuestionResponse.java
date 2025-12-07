@@ -1,6 +1,5 @@
 package top.wecoding.exam.framework.dto.question;
 
-import top.wecoding.exam.domain.question.Question;
 import top.wecoding.exam.domain.question.QuestionType;
 
 import lombok.Data;
@@ -10,6 +9,8 @@ public class QuestionResponse {
 
     private Long id;
 
+    private String title;
+
     private String content;
 
     private QuestionType type;
@@ -18,14 +19,12 @@ public class QuestionResponse {
 
     private Integer score;
 
-    public static QuestionResponse from(Question q) {
-        QuestionResponse r = new QuestionResponse();
-        r.setId(q.getId());
-        r.setContent(q.getContent());
-        r.setType(q.getType());
-        r.setDifficulty(q.getDifficulty());
-        r.setScore(q.getScore());
-        return r;
-    }
+    private Integer status;
+
+    private String metaInfo;
+
+    private String tags;
+
+    private Long categoryId;
 
 }
