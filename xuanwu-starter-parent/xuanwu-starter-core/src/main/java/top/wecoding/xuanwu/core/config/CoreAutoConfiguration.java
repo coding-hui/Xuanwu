@@ -50,7 +50,6 @@ public class CoreAutoConfiguration implements WebMvcRegistrations {
 
         /**
          * 注册自定义 的 jackson 时间格式，高优先级，用于覆盖默认的时间格式
-         *
          * @return CustomJavaTimeModule
          */
         @Bean

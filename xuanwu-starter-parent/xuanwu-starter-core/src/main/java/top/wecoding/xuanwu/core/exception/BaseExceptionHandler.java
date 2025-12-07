@@ -132,13 +132,13 @@ public class BaseExceptionHandler {
             log.warn(exceptionMessage("Param valid exception", request));
         }
         String message = e.getBindingResult()
-                .getAllErrors()
-                .stream()
-                .map(objectError -> String.format("%s %s",
-                        ((DefaultMessageSourceResolvable) Objects.requireNonNull(objectError.getArguments())[0])
-                                .getDefaultMessage(),
-                        objectError.getDefaultMessage()))
-                .collect(Collectors.joining(SEMICOLON));
+            .getAllErrors()
+            .stream()
+            .map(objectError -> String.format("%s %s",
+                    ((DefaultMessageSourceResolvable) Objects.requireNonNull(objectError.getArguments())[0])
+                        .getDefaultMessage(),
+                    objectError.getDefaultMessage()))
+            .collect(Collectors.joining(SEMICOLON));
         return R.error(PARAM_BIND_ERROR, message);
     }
 
@@ -160,8 +160,8 @@ public class BaseExceptionHandler {
         }
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         String message = violations.stream()
-                .map(ConstraintViolation::getMessage)
-                .collect(Collectors.joining(SEMICOLON));
+            .map(ConstraintViolation::getMessage)
+            .collect(Collectors.joining(SEMICOLON));
         return R.error(PARAM_VALID_ERROR, message, null);
     }
 
@@ -202,7 +202,7 @@ public class BaseExceptionHandler {
             log.warn(exceptionMessage("Request media type not acceptable exception", request));
         }
         String message = PARAM_ERROR
-                .getDesc(e.getMessage() + " " + e.getSupportedMediaTypes().stream().map(MediaType::getQualityValue));
+            .getDesc(e.getMessage() + " " + e.getSupportedMediaTypes().stream().map(MediaType::getQualityValue));
         return R.error(SystemErrorCode.PARAM_ERROR, message);
     }
 
@@ -213,10 +213,10 @@ public class BaseExceptionHandler {
             log.warn(exceptionMessage("Params bind exception", request));
         }
         String error = e.getBindingResult()
-                .getAllErrors()
-                .stream()
-                .map(ObjectError::getDefaultMessage)
-                .collect(Collectors.joining(SEMICOLON));
+            .getAllErrors()
+            .stream()
+            .map(ObjectError::getDefaultMessage)
+            .collect(Collectors.joining(SEMICOLON));
         return R.error(PARAM_BIND_ERROR, error);
     }
 

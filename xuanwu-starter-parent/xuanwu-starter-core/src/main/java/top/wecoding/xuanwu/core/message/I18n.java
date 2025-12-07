@@ -1,8 +1,8 @@
 package top.wecoding.xuanwu.core.message;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import top.wecoding.xuanwu.core.helper.LanguageHelper;
 
 import java.util.List;
 import java.util.Locale;
@@ -53,7 +53,7 @@ public class I18n {
 
     public static String getMessage(String code, String defaultMessage) {
         return DEFAULT_MESSAGE_SOURCE.resolveMessage(PARENT_MESSAGE_SOURCE, code, null, defaultMessage,
-                LanguageHelper.locale());
+                LocaleContextHolder.getLocale());
     }
 
     public static String getMessage(String code, String defaultMessage, Locale locale) {
@@ -62,7 +62,7 @@ public class I18n {
 
     public static String getMessage(String code, Object[] args, String defaultMessage) {
         return DEFAULT_MESSAGE_SOURCE.resolveMessage(PARENT_MESSAGE_SOURCE, code, args, defaultMessage,
-                LanguageHelper.locale());
+                LocaleContextHolder.getLocale());
     }
 
     public static String getMessage(String code, Object[] args, String defaultMessage, Locale locale) {
@@ -70,7 +70,8 @@ public class I18n {
     }
 
     public static String getMessage(String code) {
-        return DEFAULT_MESSAGE_SOURCE.resolveMessage(PARENT_MESSAGE_SOURCE, code, null, LanguageHelper.locale());
+        return DEFAULT_MESSAGE_SOURCE.resolveMessage(PARENT_MESSAGE_SOURCE, code, null,
+                LocaleContextHolder.getLocale());
     }
 
     public static String getMessage(String code, Locale locale) {
@@ -78,7 +79,8 @@ public class I18n {
     }
 
     public static String getMessage(String code, Object[] args) {
-        return DEFAULT_MESSAGE_SOURCE.resolveMessage(PARENT_MESSAGE_SOURCE, code, args, LanguageHelper.locale());
+        return DEFAULT_MESSAGE_SOURCE.resolveMessage(PARENT_MESSAGE_SOURCE, code, args,
+                LocaleContextHolder.getLocale());
     }
 
     public static String getMessage(String code, Object[] args, Locale locale) {
@@ -86,7 +88,7 @@ public class I18n {
     }
 
     public static String getMessageLocal(String code) {
-        return PARENT_MESSAGE_SOURCE.getMessage(code, null, LanguageHelper.locale());
+        return PARENT_MESSAGE_SOURCE.getMessage(code, null, LocaleContextHolder.getLocale());
     }
 
     public static String getMessageLocal(String code, Locale locale) {
@@ -94,7 +96,7 @@ public class I18n {
     }
 
     public static String getMessageLocal(String code, Object[] args) {
-        return PARENT_MESSAGE_SOURCE.getMessage(code, args, LanguageHelper.locale());
+        return PARENT_MESSAGE_SOURCE.getMessage(code, args, LocaleContextHolder.getLocale());
     }
 
     public static String getMessageLocal(String code, Object[] args, Locale locale) {

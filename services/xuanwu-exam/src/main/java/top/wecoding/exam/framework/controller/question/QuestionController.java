@@ -43,7 +43,7 @@ public class QuestionController {
      * @param id the ID of the question
      * @return the question response if found, or 404 Not Found
      */
-    @GetMapping(value = "/{id}", version = "2")
+    @GetMapping(value = "/{id}", version = "1")
     public R<QuestionResponse> getQuestion(@PathVariable Long id) {
         return questionUseCase.getQuestion(id)
             .map(q -> R.ok(QuestionResponse.from(q)))
