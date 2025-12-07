@@ -54,3 +54,4 @@ build/
 _output
 logs/
 **/.flattened-pom.xml
+.trae
