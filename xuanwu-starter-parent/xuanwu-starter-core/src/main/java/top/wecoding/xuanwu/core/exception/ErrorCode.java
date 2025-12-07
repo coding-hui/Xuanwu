@@ -13,6 +13,10 @@ public interface ErrorCode {
         return I18n.getMessage(getCode().toString(), defaultMessage);
     }
 
+    default String getDesc(String defaultMessage, Object... args) {
+        return I18n.getMessage(getCode().toString(), args, defaultMessage);
+    }
+
     default String getDesc(Object... args) {
         return I18n.getMessage(getCode().toString(), args);
     }

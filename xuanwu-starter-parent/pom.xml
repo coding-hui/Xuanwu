@@ -18,6 +18,7 @@
         <module>xuanwu-starter-redis</module>
         <module>xuanwu-starter-metric</module>
         <module>xuanwu-starter-mongo</module>
+        <module>xuanwu-starter-mybatis</module>
         <module>xuanwu-starter-printer</module>
     </modules>
 

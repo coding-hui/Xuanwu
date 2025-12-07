@@ -1,6 +1,36 @@
 spring:
   application:
-    name: example
+    name: @artifactId@
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
   threads:
     virtual:
       enabled: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.64.5:3306/xuanwu_exam?createDatabaseIfNotExist=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
+    username: root
+    password: WeCoding@2023
+  mvc:
+    apiversion:
+      use:
+        path-segment: 0
+      supported:
+        - 1
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: TRACE
+
+server:
+  port: 6789
+  servlet:
+    context-path: /
+  shutdown: graceful
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,application/javascript,application/json,image/svg+xml
+    min-response-size: 1024

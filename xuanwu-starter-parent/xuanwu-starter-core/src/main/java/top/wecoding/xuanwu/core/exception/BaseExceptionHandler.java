@@ -19,24 +19,18 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import top.wecoding.xuanwu.core.base.R;
 
 import java.sql.SQLException;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.springframework.context.i18n.LocaleContextHolder.getLocaleContext;
 import static top.wecoding.xuanwu.core.constant.StrPool.SEMICOLON;
-import static top.wecoding.xuanwu.core.exception.SystemErrorCode.DATABASE_ERROR;
-import static top.wecoding.xuanwu.core.exception.SystemErrorCode.FAILURE;
-import static top.wecoding.xuanwu.core.exception.SystemErrorCode.INVALID_REQUEST;
-import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_BIND_ERROR;
-import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_ERROR;
-import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_VALID_ERROR;
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.*;
 
 /**
  * 全局异常处理基类
@@ -47,55 +41,64 @@ import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_VALID_ERR
 @RestControllerAdvice
 public class BaseExceptionHandler {
 
+    @ExceptionHandler(NoResourceFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public R<Object> apiVersionNotFoundException(Exception e, HttpServletRequest request) {
+        if (log.isErrorEnabled()) {
+            log.error(exceptionMessage("API not found exception", request), e);
+        }
+        String message = NOT_FOUND.getDesc(e.getMessage());
+        return R.error(NOT_FOUND, message, null);
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BaseUncheckedException.class)
-    public R<Object> argumentException(BaseUncheckedException e, HttpServletRequest request, HandlerMethod method) {
+    public R<Object> argumentException(BaseUncheckedException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Unchecked exception", request, method));
+            log.warn(exceptionMessage("Unchecked exception", request));
         }
         return createResult(e);
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
-    public R<Object> argumentException(UnauthorizedException e, HttpServletRequest request, HandlerMethod method) {
+    public R<Object> argumentException(UnauthorizedException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Unauthorized exception", request, method));
+            log.warn(exceptionMessage("Unauthorized exception", request));
         }
         return createResult(e);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalParameterException.class)
-    public R<Object> argumentException(IllegalParameterException e, HttpServletRequest request, HandlerMethod method) {
+    public R<Object> argumentException(IllegalParameterException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Illegal argument exception", request, method));
+            log.warn(exceptionMessage("Illegal argument exception", request));
         }
         return createResult(e);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ServerException.class)
-    public R<Object> serverException(ServerException e, HttpServletRequest request, HandlerMethod method) {
+    public R<Object> serverException(ServerException e, HttpServletRequest request) {
         if (log.isErrorEnabled()) {
-            log.error(exceptionMessage("Internal Server exception", request, method));
+            log.error(exceptionMessage("Internal Server exception", request));
         }
         return createResult(e);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DemoException.class)
-    public R<Object> demoException(DemoException e, HttpServletRequest request, HandlerMethod method) {
-        log.info(exceptionMessage("Demo exception", request, method));
+    public R<Object> demoException(DemoException e, HttpServletRequest request) {
+        log.info(exceptionMessage("Demo exception", request));
         return createResult(e);
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> missParamException(MissingServletRequestParameterException e, HttpServletRequest request,
-            HandlerMethod method) {
+    public R<Object> missParamException(MissingServletRequestParameterException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Miss param exception", request, method));
+            log.warn(exceptionMessage("Miss param exception", request));
         }
         String message = PARAM_ERROR.getDesc(e.getParameterName(), e.getParameterType());
         return R.error(PARAM_ERROR, message, null);
@@ -103,10 +106,9 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> handleError(MethodArgumentTypeMismatchException e, HttpServletRequest request,
-            HandlerMethod method) {
+    public R<Object> handleError(MethodArgumentTypeMismatchException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Miss param exception", request, method));
+            log.warn(exceptionMessage("Miss param exception", request));
         }
         String message = INVALID_REQUEST.getDesc(e.getName());
         return R.error(INVALID_REQUEST, message);
@@ -114,27 +116,26 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> validatedBindException(MethodArgumentNotValidException e, HttpServletRequest request,
-            HandlerMethod method) {
+    public R<Object> validatedBindException(MethodArgumentNotValidException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Param valid exception", request, method));
+            log.warn(exceptionMessage("Param valid exception", request));
         }
         String message = e.getBindingResult()
-            .getAllErrors()
-            .stream()
-            .map(objectError -> String.format("%s %s",
-                    ((DefaultMessageSourceResolvable) Objects.requireNonNull(objectError.getArguments())[0])
-                        .getDefaultMessage(),
-                    objectError.getDefaultMessage()))
-            .collect(Collectors.joining(SEMICOLON));
+                .getAllErrors()
+                .stream()
+                .map(objectError -> String.format("%s %s",
+                        ((DefaultMessageSourceResolvable) Objects.requireNonNull(objectError.getArguments())[0])
+                                .getDefaultMessage(),
+                        objectError.getDefaultMessage()))
+                .collect(Collectors.joining(SEMICOLON));
         return R.error(PARAM_BIND_ERROR, message);
     }
 
     @ExceptionHandler(IllegalStateException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> illegalStateException(IllegalStateException e, HttpServletRequest request, HandlerMethod method) {
+    public R<Object> illegalStateException(IllegalStateException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Illegal state exception", request, method));
+            log.warn(exceptionMessage("Illegal state exception", request));
         }
         String message = PARAM_ERROR.getDesc(e.getMessage());
         return R.error(PARAM_ERROR, message, null);
@@ -142,23 +143,22 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> constraintViolationException(ConstraintViolationException e, HttpServletRequest request,
-            HandlerMethod method) {
+    public R<Object> constraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Constraint violation exception", request, method));
+            log.warn(exceptionMessage("Constraint violation exception", request));
         }
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         String message = violations.stream()
-            .map(ConstraintViolation::getMessage)
-            .collect(Collectors.joining(SEMICOLON));
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.joining(SEMICOLON));
         return R.error(PARAM_VALID_ERROR, message, null);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> handleError(HttpMessageNotReadableException e, HttpServletRequest request, HandlerMethod method) {
+    public R<Object> handleError(HttpMessageNotReadableException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Message not readable exception", request, method));
+            log.warn(exceptionMessage("Message not readable exception", request));
         }
         String message = INVALID_REQUEST.getDesc(e.getMessage());
         return R.error(INVALID_REQUEST, message);
@@ -166,10 +166,9 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-    public R<Object> handleError(HttpRequestMethodNotSupportedException e, HttpServletRequest request,
-            HandlerMethod method) {
+    public R<Object> handleError(HttpRequestMethodNotSupportedException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Request method not supported exception", request, method));
+            log.warn(exceptionMessage("Request method not supported exception", request));
         }
         String message = INVALID_REQUEST.getDesc(e.getMessage());
         return R.error(SystemErrorCode.INVALID_REQUEST, message);
@@ -177,10 +176,9 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-    public R<Object> handleError(HttpMediaTypeNotSupportedException e, HttpServletRequest request,
-            HandlerMethod method) {
+    public R<Object> handleError(HttpMediaTypeNotSupportedException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Request media type not supported exception", request, method));
+            log.warn(exceptionMessage("Request media type not supported exception", request));
         }
         String message = INVALID_REQUEST.getDesc(e.getMessage());
         return R.error(SystemErrorCode.INVALID_REQUEST, message);
@@ -188,35 +186,34 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-    public R<Object> handleError(HttpMediaTypeNotAcceptableException e, HttpServletRequest request,
-            HandlerMethod method) {
+    public R<Object> handleError(HttpMediaTypeNotAcceptableException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Request media type not acceptable exception", request, method));
+            log.warn(exceptionMessage("Request media type not acceptable exception", request));
         }
         String message = PARAM_ERROR
-            .getDesc(e.getMessage() + " " + e.getSupportedMediaTypes().stream().map(MediaType::getQualityValue));
+                .getDesc(e.getMessage() + " " + e.getSupportedMediaTypes().stream().map(MediaType::getQualityValue));
         return R.error(SystemErrorCode.PARAM_ERROR, message);
     }
 
     @ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R<Object> validatedBindException(BindException e, HttpServletRequest request, HandlerMethod method) {
+    public R<Object> validatedBindException(BindException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Params bind exception", request, method));
+            log.warn(exceptionMessage("Params bind exception", request));
         }
         String error = e.getBindingResult()
-            .getAllErrors()
-            .stream()
-            .map(ObjectError::getDefaultMessage)
-            .collect(Collectors.joining(SEMICOLON));
+                .getAllErrors()
+                .stream()
+                .map(ObjectError::getDefaultMessage)
+                .collect(Collectors.joining(SEMICOLON));
         return R.error(PARAM_BIND_ERROR, error);
     }
 
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R<Object> nullPointerException(NullPointerException e, HttpServletRequest request, HandlerMethod method) {
+    public R<Object> nullPointerException(NullPointerException e, HttpServletRequest request) {
         if (log.isWarnEnabled()) {
-            log.warn(exceptionMessage("Null pointer exception", request, method));
+            log.warn(exceptionMessage("Null pointer exception", request));
         }
         String message = PARAM_ERROR.getDesc(e.getMessage());
         return R.error(PARAM_ERROR, message, null);
@@ -224,9 +221,9 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(SQLException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R<Object> process(SQLException e, HttpServletRequest request, HandlerMethod method) {
+    public R<Object> process(SQLException e, HttpServletRequest request) {
         if (log.isErrorEnabled()) {
-            log.error(exceptionMessage("Sql exception", request, method), e);
+            log.error(exceptionMessage("Sql exception", request), e);
         }
         String message = DATABASE_ERROR.getDesc(e.getMessage());
         return R.error(DATABASE_ERROR, message, null);
@@ -234,9 +231,9 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R<Object> handleException(Exception e, HttpServletRequest request, HandlerMethod method) {
+    public R<Object> handleException(Exception e, HttpServletRequest request) {
         if (log.isErrorEnabled()) {
-            log.error(exceptionMessage("Unknown exception", request, method), e);
+            log.error(exceptionMessage("Unknown exception", request), e);
         }
         String message = FAILURE.getDesc(e.getMessage());
         return R.error(FAILURE, message, null);
@@ -260,9 +257,8 @@ public class BaseExceptionHandler {
         return R.error(ex.getErrorCode(), message, null);
     }
 
-    private String exceptionMessage(String message, HttpServletRequest request, HandlerMethod method) {
-        return String.format(message + ": URI [%s] method [%s]", request.getRequestURI(),
-                Optional.ofNullable(method).map(HandlerMethod::toString).orElse("NullMethod"));
+    private String exceptionMessage(String message, HttpServletRequest request) {
+        return String.format(message + ": URI [%s] method [%s]", request.getRequestURI(), request.getMethod());
     }
 
 }

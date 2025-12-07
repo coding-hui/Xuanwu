@@ -33,6 +33,8 @@
         <velocity.tool.version>3.1</velocity.tool.version>
         <commons.io.version>2.21.0</commons.io.version>
         <mapstruct.version>1.6.3</mapstruct.version>
+        <mybatis.version>4.0.0</mybatis.version>
+        <pagehelper.version>2.1.1</pagehelper.version>
 
         <!-- docker configuration -->
         <docker.username>username</docker.username>
@@ -129,6 +131,11 @@
             <dependency>
                 <groupId>top.wecoding.xuanwu</groupId>
                 <artifactId>xuanwu-starter-orm</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wecoding.xuanwu</groupId>
+                <artifactId>xuanwu-starter-mybatis</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

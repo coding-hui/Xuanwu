@@ -12,7 +12,7 @@ import java.util.Optional;
  * @author wecoding
  * @since 0.8
  */
-@RequestMapping("/version")
+@RequestMapping("/info")
 @RestController("versionController")
 public class VersionController {
 

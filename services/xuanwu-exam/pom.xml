@@ -16,6 +16,16 @@
             <groupId>top.wecoding.xuanwu</groupId>
             <artifactId>xuanwu-starter-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>top.wecoding.xuanwu</groupId>
+            <artifactId>xuanwu-starter-mybatis</artifactId>
+        </dependency>
+
+        <!-- Mysql Connector -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
 
         <!-- Configuration processor -->
         <dependency>
