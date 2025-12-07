@@ -2,6 +2,7 @@ package top.wecoding.xuanwu.core.helper;
 
 import lombok.Getter;
 import org.apache.commons.lang3.LocaleUtils;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.util.Locale;
 
@@ -23,14 +24,19 @@ public class LanguageHelper {
 
     /**
      * 根据当前登陆用户获取语言信息
+     * 
      * @return String
      */
     public static String language() {
-        return defaultLanguage;
+        return locale().toString();
     }
 
     public static Locale locale() {
-        return LocaleUtils.toLocale(LanguageHelper.language());
+        Locale locale = LocaleContextHolder.getLocale();
+        if (locale == null) {
+            return LocaleUtils.toLocale(defaultLanguage);
+        }
+        return locale;
     }
 
 }
