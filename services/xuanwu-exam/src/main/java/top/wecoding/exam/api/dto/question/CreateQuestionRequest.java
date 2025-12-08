@@ -1,4 +1,4 @@
-package top.wecoding.exam.framework.dto.question;
+package top.wecoding.exam.api.dto.question;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

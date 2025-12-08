@@ -1,11 +1,11 @@
-package top.wecoding.exam.framework.converter;
+package top.wecoding.exam.api.converter;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import top.wecoding.exam.domain.question.Question;
 import top.wecoding.exam.domain.question.QuestionStatus;
-import top.wecoding.exam.framework.dto.question.CreateQuestionRequest;
-import top.wecoding.exam.framework.dto.question.QuestionResponse;
+import top.wecoding.exam.api.dto.question.CreateQuestionRequest;
+import top.wecoding.exam.api.dto.question.QuestionResponse;
 
 /**
  * Question Assembler

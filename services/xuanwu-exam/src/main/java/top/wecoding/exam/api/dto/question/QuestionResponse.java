@@ -1,4 +1,4 @@
-package top.wecoding.exam.framework.dto.question;
+package top.wecoding.exam.api.dto.question;
 
 import top.wecoding.exam.domain.question.QuestionType;
 

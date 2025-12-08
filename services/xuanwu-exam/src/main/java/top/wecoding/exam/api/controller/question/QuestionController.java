@@ -1,4 +1,4 @@
-package top.wecoding.exam.framework.controller.question;
+package top.wecoding.exam.api.controller.question;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.wecoding.exam.application.usecase.QuestionUseCase;
 import top.wecoding.exam.domain.question.Question;
-import top.wecoding.exam.framework.converter.QuestionAssembler;
-import top.wecoding.exam.framework.dto.question.CreateQuestionRequest;
-import top.wecoding.exam.framework.dto.question.QuestionResponse;
+import top.wecoding.exam.api.converter.QuestionAssembler;
+import top.wecoding.exam.api.dto.question.CreateQuestionRequest;
+import top.wecoding.exam.api.dto.question.QuestionResponse;
 import top.wecoding.exam.domain.exception.ExamErrorCode;
 import top.wecoding.xuanwu.core.base.R;
 import top.wecoding.xuanwu.core.exception.BaseUncheckedException;
