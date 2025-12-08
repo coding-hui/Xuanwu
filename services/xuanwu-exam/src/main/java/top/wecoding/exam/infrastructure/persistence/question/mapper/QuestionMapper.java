@@ -18,8 +18,8 @@ public interface QuestionMapper {
 
     Optional<QuestionPO> selectById(@Param("id") Long id);
 
-    int deleteById(@Param("id") Long id);
+    void deleteById(@Param("id") Long id);
 
-    int deleteByIds(@Param("ids") Iterable<Long> ids);
+    void deleteByIds(@Param("ids") Iterable<Long> ids);
 
 }

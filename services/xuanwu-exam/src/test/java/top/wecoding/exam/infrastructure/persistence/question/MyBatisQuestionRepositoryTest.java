@@ -9,6 +9,7 @@ import top.wecoding.exam.domain.question.Question;
 import top.wecoding.exam.domain.question.QuestionRepository;
 import top.wecoding.exam.domain.question.QuestionStatus;
 import top.wecoding.exam.domain.question.QuestionType;
+import top.wecoding.xuanwu.core.exception.ServerException;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -51,7 +52,7 @@ class MyBatisQuestionRepositoryTest {
         savedQuestion.setTitle("Updated Title");
         Question updatedQuestion = questionRepository.save(savedQuestion);
         Assertions.assertEquals("Updated Title", updatedQuestion.getTitle());
-        
+
         Optional<Question> foundUpdated = questionRepository.findById(savedQuestion.getId());
         Assertions.assertTrue(foundUpdated.isPresent());
         Assertions.assertEquals("Updated Title", foundUpdated.get().getTitle());
@@ -85,6 +86,16 @@ class MyBatisQuestionRepositoryTest {
         Assertions.assertFalse(questionRepository.findById(q1.getId()).isPresent(), "Q1 should be deleted");
         Assertions.assertFalse(questionRepository.findById(q2.getId()).isPresent(), "Q2 should be deleted");
         Assertions.assertTrue(questionRepository.findById(q3.getId()).isPresent(), "Q3 should remain");
+    }
+
+    @Test
+    void testUpdateNonExistent() {
+        Question question = createQuestion("Non-existent");
+        question.setId(999999L); // Assume this ID does not exist
+
+        Assertions.assertThrows(ServerException.class, () -> {
+            questionRepository.save(question);
+        });
     }
 
     private Question createQuestion(String title) {

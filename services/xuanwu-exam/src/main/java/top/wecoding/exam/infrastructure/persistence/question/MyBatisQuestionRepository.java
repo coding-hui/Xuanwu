@@ -9,6 +9,10 @@ import top.wecoding.exam.infrastructure.persistence.question.converter.QuestionC
 import top.wecoding.exam.infrastructure.persistence.question.mapper.QuestionMapper;
 import top.wecoding.exam.infrastructure.persistence.question.po.QuestionPO;
 
+import top.wecoding.exam.domain.exception.ExamErrorCode;
+import top.wecoding.xuanwu.core.exception.ServerException;
+import top.wecoding.xuanwu.core.exception.SystemErrorCode;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -29,11 +33,17 @@ public class MyBatisQuestionRepository implements QuestionRepository {
         if (po.getId() == null) {
             po.setCreatedAt(LocalDateTime.now());
             po.setUpdatedAt(LocalDateTime.now());
-            questionMapper.insert(po);
+            int rows = questionMapper.insert(po);
+            if (rows == 0) {
+                throw new ServerException(SystemErrorCode.DATABASE_ERROR);
+            }
             question.setId(po.getId());
         } else {
             po.setUpdatedAt(LocalDateTime.now());
-            questionMapper.update(po);
+            int rows = questionMapper.update(po);
+            if (rows == 0) {
+                throw new ServerException(ExamErrorCode.QUESTION_NOT_FOUND);
+            }
         }
         return questionConverter.toDomain(po);
     }
