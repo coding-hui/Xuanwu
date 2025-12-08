@@ -9,6 +9,14 @@ import lombok.extern.slf4j.Slf4j;
 
 import static org.springframework.context.i18n.LocaleContextHolder.getLocaleContext;
 import static top.wecoding.xuanwu.core.constant.StrPool.SEMICOLON;
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.DATABASE_ERROR;
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.FAILURE;
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.INVALID_API_VERSION;
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.INVALID_REQUEST;
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.NOT_FOUND;
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_BIND_ERROR;
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_ERROR;
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_VALID_ERROR;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
