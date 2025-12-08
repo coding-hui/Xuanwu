@@ -1,0 +1,210 @@
+def label = "slave-${UUID.randomUUID().toString()}"
+
+properties([
+    parameters([
+        booleanParam(
+            name: 'BUILD_EXAM',
+            defaultValue: true,
+            description: '是否构建 Xuanwu Exam 镜像'
+        ),
+        booleanParam(
+            name: 'BUILD_NATIVE',
+            defaultValue: false,
+            description: '是否构建 Native Image (需要 GraalVM 环境)'
+        ),
+        booleanParam(
+            name: 'DEPLOY',
+            defaultValue: false,
+            description: '是否部署到 Kubernetes'
+        ),
+        string(
+            name: 'REGISTRY',
+            defaultValue: 'docker.cnb.cool',
+            description: '镜像仓库地址'
+        ),
+        string(
+            name: 'TAG',
+            defaultValue: 'v0.1.0',
+            description: '镜像标签'
+        ),
+        string(
+            name: 'BRANCH',
+            defaultValue: 'main',
+            description: '代码分支'
+        ),
+        string(
+            name: 'NAMESPACE',
+            defaultValue: 'xuanwu-system',
+            description: 'Kubernetes 命名空间'
+        ),
+    ])
+])
+
+def registry = params.REGISTRY
+def tag = params.TAG
+def branch = params.BRANCH
+def namespace = params.NAMESPACE
+def shouldBuildExam = params.BUILD_EXAM
+def shouldBuildNative = params.BUILD_NATIVE
+def shouldDeploy = params.DEPLOY
+
+def configurePodmanMirrors() {
+    container('podman') {
+        sh '''
+            mkdir -p /etc/containers
+            cat > /etc/containers/registries.conf << EOF
+unqualified-search-registries = ["docker.io"]
+
+[[registry]]
+prefix = "docker.io"
+location = "docker.1ms.run"
+insecure = true
+
+[[registry.mirror]]
+location = "docker.1ms.run"
+insecure = true
+[[registry.mirror]]
+location = "docker-0.unsee.tech"
+insecure = true
+[[registry.mirror]]
+location = "docker.m.daocloud.io"
+insecure = true
+[[registry.mirror]]
+location = "ccr.ccs.tencentyun.com"
+insecure = true
+EOF
+        '''
+    }
+}
+
+// 修改构建函数，支持在 Dockerfile 中构建
+// contextPath 通常为项目根目录 '.'
+def buildAndPushImage(String imageName, String contextPath, String dockerfilePath) {
+    container('podman') {
+        withCredentials([usernamePassword(credentialsId: 'cnb', passwordVariable: 'DOCKER_PWD', usernameVariable: 'DOCKER_USER')]) {
+            sh """
+                podman login ${registry} -u ${DOCKER_USER} -p ${DOCKER_PWD}
+                echo "Building image: ${imageName}:${tag}"
+                
+                # 注意：构建上下文设为 contextPath (通常是 . )
+                # Dockerfile 路径相对于 workspace
+                podman build \
+                    -t ${imageName}:${tag} \
+                    -f ${dockerfilePath} \
+                    ${contextPath}
+
+                echo "Pushing image: ${imageName}:${tag}"
+                podman push ${imageName}:${tag}
+
+                podman rmi ${imageName}:${tag} || true
+            """
+        }
+    }
+}
+
+podTemplate(
+    label: label,
+    containers: [
+        containerTemplate(
+            name: 'podman',
+            image: 'mgoltzsche/podman:latest',
+            command: 'cat',
+            ttyEnabled: true,
+            privileged: true,
+            resourceRequestCpu: '1000m',
+            resourceRequestMemory: '2Gi',
+            envVars: [
+                containerEnvVar(key: 'DOCKER_HOST', value: 'unix:///var/tmp/podman.sock')
+            ]
+        ),
+        containerTemplate(
+            name: 'kubectl',
+            image: 'alpine/kubectl:latest',
+            command: 'cat',
+            ttyEnabled: true
+        ),
+        containerTemplate(
+            name: 'helm',
+            image: 'alpine/helm:latest',
+            command: 'cat',
+            ttyEnabled: true
+        )
+    ],
+    volumes: [
+        hostPathVolume(
+            mountPath: '/var/lib/containers',
+            hostPath: '/var/lib/containers'
+        ),
+        hostPathVolume(
+            mountPath: '/var/tmp/',
+            hostPath: '/var/tmp/'
+        )
+    ],
+    envVars: [
+        containerEnvVar(key: 'DOCKER_HOST', value: 'unix:///var/tmp/podman.sock')
+    ]
+) {
+    node(label) {
+        def imageExam = "${registry}/wecoding/images/xuanwu-exam"
+        
+        try {
+            stage('Initialize') {
+                echo """
+                =========== Pipeline Configuration ===========
+                构建 Exam: ${shouldBuildExam}
+                Native Mode: ${shouldBuildNative}
+                部署: ${shouldDeploy}
+                镜像: ${imageExam}:${tag}
+                分支: ${branch}
+                =============================================
+                """
+            }
+
+            stage('Checkout') {
+                checkout scmGit(
+                    branches: [[name: "${branch}"]],
+                    extensions: [],
+                    userRemoteConfigs: [[
+                        credentialsId: 'github',
+                        url: 'git@github.com:coding-hui/Xuanwu.git'
+                    ]]
+                )
+            }
+
+            stage('Configure Podman Mirrors') {
+                configurePodmanMirrors()
+            }
+
+            if (shouldBuildExam.toBoolean()) {
+                stage('Build & Push Image') {
+                    def dockerfile = shouldBuildNative.toBoolean() ? 
+                        'services/xuanwu-exam/Dockerfile.native' : 
+                        'services/xuanwu-exam/Dockerfile'
+                    
+                    // 上下文路径设为 '.'，以便 Dockerfile 可以 COPY 整个项目
+                    buildAndPushImage(
+                        imageExam,
+                        '.',
+                        dockerfile
+                    )
+                }
+            }
+
+            if (shouldDeploy.toBoolean()) {
+                stage('Deploy') {
+                    echo "Deploy stage placeholder. Please configure Helm chart path."
+                }
+            }
+
+        } catch (Exception e) {
+            currentBuild.result = 'FAILURE'
+            error "Pipeline failed: ${e.getMessage()}"
+        } finally {
+            stage('Cleanup') {
+                container('podman') {
+                    sh "podman system prune -f || true"
+                }
+            }
+        }
+    }
+}
