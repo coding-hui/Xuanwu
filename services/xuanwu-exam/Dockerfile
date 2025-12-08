@@ -1,7 +1,7 @@
 # 第一阶段：构建
-FROM docker.io/azul/zulu-openjdk:25.0.1-jdk AS builder
+FROM azul/zulu-openjdk:25.0.1-jdk AS builder
 
-# 使用 Azul Zulu JDK 25 进行构建
+ 
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ COPY . .
 RUN mvn clean package -pl services/xuanwu-exam -am -DskipTests
 
 # 第二阶段：运行
-FROM docker.io/azul/zulu-openjdk:25-jre
+FROM azul/zulu-openjdk:25-jre
 
 WORKDIR /xuanwu
 
