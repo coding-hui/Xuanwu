@@ -89,6 +89,7 @@ def buildAndPushImage(String imageName, String contextPath, String dockerfilePat
                 # 注意：构建上下文设为 contextPath (通常是 . )
                 # Dockerfile 路径相对于 workspace
                 podman build \
+                    -v /home/jenkins/.m2:/root/.m2 \
                     -t ${imageName}:${tag} \
                     -f ${dockerfilePath} \
                     ${contextPath}
@@ -138,6 +139,10 @@ podTemplate(
         hostPathVolume(
             mountPath: '/var/tmp/',
             hostPath: '/var/tmp/'
+        ),
+        hostPathVolume(
+            mountPath: '/home/jenkins/.m2',
+            hostPath: '/home/jenkins/.m2'
         )
     ],
     envVars: [
