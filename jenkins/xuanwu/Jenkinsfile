@@ -119,6 +119,14 @@ podTemplate(
             ]
         ),
         containerTemplate(
+            name: 'maven',
+            image: 'azul/zulu-openjdk:25.0.1-jdk',
+            command: 'cat',
+            ttyEnabled: true,
+            resourceRequestCpu: '1000m',
+            resourceRequestMemory: '2Gi'
+        ),
+        containerTemplate(
             name: 'kubectl',
             image: 'alpine/kubectl:latest',
             command: 'cat',
@@ -178,6 +186,15 @@ podTemplate(
 
             stage('Configure Podman Mirrors') {
                 configurePodmanMirrors()
+            }
+
+            stage('Prefetch Dependencies') {
+                container('maven') {
+                    sh """
+                        apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
+                        mvn -B -Dmaven.repo.local=/root/.m2 -pl services/xuanwu-exam -am dependency:go-offline
+                    """
+                }
             }
 
             if (shouldBuildExam.toBoolean()) {
