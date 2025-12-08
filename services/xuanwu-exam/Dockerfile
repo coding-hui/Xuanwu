@@ -1,7 +1,7 @@
 # 第一阶段：构建
-FROM openjdk:25-jdk-slim AS builder
+FROM eclipse-temurin:25-jdk AS builder
 
-ENV JAVA_HOME=/usr/local/openjdk-25
+ENV JAVA_HOME=/opt/java/openjdk
 ENV PATH=${JAVA_HOME}/bin:${PATH}
 
 WORKDIR /app
@@ -15,7 +15,7 @@ COPY . .
 RUN mvn clean package -pl services/xuanwu-exam -am -DskipTests
 
 # 第二阶段：运行
-FROM openjdk:25-jdk-slim
+FROM eclipse-temurin:25-jdk
 
 WORKDIR /xuanwu
 
