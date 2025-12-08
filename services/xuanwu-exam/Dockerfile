@@ -1,6 +1,9 @@
 # 第一阶段：构建
 FROM openjdk:25-jdk-slim AS builder
 
+ENV JAVA_HOME=/usr/local/openjdk-25
+ENV PATH=${JAVA_HOME}/bin:${PATH}
+
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
