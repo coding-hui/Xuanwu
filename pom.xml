@@ -348,6 +348,12 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                    <execution>
                         <id>spotless-check</id>
                         <phase>validate</phase>
                         <goals>
