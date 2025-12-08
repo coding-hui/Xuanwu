@@ -1,13 +1,12 @@
 package top.wecoding.exam.application.service;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import top.wecoding.exam.application.usecase.QuestionUseCase;
 import top.wecoding.exam.domain.question.Question;
 import top.wecoding.exam.domain.question.QuestionRepository;
 import top.wecoding.exam.domain.question.QuestionStatus;
-
-import java.util.Optional;
 
 /**
  * Service implementation for Question use cases. Implements the high-level business logic defined

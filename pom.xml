@@ -47,7 +47,6 @@
 
         <!-- plugin versions -->
         <git.commit.plugin>9.0.1</git.commit.plugin>
-        <spring.checkstyle.plugin>0.0.47</spring.checkstyle.plugin>
         <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
         <frontend-maven-plugin.version>1.15.4</frontend-maven-plugin.version>
     </properties>
@@ -333,21 +332,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--
-            	代码格式插件，默认使用spring 规则，可运行命令进行项目格式化：./mvnw spring-javaformat:apply 或 mvn spring-javaformat:apply，可在IDEA中安装插件以下插件进行自动格式化：
-            	https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin
-            -->
-<!--            <plugin>-->
-<!--                <groupId>io.spring.javaformat</groupId>-->
-<!--                <artifactId>spring-javaformat-maven-plugin</artifactId>-->
-<!--                <version>${spring.checkstyle.plugin}</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>validate</phase>-->
-<!--                        <inherited>true</inherited>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
