@@ -11,8 +11,8 @@ import top.wecoding.xuanwu.orm.repository.LogicDeleteRepository;
  * @since v1
  * @date 2023-12-21 21:21:55
  */
-public interface SkuStockRepository extends LogicDeleteRepository<SkuStock, Long>, JpaSpecificationExecutor<SkuStock> {
+public interface SkuStockRepository
+    extends LogicDeleteRepository<SkuStock, Long>, JpaSpecificationExecutor<SkuStock> {
 
-    void deleteByFoodId(Long foodId);
-
+  void deleteByFoodId(Long foodId);
 }

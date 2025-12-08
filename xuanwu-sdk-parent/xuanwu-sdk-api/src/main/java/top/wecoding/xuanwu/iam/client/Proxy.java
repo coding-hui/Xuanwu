@@ -9,30 +9,30 @@ import lombok.Data;
 @Data
 public class Proxy {
 
-    private String host;
+  private String host;
 
-    private int port;
+  private int port;
 
-    private String username;
+  private String username;
 
-    private String password;
+  private String password;
 
-    private boolean authenticationRequired;
+  private boolean authenticationRequired;
 
-    public Proxy(String host, int port) {
-        this(host, port, null, null, false);
-    }
+  public Proxy(String host, int port) {
+    this(host, port, null, null, false);
+  }
 
-    public Proxy(String host, int port, String username, String password) {
-        this(host, port, username, password, true);
-    }
+  public Proxy(String host, int port, String username, String password) {
+    this(host, port, username, password, true);
+  }
 
-    public Proxy(String host, int port, String username, String password, boolean authenticationRequired) {
-        this.host = host;
-        this.port = port;
-        this.username = username;
-        this.password = password;
-        this.authenticationRequired = authenticationRequired;
-    }
-
+  public Proxy(
+      String host, int port, String username, String password, boolean authenticationRequired) {
+    this.host = host;
+    this.port = port;
+    this.username = username;
+    this.password = password;
+    this.authenticationRequired = authenticationRequired;
+  }
 }

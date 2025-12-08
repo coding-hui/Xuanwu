@@ -6,20 +6,19 @@ package top.wecoding.xuanwu.iam.authc;
  */
 public class ApiTokenClientCredentials implements ClientCredentials<String> {
 
-    private final String secret;
+  private final String secret;
 
-    public ApiTokenClientCredentials(String secret) {
-        this.secret = secret;
-    }
+  public ApiTokenClientCredentials(String secret) {
+    this.secret = secret;
+  }
 
-    @Override
-    public String getCredentials() {
-        return secret;
-    }
+  @Override
+  public String getCredentials() {
+    return secret;
+  }
 
-    @Override
-    public String toString() {
-        return "<ApiTokenClientCredentials>";
-    }
-
+  @Override
+  public String toString() {
+    return "<ApiTokenClientCredentials>";
+  }
 }

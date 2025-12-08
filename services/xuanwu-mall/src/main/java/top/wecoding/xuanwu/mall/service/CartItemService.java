@@ -1,11 +1,10 @@
 package top.wecoding.xuanwu.mall.service;
 
+import java.util.List;
 import top.wecoding.xuanwu.mall.domain.entity.CartItem;
 import top.wecoding.xuanwu.mall.domain.request.CartItemListRequest;
 import top.wecoding.xuanwu.mall.domain.request.UpdateFoodQuantityRequest;
 import top.wecoding.xuanwu.orm.service.BaseService;
-
-import java.util.List;
 
 /**
  * 购物车表 - Service
@@ -16,14 +15,13 @@ import java.util.List;
  */
 public interface CartItemService extends BaseService<CartItem, Long> {
 
-    List<CartItem> listCartItems(CartItemListRequest listRequest);
+  List<CartItem> listCartItems(CartItemListRequest listRequest);
 
-    void updateFoodQuantity(UpdateFoodQuantityRequest updateReq);
+  void updateFoodQuantity(UpdateFoodQuantityRequest updateReq);
 
-    void addCartItem(CartItem cartItem);
+  void addCartItem(CartItem cartItem);
 
-    void batchAddCartItem(List<CartItem> cartItems);
+  void batchAddCartItem(List<CartItem> cartItems);
 
-    boolean deleteCartItem(String tableCode, Long foodId);
-
+  boolean deleteCartItem(String tableCode, Long foodId);
 }

@@ -11,6 +11,4 @@ import top.wecoding.xuanwu.mall.domain.entity.Food;
  * @since v1
  * @date 2023-12-19 22:37:39
  */
-public interface FoodRepository extends JpaRepository<Food, Long>, JpaSpecificationExecutor<Food> {
-
-}
+public interface FoodRepository extends JpaRepository<Food, Long>, JpaSpecificationExecutor<Food> {}

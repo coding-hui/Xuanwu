@@ -1,10 +1,9 @@
 package top.wecoding.xuanwu.mall.domain.request;
 
-import lombok.Data;
-import top.wecoding.xuanwu.orm.annotation.Query;
-
 import java.io.Serializable;
 import java.util.List;
+import lombok.Data;
+import top.wecoding.xuanwu.orm.annotation.Query;
 
 /**
  * @author wecoding
@@ -13,28 +12,23 @@ import java.util.List;
 @Data
 public class OrderInfoPageRequest implements Serializable {
 
-    @Query
-    private Long id;
+  @Query private Long id;
 
-    @Query(blurry = "tableCode")
-    private String tableCode;
+  @Query(blurry = "tableCode")
+  private String tableCode;
 
-    @Query(blurry = "orderSn")
-    private String orderSn;
+  @Query(blurry = "orderSn")
+  private String orderSn;
 
-    @Query
-    private Integer payType;
+  @Query private Integer payType;
 
-    @Query
-    private Integer sourceType;
+  @Query private Integer sourceType;
 
-    @Query
-    private Integer status;
+  @Query private Integer status;
 
-    @Query(propName = "status", type = Query.Type.IN)
-    private List<Integer> statusList;
+  @Query(propName = "status", type = Query.Type.IN)
+  private List<Integer> statusList;
 
-    @Query(blurry = "note")
-    private String note;
-
+  @Query(blurry = "note")
+  private String note;
 }

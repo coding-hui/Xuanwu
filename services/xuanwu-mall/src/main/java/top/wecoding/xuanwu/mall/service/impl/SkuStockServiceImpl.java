@@ -17,13 +17,13 @@ import top.wecoding.xuanwu.orm.service.BaseServiceImpl;
  */
 @Service
 @RequiredArgsConstructor
-public class SkuStockServiceImpl extends BaseServiceImpl<SkuStock, Long> implements SkuStockService {
+public class SkuStockServiceImpl extends BaseServiceImpl<SkuStock, Long>
+    implements SkuStockService {
 
-    private final SkuStockRepository skuStockRepository;
+  private final SkuStockRepository skuStockRepository;
 
-    @Override
-    protected JpaRepository<SkuStock, Long> getBaseRepository() {
-        return this.skuStockRepository;
-    }
-
+  @Override
+  protected JpaRepository<SkuStock, Long> getBaseRepository() {
+    return this.skuStockRepository;
+  }
 }

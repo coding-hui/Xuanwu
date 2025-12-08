@@ -23,25 +23,25 @@ package top.wecoding.xuanwu.core.exception;
  */
 public class IllegalParameterException extends BaseUncheckedException {
 
-    public IllegalParameterException() {
-        super();
-    }
+  public IllegalParameterException() {
+    super();
+  }
 
-    public IllegalParameterException(ErrorCode supplier, Object... args) {
-        this(supplier, null, args);
-    }
+  public IllegalParameterException(ErrorCode supplier, Object... args) {
+    this(supplier, null, args);
+  }
 
-    public IllegalParameterException(ErrorCode supplier, Throwable cause, Object... args) {
-        this(supplier, cause, null, null, args);
-    }
+  public IllegalParameterException(ErrorCode supplier, Throwable cause, Object... args) {
+    this(supplier, cause, null, null, args);
+  }
 
-    public IllegalParameterException(ErrorCode supplier, String exception, String url, Object... args) {
-        this(supplier, null, exception, url, args);
-    }
+  public IllegalParameterException(
+      ErrorCode supplier, String exception, String url, Object... args) {
+    this(supplier, null, exception, url, args);
+  }
 
-    public IllegalParameterException(ErrorCode supplier, Throwable cause, String exception, String url,
-            Object... args) {
-        super(supplier, cause, exception, url, args);
-    }
-
+  public IllegalParameterException(
+      ErrorCode supplier, Throwable cause, String exception, String url, Object... args) {
+    super(supplier, cause, exception, url, args);
+  }
 }

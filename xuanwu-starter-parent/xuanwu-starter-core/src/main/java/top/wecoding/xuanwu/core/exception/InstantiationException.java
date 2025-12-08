@@ -6,8 +6,7 @@ package top.wecoding.xuanwu.core.exception;
  */
 public class InstantiationException extends RuntimeException {
 
-    public InstantiationException(String s, Throwable t) {
-        super(s, t);
-    }
-
+  public InstantiationException(String s, Throwable t) {
+    super(s, t);
+  }
 }

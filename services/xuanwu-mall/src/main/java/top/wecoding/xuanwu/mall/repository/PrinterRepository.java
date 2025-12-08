@@ -1,10 +1,9 @@
 package top.wecoding.xuanwu.mall.repository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import top.wecoding.xuanwu.mall.domain.entity.Printer;
 import top.wecoding.xuanwu.orm.repository.LogicDeleteRepository;
-
-import java.util.List;
 
 /**
  * 打印机 - Repository
@@ -13,12 +12,12 @@ import java.util.List;
  * @since v1
  * @date 2023-12-31 17:54:36
  */
-public interface PrinterRepository extends LogicDeleteRepository<Printer, Long>, JpaSpecificationExecutor<Printer> {
+public interface PrinterRepository
+    extends LogicDeleteRepository<Printer, Long>, JpaSpecificationExecutor<Printer> {
 
-    Printer getByName(String name);
+  Printer getByName(String name);
 
-    boolean existsByName(String name);
+  boolean existsByName(String name);
 
-    List<Printer> findByStatus(Integer status);
-
+  List<Printer> findByStatus(Integer status);
 }

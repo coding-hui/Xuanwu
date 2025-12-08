@@ -8,20 +8,19 @@ import lombok.Getter;
  */
 @Getter
 public enum PrinterStatus {
+  DISABLED(0),
+  AVAILABLE(1);
 
-    DISABLED(0), AVAILABLE(1);
+  private final Integer status;
 
-    private final Integer status;
+  PrinterStatus(Integer status) {
+    this.status = status;
+  }
 
-    PrinterStatus(Integer status) {
-        this.status = status;
+  public boolean is(Integer status) {
+    if (status == null) {
+      return false;
     }
-
-    public boolean is(Integer status) {
-        if (status == null) {
-            return false;
-        }
-        return this.status.equals(status);
-    }
-
+    return this.status.equals(status);
+  }
 }

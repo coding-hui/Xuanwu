@@ -35,46 +35,46 @@ import top.wecoding.xuanwu.mall.service.PrinterService;
 @RequestMapping("/printer")
 public class PrinterController {
 
-    private final PrinterService printerService;
+  private final PrinterService printerService;
 
-    private final OrderService orderService;
+  private final OrderService orderService;
 
-    @GetMapping("/{id}")
-    public R<Printer> getInfo(@PathVariable("id") Long id) {
-        return R.ok(printerService.getById(id).orElseThrow(DateNotFoundException::new));
-    }
+  @GetMapping("/{id}")
+  public R<Printer> getInfo(@PathVariable("id") Long id) {
+    return R.ok(printerService.getById(id).orElseThrow(DateNotFoundException::new));
+  }
 
-    @GetMapping("/service")
-    public R<?> paging(@PageableDefault Pageable pageReq, PrinterServicePageRequest queryParams) {
-        return R.ok(printerService.listPrinterService(queryParams, pageReq));
-    }
+  @GetMapping("/service")
+  public R<?> paging(@PageableDefault Pageable pageReq, PrinterServicePageRequest queryParams) {
+    return R.ok(printerService.listPrinterService(queryParams, pageReq));
+  }
 
-    @PostMapping("")
-    public R<Printer> create(@RequestBody @Validated Printer printer) {
-        return R.ok(printerService.create(printer));
-    }
+  @PostMapping("")
+  public R<Printer> create(@RequestBody @Validated Printer printer) {
+    return R.ok(printerService.create(printer));
+  }
 
-    @PutMapping("/{id}")
-    public R<Printer> update(@PathVariable("id") Long id, @RequestBody @Validated Printer printer) {
-        return R.ok(printerService.updateById(id, printer));
-    }
+  @PutMapping("/{id}")
+  public R<Printer> update(@PathVariable("id") Long id, @RequestBody @Validated Printer printer) {
+    return R.ok(printerService.updateById(id, printer));
+  }
 
-    @DeleteMapping("/{id}")
-    public R<?> delete(@PathVariable("id") Long id) {
-        printerService.deleteById(id);
-        return R.ok();
-    }
+  @DeleteMapping("/{id}")
+  public R<?> delete(@PathVariable("id") Long id) {
+    printerService.deleteById(id);
+    return R.ok();
+  }
 
-    @GetMapping("/print_test_page/{id}")
-    public R<?> printTestPage(@PathVariable("id") Long id) {
-        return R.ok(printerService.printTestPage(id));
-    }
+  @GetMapping("/print_test_page/{id}")
+  public R<?> printTestPage(@PathVariable("id") Long id) {
+    return R.ok(printerService.printTestPage(id));
+  }
 
-    @GetMapping("/submit_print_job/{orderId}")
-    public R<?> submitPrintJob(@PathVariable("orderId") Long orderId, @RequestParam("type") Integer type) {
-        OrderDetail detail = orderService.detail(orderId);
-        printerService.printSalesTicket(detail, type);
-        return R.ok();
-    }
-
+  @GetMapping("/submit_print_job/{orderId}")
+  public R<?> submitPrintJob(
+      @PathVariable("orderId") Long orderId, @RequestParam("type") Integer type) {
+    OrderDetail detail = orderService.detail(orderId);
+    printerService.printSalesTicket(detail, type);
+    return R.ok();
+  }
 }

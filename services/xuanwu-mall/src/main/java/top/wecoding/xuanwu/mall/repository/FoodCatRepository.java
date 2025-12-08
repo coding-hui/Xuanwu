@@ -11,6 +11,5 @@ import top.wecoding.xuanwu.orm.repository.LogicDeleteRepository;
  * @since v1
  * @date 2023-12-19 21:19:14
  */
-public interface FoodCatRepository extends LogicDeleteRepository<FoodCat, Long>, JpaSpecificationExecutor<FoodCat> {
-
-}
+public interface FoodCatRepository
+    extends LogicDeleteRepository<FoodCat, Long>, JpaSpecificationExecutor<FoodCat> {}

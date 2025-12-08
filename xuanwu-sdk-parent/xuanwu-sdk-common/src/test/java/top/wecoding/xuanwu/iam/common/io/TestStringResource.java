@@ -10,15 +10,14 @@ import java.io.InputStream;
  */
 public class TestStringResource implements Resource {
 
-    private String string;
+  private String string;
 
-    public TestStringResource(String string) {
-        this.string = string;
-    }
+  public TestStringResource(String string) {
+    this.string = string;
+  }
 
-    @Override
-    public InputStream getInputStream() throws IOException {
-        return new ByteArrayInputStream(string.getBytes());
-    }
-
+  @Override
+  public InputStream getInputStream() throws IOException {
+    return new ByteArrayInputStream(string.getBytes());
+  }
 }

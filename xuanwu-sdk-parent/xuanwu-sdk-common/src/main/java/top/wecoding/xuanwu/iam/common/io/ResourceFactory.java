@@ -6,6 +6,5 @@ package top.wecoding.xuanwu.iam.common.io;
  */
 public interface ResourceFactory {
 
-    Resource createResource(String location);
-
+  Resource createResource(String location);
 }

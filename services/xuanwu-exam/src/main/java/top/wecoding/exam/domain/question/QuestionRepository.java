@@ -2,34 +2,21 @@ package top.wecoding.exam.domain.question;
 
 import java.util.Optional;
 
-/**
- * Question Repository Interface
- */
+/** Question Repository Interface */
 public interface QuestionRepository {
 
-    /**
-     * Save a question
-     */
-    Question save(Question question);
+  /** Save a question */
+  Question save(Question question);
 
-    /**
-     * Update a question
-     */
-    Question update(Question question);
+  /** Update a question */
+  Question update(Question question);
 
-    /**
-     * Find a question by ID
-     */
-    Optional<Question> findById(Long id);
+  /** Find a question by ID */
+  Optional<Question> findById(Long id);
 
-    /**
-     * Delete a question by ID
-     */
-    void deleteById(Long id);
+  /** Delete a question by ID */
+  void deleteById(Long id);
 
-    /**
-     * Batch delete questions by IDs
-     */
-    void batchDelete(Iterable<Long> ids);
-
+  /** Batch delete questions by IDs */
+  void batchDelete(Iterable<Long> ids);
 }

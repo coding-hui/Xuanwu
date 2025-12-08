@@ -1,12 +1,11 @@
 package top.wecoding.xuanwu.core.annotation;
 
-import org.springframework.web.bind.annotation.Mapping;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.springframework.web.bind.annotation.Mapping;
 
 /**
  * @author wecoding
@@ -14,10 +13,9 @@ import java.lang.annotation.Target;
  */
 @Documented
 @Mapping
-@Target({ ElementType.TYPE, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Version {
 
-    String[] value();
-
+  String[] value();
 }

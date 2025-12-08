@@ -1,10 +1,10 @@
 package top.wecoding.xuanwu.iam.common.config;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import top.wecoding.xuanwu.iam.common.io.TestStringResource;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author wecoding
@@ -12,11 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class YamlPropertiesSourceTest {
 
-    @Test
-    void testGetProperties() {
-        String testStr = "wecoding:\n  client:\n    apiBase: xxx\n";
-        val properties = new YamlPropertiesSource(new TestStringResource(testStr));
-        assertEquals(properties.getProperties().get("wecoding.client.apiBase"), "xxx");
-    }
-
+  @Test
+  void testGetProperties() {
+    String testStr = "wecoding:\n  client:\n    apiBase: xxx\n";
+    val properties = new YamlPropertiesSource(new TestStringResource(testStr));
+    assertEquals(properties.getProperties().get("wecoding.client.apiBase"), "xxx");
+  }
 }

@@ -9,6 +9,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
  */
 @AutoConfiguration
 @EnableJpaAuditing
-public class OrmAutoConfiguration {
-
-}
+public class OrmAutoConfiguration {}

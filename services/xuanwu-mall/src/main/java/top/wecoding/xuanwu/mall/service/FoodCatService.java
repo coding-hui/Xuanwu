@@ -10,6 +10,4 @@ import top.wecoding.xuanwu.orm.service.BaseService;
  * @since v1
  * @date 2023-12-19 21:19:14
  */
-public interface FoodCatService extends BaseService<FoodCat, Long> {
-
-}
+public interface FoodCatService extends BaseService<FoodCat, Long> {}

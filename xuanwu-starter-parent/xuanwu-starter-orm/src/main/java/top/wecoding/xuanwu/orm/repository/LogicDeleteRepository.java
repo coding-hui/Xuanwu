@@ -9,6 +9,5 @@ import top.wecoding.xuanwu.orm.domain.LogicDeleteEntity;
  * @since 0.9
  */
 @NoRepositoryBean
-public interface LogicDeleteRepository<T extends LogicDeleteEntity, PK> extends JpaRepository<T, PK> {
-
-}
+public interface LogicDeleteRepository<T extends LogicDeleteEntity, PK>
+    extends JpaRepository<T, PK> {}

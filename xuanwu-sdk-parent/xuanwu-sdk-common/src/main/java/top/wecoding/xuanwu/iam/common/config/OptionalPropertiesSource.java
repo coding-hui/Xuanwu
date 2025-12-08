@@ -1,10 +1,9 @@
 package top.wecoding.xuanwu.iam.common.config;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.Assert;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.Assert;
 
 /**
  * @author wecoding
@@ -13,22 +12,20 @@ import java.util.Map;
 @Slf4j
 public class OptionalPropertiesSource implements PropertiesSource {
 
-    private final PropertiesSource propertiesSource;
+  private final PropertiesSource propertiesSource;
 
-    public OptionalPropertiesSource(PropertiesSource source) {
-        Assert.notNull(source, "source cannot be null.");
-        this.propertiesSource = source;
+  public OptionalPropertiesSource(PropertiesSource source) {
+    Assert.notNull(source, "source cannot be null.");
+    this.propertiesSource = source;
+  }
+
+  @Override
+  public Map<String, String> getProperties() {
+    try {
+      return propertiesSource.getProperties();
+    } catch (Exception e) {
+      log.debug("Unable to obtain properties from optional properties source {}", propertiesSource);
     }
-
-    @Override
-    public Map<String, String> getProperties() {
-        try {
-            return propertiesSource.getProperties();
-        }
-        catch (Exception e) {
-            log.debug("Unable to obtain properties from optional properties source {}", propertiesSource);
-        }
-        return new LinkedHashMap<>();
-    }
-
+    return new LinkedHashMap<>();
+  }
 }

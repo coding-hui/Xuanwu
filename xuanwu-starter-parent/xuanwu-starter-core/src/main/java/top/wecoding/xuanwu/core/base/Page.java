@@ -1,7 +1,6 @@
 package top.wecoding.xuanwu.core.base;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 import java.util.function.Function;
 
@@ -11,12 +10,11 @@ import java.util.function.Function;
  */
 public interface Page<T> {
 
-    @JsonProperty("total")
-    long getTotal();
+  @JsonProperty("total")
+  long getTotal();
 
-    @JsonProperty("records")
-    List<T> getRecords();
+  @JsonProperty("records")
+  List<T> getRecords();
 
-    <U> Page<U> map(Function<? super T, ? extends U> converter);
-
+  <U> Page<U> map(Function<? super T, ? extends U> converter);
 }

@@ -11,24 +11,15 @@ import lombok.Data;
 @Data
 public class Goods {
 
-    /**
-     * 属性名称
-     */
-    private String name;
+  /** 属性名称 */
+  private String name;
 
-    /**
-     * 对齐方式 居左、居中、居右
-     */
-    private int format;
+  /** 对齐方式 居左、居中、居右 */
+  private int format;
 
-    /**
-     * 占半角字符宽度 58mm 每行32 80mm 每行48
-     */
-    private int width;
+  /** 占半角字符宽度 58mm 每行32 80mm 每行48 */
+  private int width;
 
-    /**
-     * 占位符 格式${time}
-     */
-    private String variable;
-
+  /** 占位符 格式${time} */
+  private String variable;
 }

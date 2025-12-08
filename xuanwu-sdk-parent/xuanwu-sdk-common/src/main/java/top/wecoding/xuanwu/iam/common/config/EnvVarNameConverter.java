@@ -6,8 +6,7 @@ package top.wecoding.xuanwu.iam.common.config;
  */
 public interface EnvVarNameConverter {
 
-    String toEnvVarName(String dottedPropertyName);
+  String toEnvVarName(String dottedPropertyName);
 
-    String toDottedPropertyName(String envVarName);
-
+  String toDottedPropertyName(String envVarName);
 }

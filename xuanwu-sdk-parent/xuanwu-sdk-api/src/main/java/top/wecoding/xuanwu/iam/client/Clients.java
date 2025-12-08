@@ -8,8 +8,7 @@ import top.wecoding.xuanwu.core.util.Classes;
  */
 public class Clients {
 
-    public static ClientBuilder builder() {
-        return Classes.newInstance("top.wecoding.xuanwu.iam.client.DefaultClientBuilder");
-    }
-
+  public static ClientBuilder builder() {
+    return Classes.newInstance("top.wecoding.xuanwu.iam.client.DefaultClientBuilder");
+  }
 }

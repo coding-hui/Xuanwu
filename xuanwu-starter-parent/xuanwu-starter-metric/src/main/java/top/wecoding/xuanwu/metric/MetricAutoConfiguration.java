@@ -14,32 +14,33 @@ import org.springframework.context.annotation.Bean;
  * @since 0.9
  */
 @AutoConfiguration
-@ConditionalOnProperty(value = { "xuanwu.metric.enabled" }, matchIfMissing = true)
+@ConditionalOnProperty(
+    value = {"xuanwu.metric.enabled"},
+    matchIfMissing = true)
 public class MetricAutoConfiguration {
 
-    @Bean
-    public ClassLoaderMetrics classLoaderMetrics() {
-        return new ClassLoaderMetrics();
-    }
+  @Bean
+  public ClassLoaderMetrics classLoaderMetrics() {
+    return new ClassLoaderMetrics();
+  }
 
-    @Bean
-    public JvmMemoryMetrics jvmMemoryMetrics() {
-        return new JvmMemoryMetrics();
-    }
+  @Bean
+  public JvmMemoryMetrics jvmMemoryMetrics() {
+    return new JvmMemoryMetrics();
+  }
 
-    @Bean
-    public JvmGcMetrics gcMetrics() {
-        return new JvmGcMetrics();
-    }
+  @Bean
+  public JvmGcMetrics gcMetrics() {
+    return new JvmGcMetrics();
+  }
 
-    @Bean
-    public ProcessorMetrics processorMetrics() {
-        return new ProcessorMetrics();
-    }
+  @Bean
+  public ProcessorMetrics processorMetrics() {
+    return new ProcessorMetrics();
+  }
 
-    @Bean
-    public JvmThreadMetrics jvmThreadMetrics() {
-        return new JvmThreadMetrics();
-    }
-
+  @Bean
+  public JvmThreadMetrics jvmThreadMetrics() {
+    return new JvmThreadMetrics();
+  }
 }

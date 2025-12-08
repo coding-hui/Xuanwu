@@ -6,10 +6,9 @@ package top.wecoding.xuanwu.core.constant;
  */
 public interface Constant {
 
-    String DEFAULT_CHARSET = "UTF-8";
+  String DEFAULT_CHARSET = "UTF-8";
 
-    String DEFAULT_ENV = "dev";
+  String DEFAULT_ENV = "dev";
 
-    String NORM_DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
-
+  String NORM_DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 }

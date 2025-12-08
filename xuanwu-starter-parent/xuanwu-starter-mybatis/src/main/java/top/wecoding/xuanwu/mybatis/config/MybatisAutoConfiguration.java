@@ -7,6 +7,4 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
  * @since 0.9
  */
 @AutoConfiguration
-public class MybatisAutoConfiguration {
-
-}
+public class MybatisAutoConfiguration {}

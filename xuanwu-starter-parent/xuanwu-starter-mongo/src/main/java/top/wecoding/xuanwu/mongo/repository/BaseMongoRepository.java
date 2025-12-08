@@ -23,6 +23,4 @@ import org.springframework.data.repository.NoRepositoryBean;
  * @date 2022/02/19
  */
 @NoRepositoryBean
-public interface BaseMongoRepository<T, ID> extends MongoRepository<T, ID> {
-
-}
+public interface BaseMongoRepository<T, ID> extends MongoRepository<T, ID> {}

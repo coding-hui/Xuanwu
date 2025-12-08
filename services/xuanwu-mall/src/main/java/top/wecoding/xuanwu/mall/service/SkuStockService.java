@@ -10,6 +10,4 @@ import top.wecoding.xuanwu.orm.service.BaseService;
  * @since v1
  * @date 2023-12-21 21:21:55
  */
-public interface SkuStockService extends BaseService<SkuStock, Long> {
-
-}
+public interface SkuStockService extends BaseService<SkuStock, Long> {}

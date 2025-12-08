@@ -13,12 +13,11 @@ import top.wecoding.xuanwu.mall.domain.request.UpdateFoodRequest;
 @Mapper(componentModel = "spring")
 public interface FoodConverter {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "skus", ignore = true)
-    @Mapping(target = "category.id", source = "categoryId")
-    Food createFoodRequestToEntity(CreateFoodRequest createReq);
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "skus", ignore = true)
+  @Mapping(target = "category.id", source = "categoryId")
+  Food createFoodRequestToEntity(CreateFoodRequest createReq);
 
-    @Mapping(target = "category.id", source = "categoryId")
-    Food updateFoodRequestToEntity(UpdateFoodRequest updateReq);
-
+  @Mapping(target = "category.id", source = "categoryId")
+  Food updateFoodRequestToEntity(UpdateFoodRequest updateReq);
 }

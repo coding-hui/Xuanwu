@@ -12,10 +12,9 @@ import top.wecoding.xuanwu.mall.domain.entity.OrderItem;
 @Mapper(componentModel = "spring")
 public interface OrderItemConverter {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "deleted", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    OrderItem cartItemToEntity(CartItem cartItem);
-
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "deleted", ignore = true)
+  @Mapping(target = "createdAt", ignore = true)
+  @Mapping(target = "updatedAt", ignore = true)
+  OrderItem cartItemToEntity(CartItem cartItem);
 }

@@ -7,14 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import java.io.Serial;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import top.wecoding.xuanwu.orm.domain.LogicDeleteEntity;
-
-import java.io.Serial;
-import java.io.Serializable;
 
 /**
  * mall_food_cat - 菜品分类
@@ -31,26 +30,24 @@ import java.io.Serializable;
 @SuperBuilder(toBuilder = true)
 public class FoodCat extends LogicDeleteEntity implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
-    /** 主键 */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  /** 主键 */
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    /** 名称 */
-    @Column(length = 64)
-    @NotBlank(message = "分类名称不能为空")
-    private String name;
+  /** 名称 */
+  @Column(length = 64)
+  @NotBlank(message = "分类名称不能为空")
+  private String name;
 
-    /** 备注 */
-    private String description;
+  /** 备注 */
+  private String description;
 
-    /** 类型 */
-    private Integer type;
+  /** 类型 */
+  private Integer type;
 
-    /** 排序 */
-    private Integer sort;
-
+  /** 排序 */
+  private Integer sort;
 }

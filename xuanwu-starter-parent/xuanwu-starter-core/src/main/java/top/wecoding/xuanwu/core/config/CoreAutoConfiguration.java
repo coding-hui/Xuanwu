@@ -1,6 +1,7 @@
 package top.wecoding.xuanwu.core.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -18,8 +19,6 @@ import top.wecoding.xuanwu.core.helper.ApplicationContextHelper;
 import top.wecoding.xuanwu.core.jackson.CustomJavaTimeModule;
 import top.wecoding.xuanwu.core.version.VersionController;
 
-import java.util.Optional;
-
 /**
  * @author liuyuhui
  * @since 0.8
@@ -28,47 +27,45 @@ import java.util.Optional;
 @AutoConfiguration
 public class CoreAutoConfiguration implements WebMvcRegistrations {
 
+  @Bean
+  @ConditionalOnBean(GitProperties.class)
+  public VersionController versionController(GitProperties gitProperties) {
+    return new VersionController(Optional.of(gitProperties));
+  }
+
+  @Bean
+  public ApplicationContextHelper applicationContextHelper() {
+    return new ApplicationContextHelper();
+  }
+
+  @Bean
+  public BaseExceptionHandler baseExceptionHandler() {
+    return new BaseExceptionHandler();
+  }
+
+  @ConditionalOnClass(ObjectMapper.class)
+  @AutoConfiguration(before = JacksonAutoConfiguration.class)
+  public static class CustomJacksonAutoConfiguration {
+
+    /**
+     * 注册自定义 的 jackson 时间格式，高优先级，用于覆盖默认的时间格式
+     *
+     * @return CustomJavaTimeModule
+     */
     @Bean
-    @ConditionalOnBean(GitProperties.class)
-    public VersionController versionController(GitProperties gitProperties) {
-        return new VersionController(Optional.of(gitProperties));
+    @ConditionalOnMissingBean(CustomJavaTimeModule.class)
+    public CustomJavaTimeModule customJavaTimeModule() {
+      return new CustomJavaTimeModule();
     }
+  }
 
-    @Bean
-    public ApplicationContextHelper applicationContextHelper() {
-        return new ApplicationContextHelper();
+  @AutoConfiguration
+  @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.ANY)
+  public static class CustomWebMvcAutoConfiguration implements WebMvcConfigurer {
+
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+      configurer.addPathPrefix("/{version}", _ -> true);
     }
-
-    @Bean
-    public BaseExceptionHandler baseExceptionHandler() {
-        return new BaseExceptionHandler();
-    }
-
-    @ConditionalOnClass(ObjectMapper.class)
-    @AutoConfiguration(before = JacksonAutoConfiguration.class)
-    public static class CustomJacksonAutoConfiguration {
-
-        /**
-         * 注册自定义 的 jackson 时间格式，高优先级，用于覆盖默认的时间格式
-         * @return CustomJavaTimeModule
-         */
-        @Bean
-        @ConditionalOnMissingBean(CustomJavaTimeModule.class)
-        public CustomJavaTimeModule customJavaTimeModule() {
-            return new CustomJavaTimeModule();
-        }
-
-    }
-
-    @AutoConfiguration
-    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.ANY)
-    public static class CustomWebMvcAutoConfiguration implements WebMvcConfigurer {
-
-        @Override
-        public void configurePathMatch(PathMatchConfigurer configurer) {
-            configurer.addPathPrefix("/{version}", _ -> true);
-        }
-
-    }
-
+  }
 }

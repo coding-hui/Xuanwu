@@ -7,6 +7,5 @@ package top.wecoding.xuanwu.iam.authc;
 @FunctionalInterface
 public interface ClientCredentials<T> {
 
-    T getCredentials();
-
+  T getCredentials();
 }

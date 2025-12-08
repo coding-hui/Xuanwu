@@ -1,9 +1,8 @@
 package top.wecoding.xuanwu.printer.escpos.params;
 
 import com.alibaba.fastjson.JSONObject;
-import lombok.Data;
-
 import java.util.List;
+import lombok.Data;
 
 /**
  * 模板配置参数
@@ -14,16 +13,15 @@ import java.util.List;
 @Data
 public class PosTpl {
 
-    private List<JSONObject> header;
+  private List<JSONObject> header;
 
-    private List<Goods> goods;
+  private List<Goods> goods;
 
-    private List<JSONObject> bill;
+  private List<JSONObject> bill;
 
-    private List<JSONObject> footer;
+  private List<JSONObject> footer;
 
-    public List<JSONObject> getHeader() {
-        return header;
-    }
-
+  public List<JSONObject> getHeader() {
+    return header;
+  }
 }

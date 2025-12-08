@@ -1,9 +1,8 @@
 package top.wecoding.xuanwu.mybatis.service;
 
-import top.wecoding.xuanwu.core.base.PageResult;
-
 import java.util.List;
 import java.util.Optional;
+import top.wecoding.xuanwu.core.base.PageResult;
 
 /**
  * @author wecoding
@@ -11,20 +10,19 @@ import java.util.Optional;
  */
 public interface BaseService<T, ID> {
 
-    List<T> list();
+  List<T> list();
 
-    PageResult<T> page(int page, int size);
+  PageResult<T> page(int page, int size);
 
-    PageResult<T> page(T record, int page, int size);
+  PageResult<T> page(T record, int page, int size);
 
-    Optional<T> getById(ID key);
+  Optional<T> getById(ID key);
 
-    long count(T record);
+  long count(T record);
 
-    int create(T record);
+  int create(T record);
 
-    int updateById(ID key, T record);
+  int updateById(ID key, T record);
 
-    int deleteById(ID key);
-
+  int deleteById(ID key);
 }

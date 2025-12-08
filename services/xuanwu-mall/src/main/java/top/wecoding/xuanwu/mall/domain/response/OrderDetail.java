@@ -1,15 +1,14 @@
 package top.wecoding.xuanwu.mall.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import java.io.Serializable;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.wecoding.xuanwu.mall.domain.entity.Order;
 import top.wecoding.xuanwu.mall.domain.entity.OrderItem;
-
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author wecoding
@@ -21,9 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderDetail implements Serializable {
 
-    @JsonUnwrapped
-    private Order order;
+  @JsonUnwrapped private Order order;
 
-    private List<OrderItem> orderItems;
-
+  private List<OrderItem> orderItems;
 }

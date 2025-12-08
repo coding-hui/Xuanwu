@@ -9,32 +9,31 @@ import lombok.Data;
 @Data
 public class StoreConfig {
 
-    private Integer storageType;
+  private Integer storageType;
 
-    private String domain;
+  private String domain;
 
-    private String endPoint;
+  private String endPoint;
 
-    private String accessKeyId;
+  private String accessKeyId;
 
-    private String accessKeySecret;
+  private String accessKeySecret;
 
-    private Integer appId;
+  private Integer appId;
 
-    private String region;
+  private String region;
 
-    private Integer defaultFlag;
+  private Integer defaultFlag;
 
-    private Long tenantId;
+  private Long tenantId;
 
-    private String accessControl;
+  private String accessControl;
 
-    private String bucketPrefix;
+  private String bucketPrefix;
 
-    private String storageCode;
+  private String storageCode;
 
-    private String prefixStrategy;
+  private String prefixStrategy;
 
-    private Integer createBucketFlag;
-
+  private Integer createBucketFlag;
 }

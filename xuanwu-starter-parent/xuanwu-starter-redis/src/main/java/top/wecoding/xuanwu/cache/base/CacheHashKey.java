@@ -1,10 +1,9 @@
 package top.wecoding.xuanwu.cache.base;
 
+import java.time.Duration;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
-
-import java.time.Duration;
 
 /**
  * @author liuyuhui
@@ -14,17 +13,16 @@ import java.time.Duration;
 @NoArgsConstructor
 public class CacheHashKey extends CacheKey {
 
-    /** redis hash field */
-    private Object field;
+  /** redis hash field */
+  private Object field;
 
-    public CacheHashKey(@NonNull String key, final Object field) {
-        super(key);
-        this.field = field;
-    }
+  public CacheHashKey(@NonNull String key, final Object field) {
+    super(key);
+    this.field = field;
+  }
 
-    public CacheHashKey(@NonNull String key, final Object field, Duration expire) {
-        super(key, expire);
-        this.field = field;
-    }
-
+  public CacheHashKey(@NonNull String key, final Object field, Duration expire) {
+    super(key, expire);
+    this.field = field;
+  }
 }

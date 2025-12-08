@@ -12,13 +12,13 @@ import top.wecoding.xuanwu.mall.config.ConditionalOnFrontendEnabled;
 @ConditionalOnFrontendEnabled
 public class FrontendForwardController {
 
-    /**
-     * forward
-     * @return forward to client {@code index.html}.
-     */
-    @GetMapping(value = "/")
-    public String forward() {
-        return "forward:index.html";
-    }
-
+  /**
+   * forward
+   *
+   * @return forward to client {@code index.html}.
+   */
+  @GetMapping(value = "/")
+  public String forward() {
+    return "forward:index.html";
+  }
 }

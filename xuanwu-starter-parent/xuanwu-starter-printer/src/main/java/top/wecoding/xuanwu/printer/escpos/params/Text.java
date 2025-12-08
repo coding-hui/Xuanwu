@@ -11,39 +11,24 @@ import lombok.Data;
 @Data
 public class Text {
 
-    /**
-     * 打印内容类型
-     */
-    private int type;
+  /** 打印内容类型 */
+  private int type;
 
-    /**
-     * 对齐方式 居左、居中、居右
-     */
-    private int format;
+  /** 对齐方式 居左、居中、居右 */
+  private int format;
 
-    /**
-     * 空行行数
-     */
-    private int line;
+  /** 空行行数 */
+  private int line;
 
-    /**
-     * 打印文本内容
-     */
-    private String text;
+  /** 打印文本内容 */
+  private String text;
 
-    /**
-     * 文本字体大小
-     */
-    private int size;
+  /** 文本字体大小 */
+  private int size;
 
-    /**
-     * 文本是否加粗
-     */
-    private boolean bold;
+  /** 文本是否加粗 */
+  private boolean bold;
 
-    /**
-     * 文本下划线
-     */
-    private boolean underline;
-
+  /** 文本下划线 */
+  private boolean underline;
 }

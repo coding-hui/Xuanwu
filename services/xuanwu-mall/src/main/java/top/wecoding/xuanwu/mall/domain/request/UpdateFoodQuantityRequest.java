@@ -1,8 +1,7 @@
 package top.wecoding.xuanwu.mall.domain.request;
 
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Data;
 
 /**
  * @author wecoding
@@ -11,10 +10,9 @@ import java.io.Serializable;
 @Data
 public class UpdateFoodQuantityRequest implements Serializable {
 
-    private String tableCode;
+  private String tableCode;
 
-    private Long foodId;
+  private Long foodId;
 
-    private Long foodQuantity;
-
+  private Long foodQuantity;
 }

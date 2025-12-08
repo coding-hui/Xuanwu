@@ -8,15 +8,14 @@ import org.springframework.util.StringUtils;
  */
 public class Strings extends StringUtils {
 
-    public static String clean(String s) {
-        if (s == null) {
-            return null;
-        }
-        String value = s.strip();
-        if (value == null || value.isEmpty()) {
-            return null;
-        }
-        return value;
+  public static String clean(String s) {
+    if (s == null) {
+      return null;
     }
-
+    String value = s.strip();
+    if (value == null || value.isEmpty()) {
+      return null;
+    }
+    return value;
+  }
 }

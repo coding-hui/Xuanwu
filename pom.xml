@@ -42,6 +42,8 @@
         <docker.registry>docker.cnb.cool</docker.registry>
         <docker.namespace>wecoding/images</docker.namespace>
         <docker.plugin.version>0.45.1</docker.plugin.version>
+        <spotless.plugin.version>3.1.0</spotless.plugin.version>
+        <google.java.format.version>1.33.0</google.java.format.version>
 
         <!-- plugin versions -->
         <git.commit.plugin>9.0.1</git.commit.plugin>
@@ -335,14 +337,38 @@
             	代码格式插件，默认使用spring 规则，可运行命令进行项目格式化：./mvnw spring-javaformat:apply 或 mvn spring-javaformat:apply，可在IDEA中安装插件以下插件进行自动格式化：
             	https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-intellij-idea-plugin
             -->
+<!--            <plugin>-->
+<!--                <groupId>io.spring.javaformat</groupId>-->
+<!--                <artifactId>spring-javaformat-maven-plugin</artifactId>-->
+<!--                <version>${spring.checkstyle.plugin}</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>validate</phase>-->
+<!--                        <inherited>true</inherited>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
-                <groupId>io.spring.javaformat</groupId>
-                <artifactId>spring-javaformat-maven-plugin</artifactId>
-                <version>${spring.checkstyle.plugin}</version>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless.plugin.version}</version>
+                <configuration>
+                    <java>
+                        <googleJavaFormat>
+                            <version>${google.java.format.version}</version>
+                            <style>GOOGLE</style>
+                            <reflowLongStrings>true</reflowLongStrings>
+                        </googleJavaFormat>
+                        <removeUnusedImports />
+                    </java>
+                </configuration>
                 <executions>
                     <execution>
+                        <id>spotless-check</id>
                         <phase>validate</phase>
-                        <inherited>true</inherited>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

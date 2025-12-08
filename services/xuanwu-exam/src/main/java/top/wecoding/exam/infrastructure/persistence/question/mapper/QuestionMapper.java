@@ -1,25 +1,21 @@
 package top.wecoding.exam.infrastructure.persistence.question.mapper;
 
+import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import top.wecoding.exam.infrastructure.persistence.question.po.QuestionPO;
 
-import java.util.Optional;
-
-/**
- * Question MyBatis Mapper
- */
+/** Question MyBatis Mapper */
 @Mapper
 public interface QuestionMapper {
 
-    int insert(QuestionPO questionPO);
+  int insert(QuestionPO questionPO);
 
-    int update(QuestionPO questionPO);
+  int update(QuestionPO questionPO);
 
-    Optional<QuestionPO> selectById(@Param("id") Long id);
+  Optional<QuestionPO> selectById(@Param("id") Long id);
 
-    void deleteById(@Param("id") Long id);
+  void deleteById(@Param("id") Long id);
 
-    void deleteByIds(@Param("ids") Iterable<Long> ids);
-
+  void deleteByIds(@Param("ids") Iterable<Long> ids);
 }

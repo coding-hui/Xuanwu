@@ -10,63 +10,61 @@ import top.wecoding.exam.domain.question.QuestionStatus;
 import java.util.Optional;
 
 /**
- * Service implementation for Question use cases. Implements the high-level
- * business logic
- * defined in the use case interface.
+ * Service implementation for Question use cases. Implements the high-level business logic defined
+ * in the use case interface.
  */
 @Service
 @RequiredArgsConstructor
 public class QuestionService implements QuestionUseCase {
 
-    private final QuestionRepository questionRepository;
+  private final QuestionRepository questionRepository;
 
-    /**
-     * Creates a new question.
-     * 
-     * @param question the question to create
-     * @return the created question with generated ID
-     */
-    @Override
-    public Question createQuestion(Question question) {
-        if (question.getStatus() == null) {
-            question.setStatus(QuestionStatus.DRAFT); // Default to Draft
-        }
-        return questionRepository.save(question);
+  /**
+   * Creates a new question.
+   *
+   * @param question the question to create
+   * @return the created question with generated ID
+   */
+  @Override
+  public Question createQuestion(Question question) {
+    if (question.getStatus() == null) {
+      question.setStatus(QuestionStatus.DRAFT); // Default to Draft
     }
+    return questionRepository.save(question);
+  }
 
-    /**
-     * Updates an existing question.
-     * 
-     * @param question the question to update
-     * @return the updated question
-     */
-    @Override
-    public Question updateQuestion(Question question) {
-        return questionRepository.update(question);
+  /**
+   * Updates an existing question.
+   *
+   * @param question the question to update
+   * @return the updated question
+   */
+  @Override
+  public Question updateQuestion(Question question) {
+    return questionRepository.update(question);
+  }
+
+  /**
+   * Retrieves a question by its ID.
+   *
+   * @param id the ID of the question
+   * @return an Optional containing the question if found, or empty otherwise
+   */
+  @Override
+  public Optional<Question> getQuestion(Long id) {
+    return questionRepository.findById(id);
+  }
+
+  /**
+   * Batch delete questions by IDs.
+   *
+   * @param ids the list of question IDs to delete
+   */
+  @Override
+  public void batchDeleteQuestions(Iterable<Long> ids) {
+    if (ids == null) {
+      return;
     }
-
-    /**
-     * Retrieves a question by its ID.
-     * 
-     * @param id the ID of the question
-     * @return an Optional containing the question if found, or empty otherwise
-     */
-    @Override
-    public Optional<Question> getQuestion(Long id) {
-        return questionRepository.findById(id);
-    }
-
-    /**
-     * Batch delete questions by IDs.
-     * 
-     * @param ids the list of question IDs to delete
-     */
-    @Override
-    public void batchDeleteQuestions(Iterable<Long> ids) {
-        if (ids == null) {
-            return;
-        }
-        questionRepository.batchDelete(ids);
-    }
-
+    questionRepository.batchDelete(ids);
+  }
 }

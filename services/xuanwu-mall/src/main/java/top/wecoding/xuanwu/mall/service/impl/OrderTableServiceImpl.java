@@ -1,5 +1,9 @@
 package top.wecoding.xuanwu.mall.service.impl;
 
+import static top.wecoding.xuanwu.mall.constant.OrderStatus.PENDING_PAYMENT;
+
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -18,11 +22,6 @@ import top.wecoding.xuanwu.mall.repository.OrderTableRepository;
 import top.wecoding.xuanwu.mall.service.OrderTableService;
 import top.wecoding.xuanwu.orm.service.BaseServiceImpl;
 
-import java.util.List;
-import java.util.Optional;
-
-import static top.wecoding.xuanwu.mall.constant.OrderStatus.PENDING_PAYMENT;
-
 /**
  * 订单桌号 - ServiceImpl
  *
@@ -32,61 +31,69 @@ import static top.wecoding.xuanwu.mall.constant.OrderStatus.PENDING_PAYMENT;
  */
 @Service
 @RequiredArgsConstructor
-public class OrderTableServiceImpl extends BaseServiceImpl<OrderTable, Long> implements OrderTableService {
+public class OrderTableServiceImpl extends BaseServiceImpl<OrderTable, Long>
+    implements OrderTableService {
 
-    private final OrderTableRepository orderTableRepository;
+  private final OrderTableRepository orderTableRepository;
 
-    private final OrderRepository orderRepository;
+  private final OrderRepository orderRepository;
 
-    @Override
-    public PageResult<OrderTableInfo> listOrderTables(OrderTable params, Pageable pageable) {
-        Page<OrderTable> pageResult = orderTableRepository.findAll(Example.of(params), pageable);
-        List<OrderTable> orderTables = pageResult.getContent();
-        List<OrderTableInfo> orderTableInfos = orderTables.stream().map(t -> {
-            var orders = orderRepository.findByTableCodeAndStatus(t.getCode(), PENDING_PAYMENT.getCode());
-            var infoBuilder = OrderTableInfo.builder()
-                .id(t.getId())
-                .code(t.getCode())
-                .status(t.getStatus())
-                .description(t.getDescription())
-                .numberOfDiners(t.getNumberOfDiners());
-            if (!CollectionUtils.isEmpty(orders)) {
-                infoBuilder.order(orders.get(0));
-            }
-            return infoBuilder.build();
-        }).toList();
-        return PageResult.of(orderTableInfos, pageResult.getTotalElements());
+  @Override
+  public PageResult<OrderTableInfo> listOrderTables(OrderTable params, Pageable pageable) {
+    Page<OrderTable> pageResult = orderTableRepository.findAll(Example.of(params), pageable);
+    List<OrderTable> orderTables = pageResult.getContent();
+    List<OrderTableInfo> orderTableInfos =
+        orderTables.stream()
+            .map(
+                t -> {
+                  var orders =
+                      orderRepository.findByTableCodeAndStatus(
+                          t.getCode(), PENDING_PAYMENT.getCode());
+                  var infoBuilder =
+                      OrderTableInfo.builder()
+                          .id(t.getId())
+                          .code(t.getCode())
+                          .status(t.getStatus())
+                          .description(t.getDescription())
+                          .numberOfDiners(t.getNumberOfDiners());
+                  if (!CollectionUtils.isEmpty(orders)) {
+                    infoBuilder.order(orders.get(0));
+                  }
+                  return infoBuilder.build();
+                })
+            .toList();
+    return PageResult.of(orderTableInfos, pageResult.getTotalElements());
+  }
+
+  @Override
+  public void updateStatusByCode(String tableCode, Integer status) {
+    OrderTable orderTable = orderTableRepository.getByCode(tableCode);
+    if (orderTable == null) {
+      ArgumentAssert.error(SystemErrorCode.DATA_NOT_EXIST);
+    }
+    orderTable.setStatus(status);
+    orderTableRepository.save(orderTable);
+  }
+
+  @Override
+  public void completedOrderTable(Long id) {
+    Optional<OrderTable> optionalOrderTable = orderTableRepository.findById(id);
+    if (optionalOrderTable.isEmpty()) {
+      ArgumentAssert.error(SystemErrorCode.DATA_NOT_EXIST);
     }
 
-    @Override
-    public void updateStatusByCode(String tableCode, Integer status) {
-        OrderTable orderTable = orderTableRepository.getByCode(tableCode);
-        if (orderTable == null) {
-            ArgumentAssert.error(SystemErrorCode.DATA_NOT_EXIST);
-        }
-        orderTable.setStatus(status);
-        orderTableRepository.save(orderTable);
-    }
+    OrderTable orderTable = optionalOrderTable.get();
 
-    @Override
-    public void completedOrderTable(Long id) {
-        Optional<OrderTable> optionalOrderTable = orderTableRepository.findById(id);
-        if (optionalOrderTable.isEmpty()) {
-            ArgumentAssert.error(SystemErrorCode.DATA_NOT_EXIST);
-        }
+    int activateCount =
+        orderRepository.countByTableCodeAndStatus(orderTable.getCode(), PENDING_PAYMENT.ordinal());
 
-        OrderTable orderTable = optionalOrderTable.get();
+    ArgumentAssert.isTrue(activateCount <= 0, SystemErrorCode.PARAM_ERROR, "订单还没有结账");
 
-        int activateCount = orderRepository.countByTableCodeAndStatus(orderTable.getCode(), PENDING_PAYMENT.ordinal());
+    updateStatusByCode(orderTable.getCode(), OrderTableStatus.AVAILABLE.getStatus());
+  }
 
-        ArgumentAssert.isTrue(activateCount <= 0, SystemErrorCode.PARAM_ERROR, "订单还没有结账");
-
-        updateStatusByCode(orderTable.getCode(), OrderTableStatus.AVAILABLE.getStatus());
-    }
-
-    @Override
-    protected JpaRepository<OrderTable, Long> getBaseRepository() {
-        return this.orderTableRepository;
-    }
-
+  @Override
+  protected JpaRepository<OrderTable, Long> getBaseRepository() {
+    return this.orderTableRepository;
+  }
 }

@@ -8,10 +8,9 @@ import java.util.Map;
  */
 public interface GeneratorService {
 
-    void generator(Long tableId);
+  void generator(Long tableId);
 
-    byte[] download(Long tableId);
+  byte[] download(Long tableId);
 
-    Map<String, String> preview(Long tableId);
-
+  Map<String, String> preview(Long tableId);
 }

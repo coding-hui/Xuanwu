@@ -12,10 +12,9 @@ import top.wecoding.xuanwu.orm.repository.LogicDeleteRepository;
  * @date 2023-12-29 20:43:29
  */
 public interface OrderTableRepository
-        extends LogicDeleteRepository<OrderTable, Long>, JpaSpecificationExecutor<OrderTable> {
+    extends LogicDeleteRepository<OrderTable, Long>, JpaSpecificationExecutor<OrderTable> {
 
-    boolean existsByCode(String code);
+  boolean existsByCode(String code);
 
-    OrderTable getByCode(String code);
-
+  OrderTable getByCode(String code);
 }

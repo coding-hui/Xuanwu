@@ -8,6 +8,5 @@ import java.util.Map;
  */
 public interface PropertiesSource {
 
-    Map<String, String> getProperties();
-
+  Map<String, String> getProperties();
 }

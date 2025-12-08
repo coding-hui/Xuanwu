@@ -1,18 +1,17 @@
 package top.wecoding.xuanwu.codegen.service;
 
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_VALID_ERROR;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.wecoding.xuanwu.codegen.service.template.DefaultSpringTemplate;
 import top.wecoding.xuanwu.core.exception.IllegalParameterException;
 import top.wecoding.xuanwu.core.util.ArgumentAssert;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_VALID_ERROR;
 
 /**
  * @author wecoding
@@ -21,38 +20,36 @@ import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_VALID_ERR
 @Service
 public class TemplateFactory {
 
-    private static final String DEFAULT_TEMPLATE = DefaultSpringTemplate.TYPE;
+  private static final String DEFAULT_TEMPLATE = DefaultSpringTemplate.TYPE;
 
-    private final Map<String, TemplateService> creators;
+  private final Map<String, TemplateService> creators;
 
-    @Autowired
-    public TemplateFactory(Map<String, TemplateService> creators) {
-        this.creators = creators;
+  @Autowired
+  public TemplateFactory(Map<String, TemplateService> creators) {
+    this.creators = creators;
+  }
+
+  public TemplateService create(String template) {
+    if (StringUtils.isBlank(template)) {
+      return createDefault();
     }
-
-    public TemplateService create(String template) {
-        if (StringUtils.isBlank(template)) {
-            return createDefault();
-        }
-        TemplateService service = creators.values()
-            .stream()
+    TemplateService service =
+        creators.values().stream()
             .filter(entry -> Objects.equals(entry.type(), template))
             .findFirst()
             .orElse(createDefault());
-        ArgumentAssert.notNull(service, PARAM_VALID_ERROR);
-        return service;
-    }
+    ArgumentAssert.notNull(service, PARAM_VALID_ERROR);
+    return service;
+  }
 
-    public TemplateService createDefault() {
-        return creators.values()
-            .stream()
-            .filter(entry -> Objects.equals(entry.type(), DEFAULT_TEMPLATE))
-            .findFirst()
-            .orElseThrow(() -> new IllegalParameterException(PARAM_VALID_ERROR));
-    }
+  public TemplateService createDefault() {
+    return creators.values().stream()
+        .filter(entry -> Objects.equals(entry.type(), DEFAULT_TEMPLATE))
+        .findFirst()
+        .orElseThrow(() -> new IllegalParameterException(PARAM_VALID_ERROR));
+  }
 
-    public List<String> getAllTemplates() {
-        return creators.values().stream().map(TemplateService::type).collect(Collectors.toList());
-    }
-
+  public List<String> getAllTemplates() {
+    return creators.values().stream().map(TemplateService::type).collect(Collectors.toList());
+  }
 }

@@ -1,13 +1,12 @@
 package top.wecoding.xuanwu.mall.service;
 
+import java.util.List;
 import org.springframework.data.domain.Pageable;
 import top.wecoding.xuanwu.core.base.PageResult;
 import top.wecoding.xuanwu.mall.domain.entity.Printer;
 import top.wecoding.xuanwu.mall.domain.request.PrinterServicePageRequest;
 import top.wecoding.xuanwu.mall.domain.response.OrderDetail;
 import top.wecoding.xuanwu.orm.service.BaseService;
-
-import java.util.List;
 
 /**
  * 打印机 - Service
@@ -18,12 +17,11 @@ import java.util.List;
  */
 public interface PrinterService extends BaseService<Printer, Long> {
 
-    List<Printer> getAvailablePrinterService();
+  List<Printer> getAvailablePrinterService();
 
-    PageResult<Printer> listPrinterService(PrinterServicePageRequest query, Pageable pageable);
+  PageResult<Printer> listPrinterService(PrinterServicePageRequest query, Pageable pageable);
 
-    void printSalesTicket(OrderDetail orderDetail, Integer type);
+  void printSalesTicket(OrderDetail orderDetail, Integer type);
 
-    boolean printTestPage(Long id);
-
+  boolean printTestPage(Long id);
 }

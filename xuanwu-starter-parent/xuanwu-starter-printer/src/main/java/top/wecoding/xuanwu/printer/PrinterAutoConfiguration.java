@@ -10,6 +10,4 @@ import top.wecoding.xuanwu.printer.config.PrinterConfig;
  */
 @AutoConfiguration
 @EnableConfigurationProperties(PrinterConfig.class)
-public class PrinterAutoConfiguration {
-
-}
+public class PrinterAutoConfiguration {}

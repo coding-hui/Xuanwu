@@ -17,10 +17,9 @@ import top.wecoding.xuanwu.orm.service.BaseService;
  */
 public interface FoodService extends BaseService<Food, Long> {
 
-    PageResult<Food> listFoods(FoodInfoPageRequest queryParams, Pageable pageable);
+  PageResult<Food> listFoods(FoodInfoPageRequest queryParams, Pageable pageable);
 
-    void createFood(CreateFoodRequest createReq);
+  void createFood(CreateFoodRequest createReq);
 
-    void updateFood(UpdateFoodRequest updateReq);
-
+  void updateFood(UpdateFoodRequest updateReq);
 }

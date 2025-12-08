@@ -12,10 +12,9 @@ import org.springframework.core.io.Resource;
 @ConfigurationProperties(prefix = PrinterConfig.PREFIX)
 public class PrinterConfig {
 
-    public static final String PREFIX = "xuanwu.printer";
+  public static final String PREFIX = "xuanwu.printer";
 
-    private Resource kitchenTemplate;
+  private Resource kitchenTemplate;
 
-    private Resource demoOrder;
-
+  private Resource demoOrder;
 }

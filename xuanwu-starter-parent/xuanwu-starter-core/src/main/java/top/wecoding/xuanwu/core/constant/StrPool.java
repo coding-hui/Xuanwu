@@ -7,80 +7,79 @@ package top.wecoding.xuanwu.core.constant;
  */
 public interface StrPool {
 
-    String UTF8 = "UTF-8";
+  String UTF8 = "UTF-8";
 
-    String GBK = "GBK";
+  String GBK = "GBK";
 
-    String PERIOD = ".";
+  String PERIOD = ".";
 
-    String COMMA = ",";
+  String COMMA = ",";
 
-    String COLON = ":";
+  String COLON = ":";
 
-    String SEMICOLON = ";";
+  String SEMICOLON = ";";
 
-    String EXCLAMATION_MARK = "!";
+  String EXCLAMATION_MARK = "!";
 
-    String QUESTION_MARK = "?";
+  String QUESTION_MARK = "?";
 
-    String HYPHEN = "-";
+  String HYPHEN = "-";
 
-    String EQUAL = "=";
+  String EQUAL = "=";
 
-    String STAR = "*";
+  String STAR = "*";
 
-    String APOSTROPHE = "`";
+  String APOSTROPHE = "`";
 
-    String DASH = "-";
+  String DASH = "-";
 
-    String HASH = "#";
+  String HASH = "#";
 
-    String UNDER_SCORE = "_";
+  String UNDER_SCORE = "_";
 
-    String SINGLE_QUOTATION_MARK = "'";
+  String SINGLE_QUOTATION_MARK = "'";
 
-    String DOUBLE_QUOTATION_MARK = "\"";
+  String DOUBLE_QUOTATION_MARK = "\"";
 
-    String LEFT_ROUND_BRACKETS = "(";
+  String LEFT_ROUND_BRACKETS = "(";
 
-    String RIGHT_ROUND_BRACKETS = ")";
+  String RIGHT_ROUND_BRACKETS = ")";
 
-    String ZH_LEFT_ROUND_BRACKETS = "（";
+  String ZH_LEFT_ROUND_BRACKETS = "（";
 
-    String ZH_RIGHT_ROUND_BRACKETS = "）";
+  String ZH_RIGHT_ROUND_BRACKETS = "）";
 
-    String LEFT_SQUARE_BRACKETS = "[";
+  String LEFT_SQUARE_BRACKETS = "[";
 
-    String RIGHT_SQUARE_BRACKETS = "]";
+  String RIGHT_SQUARE_BRACKETS = "]";
 
-    String ZH_LEFT_SQUARE_BRACKETS = "【";
+  String ZH_LEFT_SQUARE_BRACKETS = "【";
 
-    String ZH_RIGHT_SQUARE_BRACKETS = "】";
+  String ZH_RIGHT_SQUARE_BRACKETS = "】";
 
-    String LEFT_ANGLE_BRACKETS = "<";
+  String LEFT_ANGLE_BRACKETS = "<";
 
-    String RIGHT_ANGLE_BRACKETS = ">";
+  String RIGHT_ANGLE_BRACKETS = ">";
 
-    String LEFT_CURLY_BRACKETS = "{";
+  String LEFT_CURLY_BRACKETS = "{";
 
-    String RIGHT_CURLY_BRACKETS = "}";
+  String RIGHT_CURLY_BRACKETS = "}";
 
-    String DOLLAR = "$";
+  String DOLLAR = "$";
 
-    String PERCENT = "%";
+  String PERCENT = "%";
 
-    String LEFT_DIVIDE = "/";
+  String LEFT_DIVIDE = "/";
 
-    String RIGHT_DIVIDE = "\\";
+  String RIGHT_DIVIDE = "\\";
 
-    String LEFT_DOUBLE_DIVIDE = "//";
+  String LEFT_DOUBLE_DIVIDE = "//";
 
-    String RIGHT_DOUBLE_DIVIDE = "\\\\";
+  String RIGHT_DOUBLE_DIVIDE = "\\\\";
 
-    String BLANK = " ";
+  String BLANK = " ";
 
-    String BRACE = "{}";
+  String BRACE = "{}";
 
-    String EMPTY = "";
-
+  String EMPTY = "";
 }

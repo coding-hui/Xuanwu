@@ -17,22 +17,22 @@ import top.wecoding.xuanwu.iam.model.request.UpdateUserRequest;
  */
 public interface UserApi {
 
-    @GetExchange("/api/v1/users/{userId}")
-    R<UserInfo> getUserInfo(@PathVariable("userId") String userId);
+  @GetExchange("/api/v1/users/{userId}")
+  R<UserInfo> getUserInfo(@PathVariable("userId") String userId);
 
-    @PostExchange("/api/v1/users")
-    R<UserInfo> createUser(@RequestBody CreateUserRequest createUserRequest);
+  @PostExchange("/api/v1/users")
+  R<UserInfo> createUser(@RequestBody CreateUserRequest createUserRequest);
 
-    @PutExchange("/api/v1/users/{userId}")
-    R<UserInfo> updateUser(@PathVariable("userId") String userId, @RequestBody UpdateUserRequest updateUserRequest);
+  @PutExchange("/api/v1/users/{userId}")
+  R<UserInfo> updateUser(
+      @PathVariable("userId") String userId, @RequestBody UpdateUserRequest updateUserRequest);
 
-    @DeleteExchange("/api/v1/users/{userId}")
-    void deleteUserById(@PathVariable("userId") String userId);
+  @DeleteExchange("/api/v1/users/{userId}")
+  void deleteUserById(@PathVariable("userId") String userId);
 
-    @GetExchange("/api/v1/users/{userId}")
-    void enableUser(@PathVariable("userId") String userId);
+  @GetExchange("/api/v1/users/{userId}")
+  void enableUser(@PathVariable("userId") String userId);
 
-    @GetExchange("/api/v1/users/{userId}")
-    void disableUser(@PathVariable("userId") String userId);
-
+  @GetExchange("/api/v1/users/{userId}")
+  void disableUser(@PathVariable("userId") String userId);
 }

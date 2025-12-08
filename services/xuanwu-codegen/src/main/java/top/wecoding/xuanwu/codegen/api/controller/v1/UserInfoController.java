@@ -19,11 +19,11 @@ import top.wecoding.xuanwu.iam.api.AuthenticationApi;
 @RequestMapping("/auth")
 public class UserInfoController {
 
-    private final AuthenticationApi authenticationApi;
+  private final AuthenticationApi authenticationApi;
 
-    @GetMapping("/user-info")
-    public R<?> currentUserInfo(@CookieValue(value = "IAM_TOKEN", required = false) String accessToken) {
-        return authenticationApi.currentUserInfo(String.format("Bearer %s", accessToken));
-    }
-
+  @GetMapping("/user-info")
+  public R<?> currentUserInfo(
+      @CookieValue(value = "IAM_TOKEN", required = false) String accessToken) {
+    return authenticationApi.currentUserInfo(String.format("Bearer %s", accessToken));
+  }
 }

@@ -9,6 +9,4 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableConfigurationProperties(CodeGenConfig.class)
-public class CodeGenConfiguration {
-
-}
+public class CodeGenConfiguration {}

@@ -11,19 +11,18 @@ import lombok.Data;
 @Data
 public class AuthorizationResponse {
 
-    @JsonProperty("allowed")
-    private Boolean allowed;
+  @JsonProperty("allowed")
+  private Boolean allowed;
 
-    @JsonProperty("denied")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String denied;
+  @JsonProperty("denied")
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private String denied;
 
-    @JsonProperty("reason")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String reason;
+  @JsonProperty("reason")
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private String reason;
 
-    @JsonProperty("error")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String error;
-
+  @JsonProperty("error")
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private String error;
 }

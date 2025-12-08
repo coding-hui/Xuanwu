@@ -22,23 +22,23 @@ import top.wecoding.xuanwu.core.base.R;
 @RequestMapping("/generator")
 public class GeneratorController {
 
-    private final GeneratorService generatorService;
+  private final GeneratorService generatorService;
 
-    @GetMapping("/{tableId}/preview")
-    public R<?> previewCode(@PathVariable("tableId") Long tableId) {
-        return R.ok(generatorService.preview(tableId));
-    }
+  @GetMapping("/{tableId}/preview")
+  public R<?> previewCode(@PathVariable("tableId") Long tableId) {
+    return R.ok(generatorService.preview(tableId));
+  }
 
-    @GetMapping("/{tableId}/file")
-    public R<?> toFile(@PathVariable("tableId") Long tableId) {
-        generatorService.generator(tableId);
-        return R.ok();
-    }
+  @GetMapping("/{tableId}/file")
+  public R<?> toFile(@PathVariable("tableId") Long tableId) {
+    generatorService.generator(tableId);
+    return R.ok();
+  }
 
-    @GetMapping("/{tableId}/zip")
-    public void download(@PathVariable("tableId") Long tableId, HttpServletRequest req, HttpServletResponse res) {
-        byte[] bytes = generatorService.download(tableId);
-        DownloadUtil.download(req, res, "xuanwu.zip", bytes);
-    }
-
+  @GetMapping("/{tableId}/zip")
+  public void download(
+      @PathVariable("tableId") Long tableId, HttpServletRequest req, HttpServletResponse res) {
+    byte[] bytes = generatorService.download(tableId);
+    DownloadUtil.download(req, res, "xuanwu.zip", bytes);
+  }
 }
