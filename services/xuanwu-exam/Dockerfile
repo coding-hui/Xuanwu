@@ -1,8 +1,7 @@
 # 第一阶段：构建
-FROM eclipse-temurin:25-jdk AS builder
+FROM docker.io/azul/zulu-openjdk:25.0.1-jdk AS builder
 
-ENV JAVA_HOME=/opt/java/openjdk
-ENV PATH=${JAVA_HOME}/bin:${PATH}
+# 使用 Azul Zulu JDK 25 进行构建
 
 WORKDIR /app
 
@@ -15,7 +14,7 @@ COPY . .
 RUN mvn clean package -pl services/xuanwu-exam -am -DskipTests
 
 # 第二阶段：运行
-FROM eclipse-temurin:25-jdk
+FROM docker.io/azul/zulu-openjdk:25-jre
 
 WORKDIR /xuanwu
 
