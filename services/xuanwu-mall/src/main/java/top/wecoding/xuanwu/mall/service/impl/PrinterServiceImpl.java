@@ -6,15 +6,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+
 import static top.wecoding.xuanwu.core.exception.SystemErrorCode.FAILURE;
 import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_ERROR;
 import static top.wecoding.xuanwu.mall.constant.PrinterStatus.AVAILABLE;
 import static top.wecoding.xuanwu.mall.constant.PrinterType.POS;
 import static top.wecoding.xuanwu.mall.constant.PrinterType.USB;
 
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

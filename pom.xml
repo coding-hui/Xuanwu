@@ -344,7 +344,7 @@
                             <reflowLongStrings>true</reflowLongStrings>
                         </googleJavaFormat>
                         <importOrder>
-                            <order>javax,java,\#</order>
+                            <order>javax,java,lombok,\#</order>
                         </importOrder>
                         <replaceRegex>
                             <name>Remove wildcard imports</name>

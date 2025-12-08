@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import lombok.Data;
+
 import top.wecoding.xuanwu.orm.annotation.Query;
 
 /**

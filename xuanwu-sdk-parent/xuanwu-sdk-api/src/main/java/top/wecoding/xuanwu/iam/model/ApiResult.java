@@ -5,9 +5,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
+import lombok.Data;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 
 /**
  * @author Wecoding Liu

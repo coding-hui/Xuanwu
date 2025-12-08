@@ -2,6 +2,7 @@ package top.wecoding.xuanwu.iam.config;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import org.apache.commons.lang3.StringUtils;
 import top.wecoding.xuanwu.iam.authc.ClientCredentialsProvider;
 

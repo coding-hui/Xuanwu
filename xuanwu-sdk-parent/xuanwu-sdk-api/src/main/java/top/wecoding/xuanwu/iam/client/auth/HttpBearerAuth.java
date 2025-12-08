@@ -2,10 +2,11 @@ package top.wecoding.xuanwu.iam.client.auth;
 
 import java.io.IOException;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;

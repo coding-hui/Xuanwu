@@ -2,8 +2,9 @@ package top.wecoding.xuanwu.iam.model;
 
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Wecoding Liu

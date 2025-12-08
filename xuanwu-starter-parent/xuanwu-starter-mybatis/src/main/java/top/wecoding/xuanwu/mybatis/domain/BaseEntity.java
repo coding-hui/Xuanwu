@@ -3,10 +3,11 @@ package top.wecoding.xuanwu.mybatis.domain;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author wecoding

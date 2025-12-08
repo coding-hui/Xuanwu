@@ -2,6 +2,7 @@ package top.wecoding.xuanwu.iam.config;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import top.wecoding.xuanwu.iam.client.Proxy;
 
 /**

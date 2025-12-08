@@ -1,8 +1,9 @@
 package top.wecoding.xuanwu.mall.api.v1;
 
+import lombok.RequiredArgsConstructor;
+
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;

@@ -14,6 +14,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
 import lombok.extern.slf4j.Slf4j;
+
 import top.wecoding.xuanwu.core.exception.SystemErrorCode;
 import top.wecoding.xuanwu.core.util.ArgumentAssert;
 

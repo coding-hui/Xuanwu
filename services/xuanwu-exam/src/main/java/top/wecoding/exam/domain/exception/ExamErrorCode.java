@@ -2,6 +2,7 @@ package top.wecoding.exam.domain.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import top.wecoding.xuanwu.core.exception.ErrorCode;
 
 /** Exam Error Code */

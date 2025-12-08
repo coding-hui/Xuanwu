@@ -1,7 +1,8 @@
 package top.wecoding.xuanwu.iam.model.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import top.wecoding.xuanwu.iam.model.TokenInfo;
 
 /**

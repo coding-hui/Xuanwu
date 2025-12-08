@@ -3,11 +3,12 @@ package top.wecoding.xuanwu.core.base;
 import java.io.Serial;
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import top.wecoding.xuanwu.core.exception.ErrorCode;
 import top.wecoding.xuanwu.core.exception.SystemErrorCode;
 

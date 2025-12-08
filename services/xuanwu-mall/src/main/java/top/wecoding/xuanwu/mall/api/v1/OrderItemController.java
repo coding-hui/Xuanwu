@@ -1,6 +1,7 @@
 package top.wecoding.xuanwu.mall.api.v1;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,8 +1,9 @@
 package top.wecoding.xuanwu.iam.common.config;
 
+import lombok.val;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import lombok.val;
 import org.junit.jupiter.api.Test;
 import top.wecoding.xuanwu.iam.common.io.TestStringResource;
 

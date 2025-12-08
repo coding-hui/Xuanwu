@@ -1,8 +1,9 @@
 package top.wecoding.xuanwu.codegen.api.controller.v1;
 
+import lombok.RequiredArgsConstructor;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
