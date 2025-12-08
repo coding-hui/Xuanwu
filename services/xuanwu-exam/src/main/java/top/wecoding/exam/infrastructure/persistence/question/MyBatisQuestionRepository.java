@@ -29,21 +29,27 @@ public class MyBatisQuestionRepository implements QuestionRepository {
 
     @Override
     public Question save(Question question) {
+        if (question.getId() != null) {
+            return this.update(question);
+        }
         QuestionPO po = questionConverter.toPO(question);
-        if (po.getId() == null) {
-            po.setCreatedAt(LocalDateTime.now());
-            po.setUpdatedAt(LocalDateTime.now());
-            int rows = questionMapper.insert(po);
-            if (rows == 0) {
-                throw new ServerException(SystemErrorCode.DATABASE_ERROR);
-            }
-            question.setId(po.getId());
-        } else {
-            po.setUpdatedAt(LocalDateTime.now());
-            int rows = questionMapper.update(po);
-            if (rows == 0) {
-                throw new ServerException(ExamErrorCode.QUESTION_NOT_FOUND);
-            }
+        po.setCreatedAt(LocalDateTime.now());
+        po.setUpdatedAt(LocalDateTime.now());
+        int rows = questionMapper.insert(po);
+        if (rows == 0) {
+            throw new ServerException(SystemErrorCode.DATABASE_ERROR);
+        }
+        question.setId(po.getId());
+        return questionConverter.toDomain(po);
+    }
+
+    @Override
+    public Question update(Question question) {
+        QuestionPO po = questionConverter.toPO(question);
+        po.setUpdatedAt(LocalDateTime.now());
+        int rows = questionMapper.update(po);
+        if (rows == 0) {
+            throw new ServerException(ExamErrorCode.QUESTION_NOT_FOUND);
         }
         return questionConverter.toDomain(po);
     }

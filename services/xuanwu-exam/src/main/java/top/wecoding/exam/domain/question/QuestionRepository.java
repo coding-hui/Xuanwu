@@ -13,6 +13,11 @@ public interface QuestionRepository {
     Question save(Question question);
 
     /**
+     * Update a question
+     */
+    Question update(Question question);
+
+    /**
      * Find a question by ID
      */
     Optional<Question> findById(Long id);

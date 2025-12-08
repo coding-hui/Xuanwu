@@ -6,6 +6,7 @@ import top.wecoding.exam.domain.question.Question;
 import top.wecoding.exam.domain.question.QuestionStatus;
 import top.wecoding.exam.api.dto.question.CreateQuestionRequest;
 import top.wecoding.exam.api.dto.question.QuestionResponse;
+import top.wecoding.exam.api.dto.question.UpdateQuestionRequest;
 
 /**
  * Question Assembler
@@ -14,6 +15,8 @@ import top.wecoding.exam.api.dto.question.QuestionResponse;
 public interface QuestionAssembler {
 
     Question toDomain(CreateQuestionRequest request);
+
+    Question toDomain(UpdateQuestionRequest request);
 
     QuestionResponse toResponse(Question question);
 

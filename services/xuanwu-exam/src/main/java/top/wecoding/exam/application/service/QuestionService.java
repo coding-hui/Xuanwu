@@ -10,7 +10,8 @@ import top.wecoding.exam.domain.question.QuestionStatus;
 import java.util.Optional;
 
 /**
- * Service implementation for Question use cases. Implements the high-level business logic
+ * Service implementation for Question use cases. Implements the high-level
+ * business logic
  * defined in the use case interface.
  */
 @Service
@@ -21,6 +22,7 @@ public class QuestionService implements QuestionUseCase {
 
     /**
      * Creates a new question.
+     * 
      * @param question the question to create
      * @return the created question with generated ID
      */
@@ -33,7 +35,19 @@ public class QuestionService implements QuestionUseCase {
     }
 
     /**
+     * Updates an existing question.
+     * 
+     * @param question the question to update
+     * @return the updated question
+     */
+    @Override
+    public Question updateQuestion(Question question) {
+        return questionRepository.update(question);
+    }
+
+    /**
      * Retrieves a question by its ID.
+     * 
      * @param id the ID of the question
      * @return an Optional containing the question if found, or empty otherwise
      */
@@ -44,6 +58,7 @@ public class QuestionService implements QuestionUseCase {
 
     /**
      * Batch delete questions by IDs.
+     * 
      * @param ids the list of question IDs to delete
      */
     @Override
