@@ -1,7 +1,9 @@
 # 第一阶段：构建
-FROM maven:3.9-eclipse-temurin-21 AS builder
+FROM openjdk:25-jdk-slim AS builder
 
 WORKDIR /app
+
+RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
 
 # 拷贝源码
 COPY . .
