@@ -1,6 +1,7 @@
 package top.wecoding.xuanwu.mall.domain.response;
 
 import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -2,6 +2,7 @@ package top.wecoding.xuanwu.iam.common.config;
 
 import java.io.IOException;
 import java.util.Map;
+
 import org.springframework.util.Assert;
 import top.wecoding.xuanwu.iam.common.io.Resource;
 

@@ -1,5 +1,9 @@
 package top.wecoding.xuanwu.iam.common.config;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_API_BASE_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CACHE_TTI_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CACHE_TTL_PROPERTY_NAME;
@@ -7,9 +11,6 @@ import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_CON
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_REQUEST_TIMEOUT_PROPERTY_NAME;
 import static top.wecoding.xuanwu.iam.common.constant.Configs.DEFAULT_CLIENT_RETRY_MAX_ATTEMPTS_PROPERTY_NAME;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 

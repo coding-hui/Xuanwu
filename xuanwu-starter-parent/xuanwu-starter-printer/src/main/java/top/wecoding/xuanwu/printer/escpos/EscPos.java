@@ -1,7 +1,5 @@
 package top.wecoding.xuanwu.printer.escpos;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -14,6 +12,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import top.wecoding.xuanwu.core.exception.SystemErrorCode;
 import top.wecoding.xuanwu.core.util.ArgumentAssert;
 import top.wecoding.xuanwu.printer.escpos.params.BarCode;

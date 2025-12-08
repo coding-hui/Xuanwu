@@ -1,6 +1,5 @@
 package top.wecoding.xuanwu.mall.util.printer;
 
-import java.awt.*;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -8,6 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
 import org.springframework.util.CollectionUtils;
 import top.wecoding.xuanwu.mall.domain.entity.Order;
 import top.wecoding.xuanwu.mall.domain.entity.OrderItem;

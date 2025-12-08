@@ -1,16 +1,17 @@
 package top.wecoding.xuanwu.mall.service.impl;
 
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import static top.wecoding.xuanwu.core.exception.SystemErrorCode.FAILURE;
 import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_ERROR;
 import static top.wecoding.xuanwu.mall.constant.PrinterStatus.AVAILABLE;
 import static top.wecoding.xuanwu.mall.constant.PrinterType.POS;
 import static top.wecoding.xuanwu.mall.constant.PrinterType.USB;
 
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

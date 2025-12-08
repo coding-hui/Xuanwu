@@ -1,9 +1,10 @@
 package top.wecoding.xuanwu.codegen.util;
 
+import java.util.Properties;
+
 import static org.apache.velocity.runtime.RuntimeConstants.INPUT_ENCODING;
 import static top.wecoding.xuanwu.core.constant.StrPool.UTF8;
 
-import java.util.Properties;
 import org.apache.velocity.app.Velocity;
 import top.wecoding.xuanwu.core.helper.ExceptionHelper;
 

@@ -1,6 +1,7 @@
 package top.wecoding.xuanwu.mall.repository;
 
 import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import top.wecoding.xuanwu.mall.domain.entity.Printer;
 import top.wecoding.xuanwu.orm.repository.LogicDeleteRepository;

@@ -1,8 +1,9 @@
 package top.wecoding.xuanwu.iam.client.interceptor;
 
+import java.io.IOException;
+
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
-import java.io.IOException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;

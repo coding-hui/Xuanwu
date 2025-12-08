@@ -2,6 +2,7 @@ package top.wecoding.xuanwu.core.message;
 
 import java.text.MessageFormat;
 import java.util.Locale;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

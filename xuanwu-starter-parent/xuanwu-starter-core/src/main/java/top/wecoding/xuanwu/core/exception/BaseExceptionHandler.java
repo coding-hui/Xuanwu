@@ -1,16 +1,16 @@
 package top.wecoding.xuanwu.core.exception;
 
-import static org.springframework.context.i18n.LocaleContextHolder.getLocaleContext;
-import static top.wecoding.xuanwu.core.constant.StrPool.SEMICOLON;
-import static top.wecoding.xuanwu.core.exception.SystemErrorCode.*;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static org.springframework.context.i18n.LocaleContextHolder.getLocaleContext;
+import static top.wecoding.xuanwu.core.constant.StrPool.SEMICOLON;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;

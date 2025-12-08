@@ -1,7 +1,8 @@
 package top.wecoding.xuanwu.printer.escpos.params;
 
-import com.alibaba.fastjson.JSONObject;
 import java.util.List;
+
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
 /**

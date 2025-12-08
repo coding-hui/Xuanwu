@@ -1,9 +1,11 @@
 package top.wecoding.xuanwu.mall.config;
 
+import javax.print.PrintService;
+
 import java.awt.print.PrinterJob;
 import java.util.Arrays;
 import java.util.List;
-import javax.print.PrintService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

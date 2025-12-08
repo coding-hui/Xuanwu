@@ -1,16 +1,18 @@
 package top.wecoding.xuanwu.mall.util.printer;
 
-import java.awt.print.Book;
-import java.awt.print.PageFormat;
-import java.awt.print.Paper;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashAttributeSet;
 import javax.print.attribute.standard.MediaPrintableArea;
 import javax.print.attribute.standard.MediaSize;
 import javax.print.attribute.standard.PrinterName;
+
+import java.awt.print.Book;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+
 import lombok.extern.slf4j.Slf4j;
 import top.wecoding.xuanwu.core.exception.SystemErrorCode;
 import top.wecoding.xuanwu.core.util.ArgumentAssert;

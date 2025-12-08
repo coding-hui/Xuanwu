@@ -1,11 +1,12 @@
 package top.wecoding.xuanwu.iam.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**

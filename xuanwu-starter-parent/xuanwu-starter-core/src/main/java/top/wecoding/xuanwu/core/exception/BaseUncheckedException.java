@@ -1,6 +1,7 @@
 package top.wecoding.xuanwu.core.exception;
 
 import java.io.Serial;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

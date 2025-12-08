@@ -1,9 +1,9 @@
 package top.wecoding.exam.api.controller.question;
 
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 import top.wecoding.exam.api.converter.QuestionAssembler;
 import top.wecoding.exam.api.dto.question.CreateQuestionRequest;
 import top.wecoding.exam.api.dto.question.QuestionResponse;

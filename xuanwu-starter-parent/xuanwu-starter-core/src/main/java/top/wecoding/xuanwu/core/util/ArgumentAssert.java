@@ -1,9 +1,10 @@
 package top.wecoding.xuanwu.core.util;
 
-import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_ERROR;
-
 import java.util.Collection;
 import java.util.Map;
+
+import static top.wecoding.xuanwu.core.exception.SystemErrorCode.PARAM_ERROR;
+
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;

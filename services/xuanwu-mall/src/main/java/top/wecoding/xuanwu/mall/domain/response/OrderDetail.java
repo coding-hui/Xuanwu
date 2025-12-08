@@ -1,8 +1,9 @@
 package top.wecoding.xuanwu.mall.domain.response;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import java.io.Serializable;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

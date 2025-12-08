@@ -3,6 +3,7 @@ package top.wecoding.xuanwu.iam.common.config;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
+
 import lombok.val;
 import org.springframework.util.StringUtils;
 

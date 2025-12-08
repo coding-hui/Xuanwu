@@ -1,6 +1,7 @@
 package top.wecoding.xuanwu.sdk.examples;
 
 import java.util.UUID;
+
 import top.wecoding.xuanwu.core.base.R;
 import top.wecoding.xuanwu.iam.api.AuthenticationApi;
 import top.wecoding.xuanwu.iam.api.UserApi;

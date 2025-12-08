@@ -1,11 +1,12 @@
 package top.wecoding.xuanwu.mongo.service.impl;
 
-import jakarta.annotation.Resource;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
+
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;

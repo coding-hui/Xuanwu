@@ -1,10 +1,11 @@
 package top.wecoding.xuanwu.iam.client;
 
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
-
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+
 import lombok.Setter;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatusCode;

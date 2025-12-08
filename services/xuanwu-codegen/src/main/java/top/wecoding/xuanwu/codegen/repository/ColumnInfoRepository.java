@@ -1,6 +1,7 @@
 package top.wecoding.xuanwu.codegen.repository;
 
 import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import top.wecoding.xuanwu.codegen.domain.entity.ColumnEntity;

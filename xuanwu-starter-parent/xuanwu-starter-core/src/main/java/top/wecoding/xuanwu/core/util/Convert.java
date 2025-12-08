@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
 import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**

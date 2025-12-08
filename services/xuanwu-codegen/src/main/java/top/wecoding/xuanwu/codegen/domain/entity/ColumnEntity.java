@@ -1,5 +1,8 @@
 package top.wecoding.xuanwu.codegen.domain.entity;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
@@ -10,8 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.io.Serial;
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

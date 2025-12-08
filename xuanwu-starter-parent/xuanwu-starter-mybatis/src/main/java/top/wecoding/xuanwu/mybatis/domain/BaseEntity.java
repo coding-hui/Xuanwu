@@ -1,8 +1,9 @@
 package top.wecoding.xuanwu.mybatis.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;

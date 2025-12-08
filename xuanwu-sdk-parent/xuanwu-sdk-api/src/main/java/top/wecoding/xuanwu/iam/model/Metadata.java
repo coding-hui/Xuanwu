@@ -1,7 +1,8 @@
 package top.wecoding.xuanwu.iam.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**

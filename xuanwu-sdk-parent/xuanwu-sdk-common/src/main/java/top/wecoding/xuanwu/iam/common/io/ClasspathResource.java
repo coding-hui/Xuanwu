@@ -1,6 +1,7 @@
 package top.wecoding.xuanwu.iam.common.io;
 
 import java.io.InputStream;
+
 import top.wecoding.xuanwu.core.util.Classes;
 
 /**

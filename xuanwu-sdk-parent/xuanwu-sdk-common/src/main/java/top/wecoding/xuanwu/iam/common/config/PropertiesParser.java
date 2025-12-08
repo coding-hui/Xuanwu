@@ -3,6 +3,7 @@ package top.wecoding.xuanwu.iam.common.config;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
+
 import top.wecoding.xuanwu.iam.common.io.Resource;
 
 /**

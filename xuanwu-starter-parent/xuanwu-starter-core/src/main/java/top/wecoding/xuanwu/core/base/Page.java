@@ -1,8 +1,9 @@
 package top.wecoding.xuanwu.core.base;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.function.Function;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author liuyuhui

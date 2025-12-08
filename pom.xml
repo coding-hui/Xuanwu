@@ -343,6 +343,24 @@
                             <style>GOOGLE</style>
                             <reflowLongStrings>true</reflowLongStrings>
                         </googleJavaFormat>
+                        <importOrder>
+                            <order>javax,java,\#</order>
+                        </importOrder>
+                        <replaceRegex>
+                            <name>Remove wildcard imports</name>
+                            <searchRegex>import\s+(static)*\s*[^\*\s]+\*;(\r\n|\r|\n)</searchRegex>
+                            <replacement>$1</replacement>
+                        </replaceRegex>
+                        <replaceRegex>
+                            <name>Block powermock</name>
+                            <searchRegex>import\s+org\.powermock\.[^\*\s]*(|\*);(\r\n|\r|\n)</searchRegex>
+                            <replacement>$1</replacement>
+                        </replaceRegex>
+                        <replaceRegex>
+                            <name>Block jUnit4 imports</name>
+                            <searchRegex>import\s+org\.junit\.[^jupiter][^\*\s]*(|\*);(\r\n|\r|\n)</searchRegex>
+                            <replacement>$1</replacement>
+                        </replaceRegex>
                         <removeUnusedImports />
                     </java>
                 </configuration>

@@ -2,6 +2,7 @@ package top.wecoding.xuanwu.core.message;
 
 import java.util.List;
 import java.util.Locale;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;

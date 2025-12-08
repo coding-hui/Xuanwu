@@ -1,6 +1,7 @@
 package top.wecoding.xuanwu.codegen.config;
 
 import java.io.IOException;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
