@@ -1,5 +1,4 @@
-# 第一阶段：构建
-FROM azul/zulu-openjdk:25.0.1-jdk AS builder
+FROM docker.io/azul/zulu-openjdk:25.0.1-jre
 
 WORKDIR /xuanwu
 
