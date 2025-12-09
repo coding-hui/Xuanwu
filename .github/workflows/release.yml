@@ -18,7 +18,6 @@ on:
 #   REGISTRY_PREFIX: wecoding
 
 jobs:
-
   build:
 
     runs-on: ubuntu-latest
