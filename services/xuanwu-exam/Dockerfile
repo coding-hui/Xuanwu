@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk:25.0.1-jre
+FROM micromoving/xuanwu/zulu-openjdk:25.0.1-jre
 
 WORKDIR /xuanwu
 
