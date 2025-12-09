@@ -1,4 +1,4 @@
-FROM docker.cnb.cool/micromoving/xuanwu/zulu-openjdk
+FROM micromoving/xuanwu/zulu-openjdk
 
 WORKDIR /xuanwu
 
