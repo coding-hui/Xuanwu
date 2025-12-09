@@ -261,12 +261,12 @@
                         <!-- Docker 镜像私服-->
                         <registry>${docker.registry}</registry>
                         <!-- 认证信息-->
-                        <authConfig>
-                            <push>
-                                <username>${docker.username}</username>
-                                <password>${docker.password}</password>
-                            </push>
-                        </authConfig>
+<!--                        <authConfig>-->
+<!--                            <push>-->
+<!--                                <username>${docker.username}</username>-->
+<!--                                <password>${docker.password}</password>-->
+<!--                            </push>-->
+<!--                        </authConfig>-->
                         <skipPom>true</skipPom>
                         <images>
                             <image>
