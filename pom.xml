@@ -40,7 +40,7 @@
         <docker.username>username</docker.username>
         <docker.password>password</docker.password>
         <docker.registry>docker.cnb.cool</docker.registry>
-        <docker.namespace>wecoding/images</docker.namespace>
+        <docker.namespace>micromoving/xuanwu</docker.namespace>
         <docker.plugin.version>0.45.1</docker.plugin.version>
         <spotless.plugin.version>3.1.0</spotless.plugin.version>
         <google.java.format.version>1.33.0</google.java.format.version>
