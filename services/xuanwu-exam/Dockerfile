@@ -1,28 +1,13 @@
 # 第一阶段：构建
 FROM azul/zulu-openjdk:25.0.1-jdk AS builder
 
- 
-
-WORKDIR /app
-
-RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
-
-# 拷贝源码
-COPY . .
-
-# 构建 xuanwu-exam
-RUN mvn clean package -pl services/xuanwu-exam -am -DskipTests
-
-# 第二阶段：运行
-FROM azul/zulu-openjdk:25-jre
-
 WORKDIR /xuanwu
 
-# 从 builder 阶段拷贝构建产物
-# 注意：路径需要根据实际构建结果调整，通常是 services/xuanwu-exam/target/xuanwu-exam-*.jar
-COPY --from=builder /app/services/xuanwu-exam/target/xuanwu-exam-*.jar app.jar
+ARG JAR_FILE=target/xuanwu-exam-*.jar
 
-EXPOSE 8080
+COPY ${JAR_FILE} app.jar
+
+EXPOSE 9090
 
 ENV TZ=Asia/Shanghai
 
