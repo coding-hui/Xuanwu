@@ -1,4 +1,4 @@
-FROM docker.io/azul/zulu-openjdk:25.0.1-jre
+FROM docker.cnb.cool/micromoving/xuanwu/zulu-openjdk
 
 WORKDIR /xuanwu
 
