@@ -1,7 +1,10 @@
 package top.wecoding.xuanwu.iam.client;
 
+import java.io.File;
+
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.auth.AuthScope;
 import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
@@ -27,18 +30,12 @@ import org.springframework.web.client.RestTemplate;
 import top.wecoding.xuanwu.iam.authc.ClientCredentials;
 import top.wecoding.xuanwu.iam.authc.ClientCredentialsProvider;
 import top.wecoding.xuanwu.iam.authc.DefaultClientCredentialsProvider;
-import top.wecoding.xuanwu.iam.common.config.*;
 import top.wecoding.xuanwu.iam.common.io.ClasspathResource;
 import top.wecoding.xuanwu.iam.common.io.DefaultResourceFactory;
 import top.wecoding.xuanwu.iam.common.io.Resource;
 import top.wecoding.xuanwu.iam.common.io.ResourceFactory;
 import top.wecoding.xuanwu.iam.common.util.Strings;
 import top.wecoding.xuanwu.iam.config.ClientConfiguration;
-
-import java.io.File;
-import java.util.*;
-
-import static top.wecoding.xuanwu.iam.common.constant.Configs.*;
 
 /**
  * @author wecoding
