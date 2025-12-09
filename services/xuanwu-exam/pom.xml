@@ -77,14 +77,14 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <configuration>
                         <!-- Docker 镜像私服-->
-                        <!-- <registry>${docker.registry}</registry>-->
+                        <registry>${docker.registry}</registry>
                         <!-- 认证信息-->
-                        <!-- <authConfig>
+                        <authConfig>
                             <push>
                                 <username>${docker.username}</username>
                                 <password>${docker.password}</password>
                             </push>
-                        </authConfig>-->
+                        </authConfig>
                         <skipPom>true</skipPom>
                         <images>
                             <image>
