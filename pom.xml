@@ -283,13 +283,6 @@
                                     <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                 </build>
                             </image>
-                            <image>
-                                <!-- 镜像名称： registry/namespace/xuanwu-codegen:latest -->
-                                <name>${docker.registry}/${docker.namespace}/${project.name}:latest</name>
-                                <build>
-                                    <dockerFile>${project.basedir}/Dockerfile.native</dockerFile>
-                                </build>
-                            </image>
                         </images>
                     </configuration>
                 </plugin>
