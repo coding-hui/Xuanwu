@@ -47,6 +47,7 @@ jobs:
             VERSION=latest
           fi
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          mvn -v
 
       - name: Docker Login
         # You may pin to the exact commit or the version.
