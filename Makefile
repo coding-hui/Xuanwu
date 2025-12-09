@@ -15,6 +15,7 @@ images.build.%:
 	mvn package docker:build \
 		$(if $(filter xuanwu-mall,$(IMAGE)),-Pmall-frontend) \
 		$(if $(filter xuanwu-codegen,$(IMAGE)),-Pcodegen-frontend) \
+		$(if $(filter xuanwu-exam,$(IMAGE)),-Pexam-frontend) \
 		-DskipTests -pl services/$(IMAGE)
 
 .PHONY: images.push
@@ -28,14 +29,14 @@ images.push.%: images.build.%
 
 .PHONY: k8s.install
 k8s.install:
-	for name in xuanwu-codegen xuanwu-mall; do\
+	for name in xuanwu-codegen xuanwu-mall xuanwu-exam; do\
 		echo "===========> Install $$name"; \
 		kubectl apply -k ./deploy/kubernetes/$$name; \
 	done
 
 .PHONY: k8s.uninstall
 k8s.uninstall:
-	for name in xuanwu-codegen xuanwu-mall; do\
+	for name in xuanwu-codegen xuanwu-mall xuanwu-exam; do\
 		echo "===========> Uninstall $$name"; \
 		kubectl delete -k ./deploy/kubernetes/$$name; \
 	done
