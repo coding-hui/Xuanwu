@@ -1,6 +1,12 @@
 VERSION ?= 0.9-SNAPSHOT
 IMAGES ?= "xuanwu-mall xuanwu-codegen"
 
+MAVEN_ARGS ?=
+MAVEN_ARGS += $(if $(DOCKER_USER),-Ddocker.username=$(DOCKER_USER))
+MAVEN_ARGS += $(if $(DOCKER_PWD),-Ddocker.password=$(DOCKER_PWD))
+MAVEN_ARGS += $(if $(REGISTRY),-Ddocker.registry=$(REGISTRY))
+MAVEN_ARGS += $(if $(REGISTRY_PREFIX),-Ddocker.namespace=$(REGISTRY_PREFIX))
+
 .PHONY: mvn.build
 mvn.build:
 	mvn clean install -DskipTests
@@ -16,7 +22,7 @@ images.build.%:
 		$(if $(filter xuanwu-mall,$(IMAGE)),-Pmall-frontend) \
 		$(if $(filter xuanwu-codegen,$(IMAGE)),-Pcodegen-frontend) \
 		$(if $(filter xuanwu-exam,$(IMAGE)),-Pexam-frontend) \
-		-DskipTests -pl services/$(IMAGE)
+		-DskipTests -pl services/$(IMAGE) $(MAVEN_ARGS)
 
 .PHONY: images.push
 images.push: mvn.build $(addprefix images.push., $(IMAGES))
@@ -25,7 +31,7 @@ images.push: mvn.build $(addprefix images.push., $(IMAGES))
 images.push.%: images.build.%
 	$(eval IMAGE := $*)
 	@echo "===========> Pushing docker image $(IMAGE) $(VERSION)"
-	mvn docker:push -pl services/$(IMAGE)
+	mvn docker:push -pl services/$(IMAGE) $(MAVEN_ARGS)
 
 .PHONY: k8s.install
 k8s.install:
@@ -44,4 +50,3 @@ k8s.uninstall:
 .PHONY: k8s.update-images
 k8s.update-images:
 	./scripts/update_pod_images.sh
-
