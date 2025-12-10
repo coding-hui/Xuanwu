@@ -28,7 +28,7 @@ images.build.%:
 images.native.build.%:
 	$(eval IMAGE := $*)
 	@echo "===========> Building docker native image $(IMAGE) $(VERSION)"
-	mvn -Pnative clean package -DskipTests -pl services/$(IMAGE) $(MAVEN_ARGS)
+	mvn -Pnative clean package -DskipTests -pl services/xuanwu-exam $(MAVEN_ARGS)
 
 .PHONY: images.push
 images.push: mvn.build $(addprefix images.push., $(IMAGES))
