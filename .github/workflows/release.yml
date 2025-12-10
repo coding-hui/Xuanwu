@@ -74,4 +74,4 @@ jobs:
 
       - name: Daily Release
 #        run: make images.push DOCKER_USER=${{ vars.DOCKER_USER }} DOCKER_PWD=${{ secrets.DOCKER_PWD }} IMAGES="xuanwu-exam"
-        run: make images.native.build
+        run: make images.native.build DOCKER_USER=${{ vars.DOCKER_USER }} DOCKER_PWD=${{ secrets.DOCKER_PWD }} IMAGES="xuanwu-exam"
