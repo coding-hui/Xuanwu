@@ -24,12 +24,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+#      - name: Setup Java JDK
+#        uses: actions/setup-java@v4.0.0
+#        with:
+#          # The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file
+#          java-version: '25'
+#          distribution: 'adopt'
+
       - name: Setup Java JDK
-        uses: actions/setup-java@v4.0.0
+        uses: graalvm/setup-graalvm@v1
         with:
-          # The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file
-          java-version: '25'
-          distribution: 'adopt'
+          java-version: '25'      # See 'Options' for more details
+          distribution: 'graalvm' # See 'Supported distributions' for available options
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cache Maven repository
         uses: actions/cache@v4
@@ -47,6 +54,10 @@ jobs:
             VERSION=latest
           fi
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "GRAALVM_HOME: $GRAALVM_HOME"
+          echo "JAVA_HOME: $JAVA_HOME"
+          java --version
+          native-image --version
           mvn -v
 
 #      - name: Docker Login
