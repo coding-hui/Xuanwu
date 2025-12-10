@@ -1,5 +1,5 @@
 # 第一阶段：构建 Native Image
-FROM docker.cnb.cool/micromoving/xuanwu/native-image-community:25 AS builder
+FROM ghcr.io/graalvm/native-image-community:25 AS builder
 
 WORKDIR /app
 
