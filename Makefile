@@ -24,6 +24,14 @@ images.build.%:
 		$(if $(filter xuanwu-exam,$(IMAGE)),-Pexam-frontend) \
 		-DskipTests -pl services/$(IMAGE) $(MAVEN_ARGS)
 
+.PHONY: images.native.build.%
+images.native.build.%:
+	$(eval IMAGE := $*)
+	@echo "===========> Building docker native image $(IMAGE) $(VERSION)"
+	mvn -Pnative clean package \
+		$(if $(filter xuanwu-exam,$(IMAGE)),-Pexam-frontend) \
+		-DskipTests -pl services/$(IMAGE) $(MAVEN_ARGS)
+
 .PHONY: images.push
 images.push: mvn.build $(addprefix images.push., $(IMAGES))
 
