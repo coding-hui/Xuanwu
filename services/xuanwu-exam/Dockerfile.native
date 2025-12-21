@@ -14,6 +14,9 @@ WORKDIR /xuanwu
 
 COPY target/xuanwu-exam /xuanwu/app
 
+RUN addgroup -S xuanwu && adduser -S -G xuanwu xuanwu && \
+    chown -R xuanwu:xuanwu /xuanwu
+
 ENV SPRING_CONFIG_ADDITIONAL_LOCATION=/xuanwu/config.yaml
 
 EXPOSE 8080
