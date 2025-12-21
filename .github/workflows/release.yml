@@ -10,7 +10,7 @@ on:
       - 'examples/**'
       - 'docs/**'
       - '**/*.md'
-  workflow_dispatch: { }
+  workflow_dispatch: {}
 
 # env:
 #   # Use docker.io for Docker Hub if empty
@@ -24,12 +24,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-#      - name: Setup Java JDK
-#        uses: actions/setup-java@v4.0.0
-#        with:
-#          # The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file
-#          java-version: '25'
-#          distribution: 'adopt'
 
       - name: Setup Java JDK
         uses: graalvm/setup-graalvm@v1
@@ -37,6 +31,7 @@ jobs:
           java-version: '25'      # See 'Options' for more details
           distribution: 'graalvm' # See 'Supported distributions' for available options
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'maven'
 
       - name: Cache Maven repository
         uses: actions/cache@v4
