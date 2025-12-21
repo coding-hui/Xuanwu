@@ -1,4 +1,6 @@
-FROM micromoving/xuanwu/alpine:latest
+ARG BASE_IMAGE
+
+FROM ${BASE_IMAGE:-micromoving/xuanwu/alpine:latest}
 
 ARG VERSION=unknown
 ARG BUILD_DATE
@@ -9,7 +11,8 @@ LABEL org.opencontainers.image.description="Xuanwu Exam native image"
 
 WORKDIR /xuanwu
 
-COPY --chown=xuanwu:xuanwu --chmod=0755 services/xuanwu-exam/target/xuanwu-exam /xuanwu/app
+COPY services/xuanwu-exam/target/xuanwu-exam /xuanwu/app
+
 ENV SPRING_CONFIG_ADDITIONAL_LOCATION=/xuanwu/config.yaml
 
 EXPOSE 8080
