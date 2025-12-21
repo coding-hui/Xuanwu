@@ -3,11 +3,9 @@ kind: Ingress
 metadata:
   name: xuanwu-exam
   namespace: xuanwu-system
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
 spec:
   rules:
-    - host: exam.xuanwu.wecoding.top
+    - host: exam.micromoving.cn
       http:
         paths:
           - path: /
@@ -16,4 +14,4 @@ spec:
               service:
                 name: xuanwu-exam
                 port:
-                  number: 8080
+                  number: 6789

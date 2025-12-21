@@ -18,7 +18,7 @@ ENV SPRING_CONFIG_ADDITIONAL_LOCATION=/xuanwu/config.yaml
 
 ENV TZ=Asia/Shanghai
 
-EXPOSE 8080
+EXPOSE 6789
 
 ENTRYPOINT ["/xuanwu/app"]
 

@@ -6,7 +6,7 @@ ARG JAR_FILE=target/xuanwu-exam-*.jar
 
 COPY ${JAR_FILE} app.jar
 
-EXPOSE 9090
+EXPOSE 6789
 
 ENV TZ=Asia/Shanghai
 
