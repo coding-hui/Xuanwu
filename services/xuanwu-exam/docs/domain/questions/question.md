@@ -38,4 +38,3 @@
 ## 测试建议
 - Repository CRUD 集成测试（Flyway + MySQL 容器）。
 - Service 用例与 Assembler 映射单测。
-

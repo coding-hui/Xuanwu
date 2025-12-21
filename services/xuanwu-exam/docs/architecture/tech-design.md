@@ -11,26 +11,26 @@
 - Domain 层：聚合根与值对象，行为驱动；仓储接口定义持久化边界。
 - Infrastructure 层：MyBatis Mapper、PO/Converter、Flyway SQL；必要的外部系统适配器（如 IAM Client）。
 
-## 模块划分与边界（详见 modules/*）
-1. 题库（Question Library）：`modules/Question.md`
+## 模块划分与边界（详见 domain/* 与 integration/*）
+1. 题库（Question Library）：`../domain/questions/question.md`
    - 增强：分页检索、组合过滤（类型/难度/标签/分类）、版本历史、附件（图片/代码片段）、引用分析（被试卷引用次数）。
-2. 分类与标签（Category & Tag）：`modules/CategoryTag.md`
+2. 分类与标签（Category & Tag）：`../domain/questions/category-tag.md`
    - 分类树结构（父子层级）、标签管理；题目与试卷可双向绑定分类/标签。
-3. 试卷（Paper）：`modules/Paper.md`
+3. 试卷（Paper）：`../domain/papers/paper.md`
    - 结构：试卷（Paper）- 分卷/章节（Section）- 题目项（Item）。支持固定与规则（随机抽题、难度/类型占比、标签筛选）。
-4. 考试（Exam）：`modules/Exam.md`
+4. 考试（Exam）：`../domain/exams/exam.md`
    - 排期（开始/结束/时长）、参与对象（用户/角色/群组）、防作弊（IP/设备指纹/拍照可扩展）。
-5. 作答与答案（Attempt & Answer）：`modules/AttemptAnswer.md`
+5. 作答与答案（Attempt & Answer）：`../domain/exams/attempt-answer.md`
    - 考试作答会话（Attempt），题目答案（Answer），过程状态（进行中/提交/超时），自动保存。
-6. 评分与阅卷（Scoring & Grading）：`modules/Grading.md`
+6. 评分与阅卷（Scoring & Grading）：`../domain/exams/grading.md`
    - 客观题自动评分规则；主观题阅卷任务（GradingTask）与评分表（Rubric）。
-7. 报表与分析（Reporting）：`modules/Report.md`
+7. 报表与分析（Reporting）：`../domain/reporting/report.md`
    - 考试/试卷/题目维度的统计分析，导出报表（CSV/Excel）。
-8. 导入与导出（Import/Export）：`modules/ImportExport.md`
+8. 导入与导出（Import/Export）：`../integration/import-export.md`
    - 题库批量导入（CSV/JSON）、试卷模板导入导出，数据校验与回滚。
-9. 发布与审批（Workflow）：`modules/Workflow.md`
+9. 发布与审批（Workflow）：`../domain/workflow/workflow.md`
    - 草稿/待审/已发布/归档；审批流对试卷与考试生效。
-10. 权限与审计（IAM & Audit）：`modules/IamAudit.md`
+10. 权限与审计（IAM & Audit）：`../integration/iam-audit.md`
    - 接入 Xuanwu IAM 做 RBAC；审计日志记录关键操作与结果。
 
 ## 领域模型（Domain）
