@@ -1,5 +1,5 @@
 VERSION ?= 0.9-SNAPSHOT
-IMAGES ?= "xuanwu-mall xuanwu-codegen"
+IMAGES ?= "xuanwu-mall xuanwu-codegen xuanwu-exam"
 
 MAVEN_ARGS ?=
 MAVEN_ARGS += $(if $(DOCKER_USER),-Ddocker.username=$(DOCKER_USER))
@@ -12,32 +12,48 @@ mvn.build:
 	mvn clean install -DskipTests
 
 .PHONY: images.build
-images.build: mvn.build $(addprefix images.build., $(IMAGES))
+images.build: mvn.build images.build.mall images.build.codegen images.build.exam
 
-.PHONY: images.build.%
-images.build.%:
-	$(eval IMAGE := $*)
-	@echo "===========> Building docker image $(IMAGE) $(VERSION)"
-	mvn package docker:build \
-		$(if $(filter xuanwu-mall,$(IMAGE)),-Pmall-frontend) \
-		$(if $(filter xuanwu-codegen,$(IMAGE)),-Pcodegen-frontend) \
-		$(if $(filter xuanwu-exam,$(IMAGE)),-Pexam-frontend) \
-		-DskipTests -pl services/$(IMAGE) $(MAVEN_ARGS)
+.PHONY: images.native.build
+images.native.build: mvn.build images.native.build.exam
 
-.PHONY: images.native.build.%
-images.native.build.%:
-	$(eval IMAGE := $*)
-	@echo "===========> Building docker native image $(IMAGE) $(VERSION)"
+.PHONY: images.build.mall
+images.build.mall:
+	@echo "===========> Building docker image xuanwu-mall $(VERSION)"
+	mvn package docker:build -Pmall-frontend -DskipTests -pl services/xuanwu-mall $(MAVEN_ARGS)
+
+.PHONY: images.build.codegen
+images.build.codegen:
+	@echo "===========> Building docker image xuanwu-codegen $(VERSION)"
+	mvn package docker:build -Pcodegen-frontend -DskipTests -pl services/xuanwu-codegen $(MAVEN_ARGS)
+
+.PHONY: images.build.exam
+images.build.exam:
+	@echo "===========> Building docker image xuanwu-exam $(VERSION)"
+	mvn package docker:build -Pexam-frontend -DskipTests -pl services/xuanwu-exam $(MAVEN_ARGS)
+
+.PHONY: images.native.build.exam
+images.native.build.exam:
+	@echo "===========> Building docker native image xuanwu-exam $(VERSION)"
 	mvn -Pnative clean package -DskipTests -pl services/xuanwu-exam $(MAVEN_ARGS)
 
 .PHONY: images.push
-images.push: mvn.build $(addprefix images.push., $(IMAGES))
+images.push: mvn.build images.push.mall images.push.codegen images.push.exam
 
-.PHONY: images.push.%
-images.push.%: images.build.%
-	$(eval IMAGE := $*)
-	@echo "===========> Pushing docker image $(IMAGE) $(VERSION)"
-	mvn docker:push -pl services/$(IMAGE) $(MAVEN_ARGS)
+.PHONY: images.push.mall
+images.push.mall: images.build.mall
+	@echo "===========> Pushing docker image xuanwu-mall $(VERSION)"
+	mvn docker:push -pl services/xuanwu-mall $(MAVEN_ARGS)
+
+.PHONY: images.push.codegen
+images.push.codegen: images.build.codegen
+	@echo "===========> Pushing docker image xuanwu-codegen $(VERSION)"
+	mvn docker:push -pl services/xuanwu-codegen $(MAVEN_ARGS)
+
+.PHONY: images.push.exam
+images.push.exam: images.build.exam
+	@echo "===========> Pushing docker image xuanwu-exam $(VERSION)"
+	mvn docker:push -pl services/xuanwu-exam $(MAVEN_ARGS)
 
 .PHONY: k8s.install
 k8s.install:
