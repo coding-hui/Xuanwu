@@ -12,7 +12,7 @@ LABEL org.opencontainers.image.description="Xuanwu Exam native image"
 
 WORKDIR /xuanwu
 
-COPY services/xuanwu-exam/target/xuanwu-exam /xuanwu/app
+COPY target/xuanwu-exam /xuanwu/app
 
 ENV SPRING_CONFIG_ADDITIONAL_LOCATION=/xuanwu/config.yaml
 
