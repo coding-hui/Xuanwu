@@ -5,6 +5,13 @@
 - 保持现有分层架构（API / Application / Domain / Infrastructure）与依赖（Spring Boot、MyBatis、Flyway、MapStruct、xuanwu-starter-*）。
 - 与 Xuanwu IAM 集成做授权与审计；维持资源版本化与多语言错误提示。
 
+## 已实现范围（代码落地）
+- 题库基础能力：`Question` 聚合、CRUD API（v1）、DTO/Assembler、MyBatis 持久化、Flyway 初始化。
+- 错误与国际化：统一返回体 `R<T>` 与 i18n 错误消息。
+
+## 其余模块状态
+- 以下模块为设计草案，尚未实现，后续迭代按里程碑推进：分类与标签、试卷、考试、作答与答案、评分与阅卷、报表与分析、导入与导出、工作流、IAM & 审计。
+
 ## 总体架构
 - API 层：REST 接口与 DTO/Assembler，沿用 `@RequestMapping` + 版本标识模式（如 `@PostMapping(version = "1")`）。
 - Application 层：UseCase + Service 编排业务流程、事务边界、调用领域与仓储。

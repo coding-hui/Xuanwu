@@ -35,5 +35,16 @@
 - 国际化错误：`src/main/resources/i18n/errors_*.properties`。
 
 ## 测试策略（摘要）
-- 单元测试：Assembler 映射与 Service 用例。
-- 集成测试：MySQL 测试容器 + Flyway，覆盖创建试卷→发布考试→作答→评分→报表。
+ - 单元测试：Assembler 映射与 Service 用例。
+ - 集成测试：MySQL 测试容器 + Flyway，覆盖创建试卷→发布考试→作答→评分→报表。
+
+## 当前已实现（基于代码）
+- 模块：题库（Question）
+  - 领域模型：`Question`、`QuestionType`、`QuestionStatus`。
+  - 仓储：`QuestionRepository`（MyBatis 实现）。
+  - 数据库：`question` 表（Flyway 初始化）。
+  - API（v1）：`POST /v1/questions`、`PUT /v1/questions/{id}`、`GET /v1/questions/{id}`、`DELETE /v1/questions?ids=...`。
+  - DTO 校验：Jakarta Validation + i18n 错误消息。
+
+## 未实现模块（设计规范后续 TODO）
+- 分类与标签、试卷、考试、作答/答案、评分与阅卷、报表与分析、导入与导出、工作流、IAM 集成：当前文档为设计草案，代码尚未落地，后续按 `architecture/tech-design.md` 逐步推进。
