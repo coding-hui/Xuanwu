@@ -2,7 +2,7 @@
 <configuration debug="false" scan="false">
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <property name="log.path" value="logs/exam"/>
+    <property name="log.path" value="logs"/>
 
     <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.path}/debug.log</file>

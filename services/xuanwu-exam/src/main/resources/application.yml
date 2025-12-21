@@ -35,6 +35,20 @@ server:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css,application/javascript,application/json,image/svg+xml
     min-response-size: 1024
+  tomcat:
+    keep-alive-timeout: 60s
+    max-keep-alive-requests: 100
+    accesslog:
+      enabled: true
+      buffered: true
+      directory: logs/
+      file-date-format: .yyyy-MM-dd
+      pattern: '%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i" %D ms'
+      prefix: access_log
+      rename-on-rotate: false
+      request-attributes-enabled: false
+      rotate: true
+      suffix: .log
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
