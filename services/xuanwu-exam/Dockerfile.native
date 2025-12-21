@@ -14,22 +14,17 @@ WORKDIR /xuanwu
 
 COPY target/xuanwu-exam /xuanwu/app
 
-USER root
-RUN set -eux; \
-    (grep -q '^xuanwu:' /etc/group || addgroup -S xuanwu); \
-    (grep -q '^xuanwu:' /etc/passwd || adduser -S -G xuanwu xuanwu); \
-    chown -R xuanwu:xuanwu /xuanwu; \
-    apk add --no-cache curl
-
 ENV SPRING_CONFIG_ADDITIONAL_LOCATION=/xuanwu/config.yaml
 
+RUN apk add --update ca-certificates && \
+    apk add --update openssl bash expat && \
+    apk add --update -t deps curl && \
+    apk del --purge deps && \
+    rm /var/cache/apk/* && \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    echo "Asia/Shanghai" > /etc/timezone \
+
 EXPOSE 8080
-
-ENV TZ=Asia/Shanghai
-
-USER xuanwu
-
-HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD curl -fsS http://localhost:8080/actuator/health || exit 1
 
 ENTRYPOINT ["/xuanwu/app"]
 
