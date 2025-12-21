@@ -163,6 +163,12 @@
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
+                        <configuration>
+                            <buildArgs>
+                                <buildArg>--static</buildArg>
+                                <buildArg>--libc=musl</buildArg>
+                            </buildArgs>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>build-native</id>
@@ -199,12 +205,14 @@
                                     <name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}-native</name>
                                     <build>
                                         <dockerFile>${project.basedir}/Dockerfile.native</dockerFile>
+                                        <contextDirectory>${project.basedir}/../../</contextDirectory>
                                     </build>
                                 </image>
                                 <image>
                                     <name>${docker.registry}/${docker.namespace}/${project.name}:latest-native</name>
                                     <build>
                                         <dockerFile>${project.basedir}/Dockerfile.native</dockerFile>
+                                        <contextDirectory>${project.basedir}/../../</contextDirectory>
                                     </build>
                                 </image>
                             </images>
