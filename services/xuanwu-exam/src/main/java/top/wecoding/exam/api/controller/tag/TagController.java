@@ -1,6 +1,7 @@
 package top.wecoding.exam.api.controller.tag;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
@@ -61,7 +62,7 @@ public class TagController {
     List<TagResponse> list =
         tagUseCase.listTags(keyword).stream()
             .map(tagAssembler::toResponse)
-            .collect(java.util.stream.Collectors.toList());
+            .collect(Collectors.toList());
     return R.ok(list);
   }
 
