@@ -70,6 +70,6 @@ jobs:
       - name: Build and Push Exam Image
         run: make images.push.exam VERSION="$VERSION" REGISTRY="$REGISTRY" REGISTRY_PREFIX="$REGISTRY_PREFIX" DOCKER_USER=${{ vars.DOCKER_USER }} DOCKER_PWD=${{ secrets.DOCKER_PWD }}
 
-      - name: Build and Push Exam Native Image
-        run: make images.native.push.exam VERSION="$VERSION" REGISTRY="$REGISTRY" REGISTRY_PREFIX="$REGISTRY_PREFIX" DOCKER_USER=${{ vars.DOCKER_USER }} DOCKER_PWD=${{ secrets.DOCKER_PWD }}
+      #- name: Build and Push Exam Native Image
+      #  run: make images.native.push.exam VERSION="$VERSION" REGISTRY="$REGISTRY" REGISTRY_PREFIX="$REGISTRY_PREFIX" DOCKER_USER=${{ vars.DOCKER_USER }} DOCKER_PWD=${{ secrets.DOCKER_PWD }}
 
