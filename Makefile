@@ -52,7 +52,7 @@ images.build.exam: ## Build docker image xuanwu-exam
 	mvn package docker:build -Pexam-frontend -DskipTests -pl services/xuanwu-exam $(MAVEN_ARGS)
 
 .PHONY: images.native.build.exam
-images.native.build.exam: native.build.exam ## Build xuanwu-exam native image
+images.native.build.exam: ## Build xuanwu-exam native image
 	@echo "===========> Building docker native image $(EXAM_IMAGE) $(VERSION)"
 	mvn package docker:build -Pnative -DskipTests -pl services/xuanwu-exam $(MAVEN_ARGS)
 
