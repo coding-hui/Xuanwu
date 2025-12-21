@@ -54,7 +54,7 @@ images.build.exam: ## Build docker image xuanwu-exam
 .PHONY: images.native.build.exam
 images.native.build.exam: ## Build xuanwu-exam native image
 	@echo "===========> Building docker native image $(EXAM_IMAGE) $(VERSION)"
-	mvn package docker:build -Pnative -DskipTests -pl services/xuanwu-exam $(MAVEN_ARGS)
+	mvn package docker:build -Pnative-img -Pnative -DskipTests -pl services/xuanwu-exam $(MAVEN_ARGS)
 
 .PHONY: images.push
 images.push: mvn.build images.push.mall images.push.codegen images.push.exam ## Push docker images (mall, codegen, exam)
@@ -77,7 +77,7 @@ images.push.exam: images.build.exam ## Push xuanwu-exam image
 .PHONY: images.native.push.exam
 images.native.push.exam: images.native.build.exam ## Push native xuanwu-exam image
 	@echo "===========> Pushing native image $(EXAM_IMAGE_TAG)"
-	mvn docker:push -Pnative -pl services/xuanwu-exam $(MAVEN_ARGS)
+	mvn docker:push -Pnative-img -pl services/xuanwu-exam $(MAVEN_ARGS)
 
 .PHONY: k8s.install
 k8s.install: ## Apply Kubernetes manifests
