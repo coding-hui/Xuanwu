@@ -1,6 +1,6 @@
 images:
   - name: image
-    newName: docker.cnb.cool/wecoding/images/xuanwu-exam
+    newName: docker.cnb.cool/micromoving/xuanwu/xuanwu-exam
     newTag: latest
 resources:
   - ingress.yml

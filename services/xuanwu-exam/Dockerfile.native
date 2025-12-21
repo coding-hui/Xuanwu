@@ -7,8 +7,6 @@ LABEL org.opencontainers.image.version=$VERSION
 LABEL org.opencontainers.image.created=$BUILD_DATE
 LABEL org.opencontainers.image.description="Xuanwu Exam native image"
 
-RUN apk --no-cache add tzdata ca-certificates curl && update-ca-certificates
-
 WORKDIR /xuanwu
 
 RUN addgroup -S xuanwu && adduser -S -G xuanwu xuanwu

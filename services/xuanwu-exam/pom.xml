@@ -196,13 +196,13 @@
                             <skipPom>true</skipPom>
                             <images>
                                 <image>
-                                    <name>${docker.registry}/${docker.namespace}/${project.name}:native-${project.version}</name>
+                                    <name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}-native</name>
                                     <build>
                                         <dockerFile>${project.basedir}/Dockerfile.native</dockerFile>
                                     </build>
                                 </image>
                                 <image>
-                                    <name>${docker.registry}/${docker.namespace}/${project.name}:native-latest</name>
+                                    <name>${docker.registry}/${docker.namespace}/${project.name}:latest-native</name>
                                     <build>
                                         <dockerFile>${project.basedir}/Dockerfile.native</dockerFile>
                                     </build>
