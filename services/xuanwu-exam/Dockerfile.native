@@ -14,8 +14,12 @@ WORKDIR /xuanwu
 
 COPY target/xuanwu-exam /xuanwu/app
 
-RUN addgroup -S xuanwu && adduser -S -G xuanwu xuanwu && \
-    chown -R xuanwu:xuanwu /xuanwu
+USER root
+RUN set -eux; \
+    (grep -q '^xuanwu:' /etc/group || addgroup -S xuanwu); \
+    (grep -q '^xuanwu:' /etc/passwd || adduser -S -G xuanwu xuanwu); \
+    chown -R xuanwu:xuanwu /xuanwu; \
+    apk add --no-cache curl
 
 ENV SPRING_CONFIG_ADDITIONAL_LOCATION=/xuanwu/config.yaml
 
