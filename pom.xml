@@ -391,6 +391,7 @@
                     <!-- Customize the date format if needed -->
                     <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
                     <includeOnlyProperties>
+                        <includeOnlyProperty>^git.branch$</includeOnlyProperty>
                         <includeOnlyProperty>^git.build.(time|version)$</includeOnlyProperty>
                         <includeOnlyProperty>^git.commit.(id|message|time).*$</includeOnlyProperty>
                     </includeOnlyProperties>
