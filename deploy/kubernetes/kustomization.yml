@@ -1,0 +1,5 @@
+resources:
+  - namespaces.yml
+  - xuanwu-exam
+  - xuanwu-codegen
+  - xuanwu-mall

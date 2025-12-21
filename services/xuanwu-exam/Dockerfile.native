@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM micromoving/xuanwu/alpine:latest
 
 ARG VERSION=unknown
 ARG BUILD_DATE
