@@ -5,6 +5,7 @@ images:
 resources:
   - ingress.yml
   - service.yml
+  - service_lb.yml
   - configmap.yml
   - deployment.yml
   - rbac.yml

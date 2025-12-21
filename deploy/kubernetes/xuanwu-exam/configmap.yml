@@ -11,5 +11,3 @@ data:
         url: jdbc:mysql://mysql.infra:3306/xuanwu_exam?createDatabaseIfNotExist=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
         username: root
         password: WeCoding@2023
-    server:
-      port: 8080
