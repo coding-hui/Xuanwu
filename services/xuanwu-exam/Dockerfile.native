@@ -9,7 +9,6 @@ LABEL org.opencontainers.image.description="Xuanwu Exam native image"
 
 WORKDIR /xuanwu
 
-RUN addgroup -S xuanwu && adduser -S -G xuanwu xuanwu
 COPY --chown=xuanwu:xuanwu --chmod=0755 services/xuanwu-exam/target/xuanwu-exam /xuanwu/app
 ENV SPRING_CONFIG_ADDITIONAL_LOCATION=/xuanwu/config.yaml
 
