@@ -12,7 +12,7 @@ LABEL org.opencontainers.image.description="Xuanwu Exam native image"
 
 WORKDIR /xuanwu
 
-COPY target/* /xuanwu/
+COPY target/xuanwu-exam /xuanwu/app
 
 ENV SPRING_CONFIG_ADDITIONAL_LOCATION=/xuanwu/config.yaml
 
@@ -20,6 +20,6 @@ ENV TZ=Asia/Shanghai
 
 EXPOSE 8080
 
-ENTRYPOINT ["/xuanwu/xuanwu-exam"]
+ENTRYPOINT ["/xuanwu/app"]
 
 CMD ["--spring.config.additional-location=/xuanwu/config.yaml"]
