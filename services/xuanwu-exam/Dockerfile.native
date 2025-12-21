@@ -25,3 +25,5 @@ USER xuanwu
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD curl -fsS http://localhost:8080/actuator/health || exit 1
 
 ENTRYPOINT ["/xuanwu/app"]
+
+CMD ["--spring.config.additional-location=/xuanwu/config.yaml"]
