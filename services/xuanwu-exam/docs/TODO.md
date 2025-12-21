@@ -6,7 +6,7 @@
 - 题库（Question）：领域模型、DTO/Assembler、MyBatis 仓储、Flyway 初始化、v1 API CRUD、校验与 i18n 错误。
 
 ## 待实现模块
-- [ ] 分类与标签（Category & Tag）—— 领域与 API
+- [ ] 分类与标签（Category & Tag）—— 领域与 API（设计已完成，等待编码）
   - 设计：`domain/questions/category-tag.md`
 - [ ] 试卷（Paper）—— 结构与规则抽题、发布
   - 设计：`domain/papers/paper.md`
@@ -51,4 +51,3 @@
 ## 维护与跟踪规范
 - 统一在本文件勾选进度；完成后关联提交或文档更新说明。
 - 文档链接使用相对路径；新增模块需先完善对应设计文档再编码。
-

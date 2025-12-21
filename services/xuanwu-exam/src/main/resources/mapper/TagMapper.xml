@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.wecoding.exam.infrastructure.persistence.tag.mapper.TagMapper">
+
+    <resultMap id="BaseResultMap" type="top.wecoding.exam.infrastructure.persistence.tag.po.TagPO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, created_at, updated_at
+    </sql>
+
+    <insert id="insert" parameterType="top.wecoding.exam.infrastructure.persistence.tag.po.TagPO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tag (
+            name, created_at, updated_at
+        ) VALUES (
+            #{name}, #{createdAt}, #{updatedAt}
+        )
+    </insert>
+
+    <update id="update" parameterType="top.wecoding.exam.infrastructure.persistence.tag.po.TagPO">
+        UPDATE tag
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM tag
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectByName" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM tag
+        WHERE name = #{name}
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM tag WHERE id = #{id}
+    </delete>
+
+    <select id="list" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM tag
+        <where>
+            <if test="keyword != null and keyword != ''">
+                name LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </where>
+        ORDER BY name ASC
+    </select>
+
+</mapper>
+

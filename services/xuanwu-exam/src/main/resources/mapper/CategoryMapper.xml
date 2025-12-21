@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.wecoding.exam.infrastructure.persistence.category.mapper.CategoryMapper">
+
+    <resultMap id="BaseResultMap" type="top.wecoding.exam.infrastructure.persistence.category.po.CategoryPO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, parent_id, path, created_at, updated_at
+    </sql>
+
+    <insert id="insert" parameterType="top.wecoding.exam.infrastructure.persistence.category.po.CategoryPO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO category (
+            name, parent_id, path, created_at, updated_at
+        ) VALUES (
+            #{name}, #{parentId}, #{path}, #{createdAt}, #{updatedAt}
+        )
+    </insert>
+
+    <update id="update" parameterType="top.wecoding.exam.infrastructure.persistence.category.po.CategoryPO">
+        UPDATE category
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="path != null">path = #{path},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM category
+        WHERE id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM category WHERE id = #{id}
+    </delete>
+
+    <select id="selectChildren" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM category
+        WHERE parent_id = #{parentId}
+        ORDER BY name ASC
+    </select>
+
+    <select id="selectTree" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM category
+        WHERE path LIKE CONCAT((SELECT path FROM category WHERE id = #{rootId}), '%')
+        ORDER BY path ASC
+    </select>
+
+</mapper>
+

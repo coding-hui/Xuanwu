@@ -11,6 +11,10 @@ import top.wecoding.xuanwu.core.exception.ErrorCode;
 public enum ExamErrorCode implements ErrorCode {
   QUESTION_NOT_FOUND(200001),
   BATCH_DELETE_LIMIT_EXCEEDED(200002),
+  CATEGORY_NOT_FOUND(200101),
+  CATEGORY_NAME_CONFLICT(200102),
+  TAG_NOT_FOUND(200201),
+  TAG_NAME_CONFLICT(200202),
   ;
 
   private final Integer code;
