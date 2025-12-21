@@ -28,7 +28,7 @@
 - `question_tag`
   - 字段：`question_id BIGINT NOT NULL`，`tag_id BIGINT NOT NULL`；`PRIMARY KEY(question_id, tag_id)`。
   - 外键（逻辑约束）：指向 `question(id)` 与 `tag(id)`（MySQL 可选 FK）。
-- 迁移文件：`src/main/resources/db/migration/V2__init_category_tag.sql`（计划）。
+- 迁移文件：`src/main/resources/db/migration/V1.0.0_2__init_category_tag.sql`（计划）。
 
 ## 仓储与持久化
 - 仓储接口

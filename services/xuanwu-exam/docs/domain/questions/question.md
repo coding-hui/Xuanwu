@@ -10,7 +10,7 @@
 - 状态：`QuestionStatus`（草稿/发布/归档）。
 
 ## 数据库
-- 表：`question`（见 `db/migration/V1__init_question_schema.sql`）。
+- 表：`question`（见 `db/migration/V1.0.0_1__init_question_schema.sql`）。
 - 索引：`idx_type`、`idx_category`；可增加 `idx_tags`（前缀匹配）与全文索引按需。
 
 ## 仓储与持久化

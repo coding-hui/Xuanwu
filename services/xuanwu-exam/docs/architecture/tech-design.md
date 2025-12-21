@@ -64,7 +64,7 @@
 
 ## 数据库与迁移（Flyway）
 - 迁移文件位于 `src/main/resources/db/migration`，按版本递增：
-  - `V2__init_category_tag.sql`
+  - `V1.0.0_2__init_category_tag.sql`
   - `V3__init_paper_tables.sql`
   - `V4__init_exam_tables.sql`
   - `V5__init_attempt_answer.sql`
