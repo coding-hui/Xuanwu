@@ -88,24 +88,15 @@
                         <skipPom>true</skipPom>
                         <images>
                             <image>
-                                <!-- 镜像名称： registry/namespace/xuanwu-codegen:v1 -->
                                 <name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}</name>
                                 <build>
                                     <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                 </build>
                             </image>
                             <image>
-                                <!-- 镜像名称： registry/namespace/xuanwu-codegen:latest -->
                                 <name>${docker.registry}/${docker.namespace}/${project.name}:latest</name>
                                 <build>
                                     <dockerFile>${project.basedir}/Dockerfile</dockerFile>
-                                </build>
-                            </image>
-                            <image>
-                                <!-- 镜像名称： registry/namespace/xuanwu-codegen:latest -->
-                                <name>${docker.registry}/${docker.namespace}/${project.name}:latest</name>
-                                <build>
-                                    <dockerFile>${project.basedir}/Dockerfile.native</dockerFile>
                                 </build>
                             </image>
                         </images>
@@ -181,6 +172,43 @@
                                 <phase>package</phase>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>native-img</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <!-- Docker 镜像私服-->
+                            <registry>${docker.registry}</registry>
+                            <!-- 认证信息-->
+                            <authConfig>
+                                <push>
+                                    <username>${docker.username}</username>
+                                    <password>${docker.password}</password>
+                                </push>
+                            </authConfig>
+                            <skipPom>true</skipPom>
+                            <images>
+                                <image>
+                                    <name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}</name>
+                                    <build>
+                                        <dockerFile>${project.basedir}/Dockerfile.native</dockerFile>
+                                    </build>
+                                </image>
+                                <image>
+                                    <name>${docker.registry}/${docker.namespace}/${project.name}:latest</name>
+                                    <build>
+                                        <dockerFile>${project.basedir}/Dockerfile.native</dockerFile>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
