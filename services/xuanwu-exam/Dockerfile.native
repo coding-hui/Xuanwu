@@ -1,6 +1,7 @@
-ARG BASE_IMAGE
-
-FROM ${BASE_IMAGE:-micromoving/xuanwu/alpine:latest}
+#ARG BASE_IMAGE
+#
+#FROM ${BASE_IMAGE:-micromoving/xuanwu/alpine:latest}
+FROM micromoving/xuanwu/alpine:latest
 
 ARG VERSION=unknown
 ARG BUILD_DATE
