@@ -33,8 +33,12 @@ images.build.exam:
 	mvn package docker:build -Pexam-frontend -DskipTests -pl services/xuanwu-exam $(MAVEN_ARGS)
 
 .PHONY: images.native.build.exam
-images.native.build.exam:
+images.native.build.exam: native.build.exam
 	@echo "===========> Building docker native image xuanwu-exam $(VERSION)"
+	docker build -f services/xuanwu-exam/Dockerfile.native -t xuanwu-exam:native --build-arg VERSION=$(VERSION) --build-arg BUILD_DATE=$(shell date -u +%Y-%m-%dT%H:%M:%SZ) .
+
+.PHONY: native.build.exam
+native.build.exam:
 	mvn -Pnative clean package -DskipTests -pl services/xuanwu-exam $(MAVEN_ARGS)
 
 .PHONY: images.push

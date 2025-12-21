@@ -1,22 +1,26 @@
-# 第一阶段：构建 Native Image
-FROM micromoving/xuanwu/native-image-community:25-muslib AS builder
+FROM alpine:latest
 
-WORKDIR /app
+ARG VERSION=unknown
+ARG BUILD_DATE
+LABEL org.opencontainers.image.title="xuanwu-exam"
+LABEL org.opencontainers.image.version=$VERSION
+LABEL org.opencontainers.image.created=$BUILD_DATE
+LABEL org.opencontainers.image.description="Xuanwu Exam native image"
 
-# 拷贝源码
-COPY . .
-
-# 构建 Native Image
-RUN mvn -Pnative clean package -pl services/xuanwu-exam -am -DskipTests
-
-FROM ubuntu:22.04
+RUN apk --no-cache add tzdata ca-certificates curl && update-ca-certificates
 
 WORKDIR /xuanwu
 
-COPY --from=builder /app/services/xuanwu-exam/target/xuanwu-exam app
+RUN addgroup -S xuanwu && adduser -S -G xuanwu xuanwu
+COPY --chown=xuanwu:xuanwu --chmod=0755 services/xuanwu-exam/target/xuanwu-exam /xuanwu/app
+ENV SPRING_CONFIG_ADDITIONAL_LOCATION=/xuanwu/config.yaml
 
 EXPOSE 8080
 
 ENV TZ=Asia/Shanghai
 
-ENTRYPOINT ["/xuanwu/app", "-Dspring.config.additional-location=/xuanwu/config.yaml", "-Djava.security.egd=file:/dev/./urandom"]
+USER xuanwu
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD curl -fsS http://localhost:8080/actuator/health || exit 1
+
+ENTRYPOINT ["/xuanwu/app"]
