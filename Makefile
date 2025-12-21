@@ -81,17 +81,20 @@ images.native.push.exam: images.native.build.exam ## Push native xuanwu-exam ima
 
 .PHONY: k8s.install
 k8s.install: ## Apply Kubernetes manifests
-	for name in xuanwu-codegen xuanwu-mall xuanwu-exam; do \
+	for name in xuanwu-exam; do \
 		echo "===========> Install $$name"; \
 		kubectl apply -k ./deploy/kubernetes/$$name; \
 	done
 
 .PHONY: k8s.uninstall
 k8s.uninstall: ## Delete Kubernetes manifests
-	for name in xuanwu-codegen xuanwu-mall xuanwu-exam; do \
+	for name in xuanwu-exam; do \
 		echo "===========> Uninstall $$name"; \
 		kubectl delete -k ./deploy/kubernetes/$$name; \
 	done
+
+.PHONY: k8s.reinstall
+k8s.reinstall: k8s.uninstall k8s.install ## Reinstall Kubernetes manifests
 
 .PHONY: k8s.update-images
 k8s.update-images: ## Update running pod images
